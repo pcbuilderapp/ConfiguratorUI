@@ -1,0 +1,26 @@
+
+
+section {
+  padding-bottom: 32px;
+
+  .header {
+    background-color: $fgColor1;
+    height: 96px;
+    h1 {
+      max-width: $maxWidth;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+      line-height: 96px;
+      vertical-align: middle;
+      border-right: 1px solid darken($fgColor1,$darken);
+      border-left: 1px solid darken($fgColor1,$darken);
+      color: #fff;
+    }
+  }
+
+  .content {
+    max-width: $maxWidth;
+    margin: 0 auto;
+  }
+}
