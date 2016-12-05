@@ -1,8 +1,28 @@
 //main: styles.scss
 
 header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 144px;
-  div {
+  background: url(../images/bg.jpg);
+  background-size:cover;
+  &>div {
+    display: flex;
+    flex-direction: row;
     max-width: $maxWidth;
+    padding: 0 40px;
+
+    .logo {
+      height: 67px;
+      width: 67px;
+      background: url(../images/logo.png);
+    }
+
+    h1 {
+      margin: 0 20px;
+      line-height: 67px;
+      vertical-align: middle;
+    }
   }
 }

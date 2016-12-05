@@ -2,8 +2,8 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'dart:html';
-import 'package:ConfiguratorUI/configurator.dart';
+import 'package:ConfiguratorUI/pcbuilder.dart';
 
 void main() {
-  configurator.init();
+  pcbuilder.init();
 }

@@ -1,0 +1,158 @@
+
+
+#selectview {
+
+  #searchbar {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 32px;
+    margin: 1px 0;
+
+    .icon {
+      background-image: url(../images/search.png);
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 32px;
+      width: 32px;
+      background-color: $fgColor3;
+    }
+
+    form {
+      position: relative;
+      flex-grow: 1;
+
+      input {
+        box-sizing: border-box;
+        height: 32px;
+        width: 100%;
+        padding: 0 1em;
+        border: none;
+        background-color: $fgColor4;
+        outline: none;
+      }
+    }
+  }
+
+  p.name {
+    flex-grow: 1;
+  }
+
+  p.shop, p.price {
+    border-left: 1px solid darken($fgColor2,$darken);
+    text-align: center;
+  }
+
+  p.shop {
+    width: 20%;
+  }
+
+  p.price {
+    width: 10%;
+  }
+
+  .productListHeader {
+    display: flex;
+    flex-direction: row;
+    height: 32px;
+    font-size: 0.8em;
+    background-color: $fgColor2;
+    margin: 1px 0;
+    p {
+      padding: 0 1em;
+      margin: 0;
+      line-height: 32px;
+      vertical-align: middle;
+      color: #fff;
+    }
+  }
+
+  .productItem {
+    margin: 1px 0;
+
+    &:hover {
+      .details {
+        height: calc(128px + 2em);
+      }
+    }
+
+    .fields {
+      display: flex;
+      flex-direction: row;
+      height: 32px;
+      font-size: 0.8em;
+      background-color: $fgColor4;
+      p {
+        padding: 0 1em;
+        margin: 0;
+        line-height: 32px;
+        vertical-align: middle;
+      }
+    }
+
+    .details {
+      position: relative;
+      background-color: $fgColor3;
+      overflow: hidden;
+      height: 0;
+      transition: height 0.4s;
+
+      &.active {
+        height: calc(128px + 2em);
+      }
+
+      .shader {
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:-20px;
+        right:-20px;
+        box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.3);
+      }
+
+      .productInfo {
+        display: flex;
+        flex-direction: row;
+        margin: 1em;
+
+        .image {
+          box-sizing: border-box;
+          height: 128px;
+          width: 128px;
+          background-image: url(../images/no-product-image.png);
+          background-size: contain;
+          border: 1px solid #cccccc;
+        }
+
+        .info {
+          position: relative;
+          flex-grow: 1;
+          margin-left: 10px;
+          font-size: 0.8em;
+
+          .actions {
+            position: absolute;
+            bottom: 0;
+            right:0;
+            left:0;
+            text-align: right;
+
+            input {
+              background-color: transparent;
+              border: 1px solid $fgColor1;
+              color: $fgColor1;
+              padding: 6px 20px;
+              border-radius: 4px;
+              &:hover {
+                background-color: $fgColor1;
+                color: #fff;
+              }
+              cursor: pointer;
+              transition: all 0.2s;
+            }
+          }
+        }
+      }
+    }
+  }
+}

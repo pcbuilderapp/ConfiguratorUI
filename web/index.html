@@ -23,14 +23,17 @@
         </ol>
     </nav>
     <header>
-        <div></div>
+        <div>
+            <div class="logo"></div>
+            <h1>PCBuilder</h1>
+        </div>
     </header>
     <main>
         <section id="mainview">
             <div class="header">
-                <h1>Create a PC configuration</h1>
+                <h2>Create a PC configuration</h2>
             </div>
-            <div  class="content">
+            <div class="content">
                 <div id="pcconfiglist">
                     <div class="template componentItem">
                         <div class="image"></div>
@@ -52,6 +55,91 @@
                 <div class="pricetotalbar">
                     <p>Price total:</p>
                     <p id="pricetotal">&euro; 140,-</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="selectview">
+            <div class="header">
+                <h2>Select a CPU</h2>
+            </div>
+            <div class="content">
+                <div id="searchbar">
+                    <div class="icon"></div>
+                    <form>
+                        <input type="search" placeholder="search...">
+                    </form>
+                </div>
+                <div class="productListHeader">
+                    <p class="name">Product</p>
+                    <p class="shop">Shop</p>
+                    <p class="price">Price</p>
+                </div>
+                <div id="productList">
+                    <div class="template productItem">
+                        <div class="fields">
+                            <p class="name">AMD FX-9590, 4.7GHz, 8MB, AM3+</p>
+                            <p class="shop">Informatique</p>
+                            <p class="price">€ 217,-</p>
+                        </div>
+                        <div class="details">
+                            <div class="shader"></div>
+                            <div class="productInfo">
+                                <div class="image"></div>
+                                <div class="info">
+                                    <p>8 Core 4.7Ghz</p>
+                                    <p>EAN: nr</p>
+                                    <p>Also sold by: <a href="#">Alternate</a>, <a href="#">CoolBlue</a></p>
+                                    <div class="actions">
+                                        <input type="button" value="Select">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template productItem">
+                        <div class="fields">
+                            <p class="name">Intel Core i7-6950X, 3,0GHz, S2011-3</p>
+                            <p class="shop">Alternate</p>
+                            <p class="price">€ 1920,-</p>
+                        </div>
+                        <div class="details">
+                            <div class="shader"></div>
+                            <div class="productInfo">
+                                <div class="image"></div>
+                                <div class="info">
+                                    <p>10 Core 3Ghz</p>
+                                    <p>EAN: nr</p>
+                                    <p>Also sold by: <a href="#">Informatique</a>, <a href="#">CoolBlue</a></p>
+                                    <div class="actions">
+                                        <input type="button" value="Select">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template productItem">
+                        <div class="fields">
+                            <p class="name">Name</p>
+                            <p class="shop">Shop</p>
+                            <p class="price">€ 150,-</p>
+                        </div>
+                        <div class="details">
+                            <div class="shader"></div>
+                            <div class="productInfo">
+                                <div class="image"></div>
+                                <div class="info">
+                                    <p>ean</p>
+                                    <p>wat nog meer?</p>
+                                    <div class="actions">
+                                        <input type="button" value="Select">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

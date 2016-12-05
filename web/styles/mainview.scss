@@ -1,6 +1,8 @@
 //main: styles.scss
 
 #mainview {
+  display: none;
+
   .componentItem {
     position: relative;
     display: flex;
