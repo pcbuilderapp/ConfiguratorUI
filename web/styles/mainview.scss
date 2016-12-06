@@ -1,7 +1,6 @@
 //main: styles.scss
 
 #mainview {
-  display: none;
 
   .componentItem {
     position: relative;
@@ -15,7 +14,8 @@
       height: 64px;
       width: 64px;
       margin-left: 16px;
-      background-color: #000;
+      background-image: url(../images/no-product-image.png);
+      background-size: contain;
     }
 
     .details {

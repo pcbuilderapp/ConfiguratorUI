@@ -1,7 +1,7 @@
 
 
 #selectview {
-
+  display:none;
   #searchbar {
     position: relative;
     display: flex;
@@ -34,6 +34,10 @@
     }
   }
 
+  p.shop, p.price, p.name {
+    box-sizing: border-box;
+  }
+
   p.name {
     flex-grow: 1;
   }
@@ -45,10 +49,12 @@
 
   p.shop {
     width: 20%;
+    min-width: 96px;
   }
 
   p.price {
-    width: 10%;
+    width: 20%;
+    min-width: 96px;
   }
 
   .productListHeader {
@@ -87,6 +93,9 @@
         margin: 0;
         line-height: 32px;
         vertical-align: middle;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
 
@@ -154,5 +163,46 @@
         }
       }
     }
+  }
+
+  #pager {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2em;
+    @mixin pagebtn() {
+      margin: 2px;
+      height: 16px;
+      width: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .previous, .next {
+      @include pagebtn();
+      background-color: $fgColor1;
+      border: 1px solid $fgColor1;
+      color: #fff;
+      &:hover {
+        background-color: #fff;
+        color: $fgColor1;
+      }
+    }
+    .pages {
+      display: flex;
+      flex-direction: row;
+      .pagebtn {
+        @include pagebtn();
+        border: 1px solid #fff;
+        color: $fgColor1;
+        &:hover {
+          border: 1px solid $fgColor1;
+        }
+      }
+      .active {
+        border: 1px solid $fgColor1;
+      }
+    }
+
   }
 }
