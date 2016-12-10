@@ -1,14 +1,4 @@
-FROM debian:jessie-slim
+FROM nginx:1.11.6
 
-RUN apt-get update && apt-get dist-upgrade
-RUN apt-get install nginx
-
-WORKDIR /pcbuilder
-
-COPY build/web/. /pcbuilder/
-COPY nginx.conf /etc/nginx/sites-available/pcbuilder
-RUN rm /etc/sites-enabled/default
-RUN ln -s /etc/nginx/sites-available/pcbuilder /etc/sites-enabled/default
-
-CMD []
-ENTRYPOINT ["/usr/bin/nginx"]
+COPY build/web/. /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
