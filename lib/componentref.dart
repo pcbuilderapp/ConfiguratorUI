@@ -1,0 +1,4 @@
+
+class ComponentRef {
+  int id;
+}
