@@ -8,8 +8,9 @@ import 'component.dart';
 class MainView extends View {
   MainView() {
     _view = querySelector("#mainview");
-    _componentItem = _view.querySelector(".componentItem").clone(true);
-    _view.querySelector(".componentItem").remove();
+    Element template = _view.querySelector(".componentItem");
+    _componentItem = template.clone(true);
+    template.remove();
 
     // maak component types
     Element componentContainer = querySelector("#pcconfiglist");
@@ -27,8 +28,10 @@ class MainView extends View {
 
       e.querySelector(".type").text = component;
       e.onClick.listen((_) async {
+        hide();
         Component c = await pcbuilder.selectComponentView
             .selectComponent(component.toLowerCase(), _configuration);
+        show();
 
         e.querySelector(".name").text = c.name;
         e.querySelector(".price p").text = "€ ${c.price}";
