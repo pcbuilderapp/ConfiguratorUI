@@ -1,2 +1,2 @@
 
-final BACKEND_SERVER = "/backend/";
+final BACKEND_SERVER = "http://localhost:8090/";//"/backend/";

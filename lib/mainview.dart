@@ -30,7 +30,7 @@ class MainView extends View {
       e.onClick.listen((_) async {
         hide();
         Component c = await pcbuilder.selectComponentView
-            .selectComponent(component.toLowerCase(), _configuration);
+            .selectComponent(component.toUpperCase(), _configuration);
         show();
 
         e.querySelector(".name").text = c.name;
