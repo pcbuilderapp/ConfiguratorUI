@@ -7,6 +7,7 @@ import 'componentmatchingsearch.dart';
 import 'dart:convert';
 import 'configuration.dart';
 import 'backend.dart';
+import 'pcbuilder.dart';
 
 class SelectComponentView extends View {
   SelectComponentView() {
@@ -20,10 +21,15 @@ class SelectComponentView extends View {
       filter(_filterField.value);
       e.preventDefault();
     });
+    _viewElement.querySelector(".back-btn").onClick.listen((MouseEvent e){
+      hide();
+      pcbuilder.mainView.show();
+    });
   }
 
   Future<Component> selectComponent(String componentType, Configuration configuration) async {
     _selectComponentCompleter = new Completer();
+    _viewElement.querySelector("h2 .component-type").text = componentType;
     show();
 
     // show load indicator
@@ -48,6 +54,8 @@ class SelectComponentView extends View {
       item.querySelector(".fields .price").text = "€ ${c.price}";
 
       // product detail view
+
+      item.querySelector(".details .productInfo .info .ean-nr").text = c.europeanArticleNumber;
 
       // actions
 

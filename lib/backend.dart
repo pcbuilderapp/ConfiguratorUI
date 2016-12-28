@@ -8,7 +8,7 @@ import 'configuration.dart';
 import 'config.dart';
 
 class GetMatchingComponentsResponds {
-  List<Component> components;
+  List<Component> components = [];
   int pages;
   int currentPage;
 }
@@ -19,32 +19,42 @@ class Backend {
   Future<GetMatchingComponentsResponds> getMatchingComponents(
       ComponentMatchingSearch filter) async {
     String data = (new JsonEncoder()).convert(filter);
-    print(data);
-    HttpRequest.request(BACKEND_SERVER + "component/getmatchingcomponents",
-        method: "POST",
-        sendData: data,
-        requestHeaders: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        }).then((HttpRequest r) {
-      print(r.responseText);
-    }).catchError((e) {
+
+    HttpRequest request;
+
+    try {
+      request = await HttpRequest.request(
+          BACKEND_SERVER + "component/getmatchingcomponents",
+          method: "POST",
+          sendData: data,
+          requestHeaders: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          });
+    } catch (e) {
       print(e);
-    });
-    /*HttpRequest.postFormData(BACKEND_SERVER + "component/getmatchingcomponents",
-        {"request": data}).then((HttpRequest request) {
-      print(request.responseText);
-    }).catchError((e){
-      print(e);
-    });*/
+      return new GetMatchingComponentsResponds();
+    }
 
     GetMatchingComponentsResponds responds =
-        new GetMatchingComponentsResponds();
-    responds.components = [
-      new Component("ASUS GTX1080", "ASUS", "1234", "5678", ComponentType.GPU),
-      new Component("ASUS GTX1080", "ASUS", "1234", "5678", ComponentType.GPU),
-      new Component("ASUS GTX1080", "ASUS", "1234", "5678", ComponentType.GPU)
-    ];
+    new GetMatchingComponentsResponds();
+
+    List<Map> json = new JsonDecoder().convert(request.responseText);
+    for (Map componentData in json) {
+      Component component = new Component();
+      component.id = componentData["id"];
+      component.name = componentData["name"];
+      component.brand = componentData["brand"];
+      component.europeanArticleNumber = componentData["europeanArticleNumber"];
+      component.manufacturerPartNumber = componentData["manufacturerPartNumber"];
+      component.type = filter.type;
+
+      component.price = 0.0;
+      component.shop = "PCBuilder";
+      component.url = "#";
+
+      responds.components.add(component);
+    }
 
     responds.pages = 1;
     responds.currentPage = 1;
