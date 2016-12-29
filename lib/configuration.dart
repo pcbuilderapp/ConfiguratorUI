@@ -1,14 +1,14 @@
 
-import 'component.dart';
+import 'componentitem.dart';
 
 class Configuration {
-  Component motherboard;
-  Component cpu;
-  Component gpu;
-  Component memory;
-  Component storage;
-  Component psu;
-  Component casing;
+  ComponentItem motherboard;
+  ComponentItem cpu;
+  ComponentItem gpu;
+  ComponentItem memory;
+  ComponentItem storage;
+  ComponentItem psu;
+  ComponentItem casing;
 
   Map toJson() => {
     "motherboard":motherboard,

@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:html';
 import 'componenttype.dart';
-import 'component.dart';
+import 'componentitem.dart';
 import 'componentmatchingsearch.dart';
 import 'dart:convert';
 import 'configuration.dart';
 import 'config.dart';
 
 class GetMatchingComponentsResponds {
-  List<Component> components = [];
+  List<ComponentItem> components = [];
   int pages;
   int currentPage;
 }
@@ -24,7 +24,7 @@ class Backend {
 
     try {
       request = await HttpRequest.request(
-          BACKEND_SERVER + "component/getmatchingcomponents",
+          BACKEND_SERVER + "componentitem/getmatchingcomponents",
           method: "POST",
           sendData: data,
           requestHeaders: {
@@ -41,7 +41,7 @@ class Backend {
 
     List<Map> json = new JsonDecoder().convert(request.responseText);
     for (Map componentData in json) {
-      Component component = new Component();
+      ComponentItem component = new ComponentItem();
       component.id = componentData["id"];
       component.name = componentData["name"];
       component.brand = componentData["brand"];
@@ -49,9 +49,17 @@ class Backend {
       component.manufacturerPartNumber = componentData["manufacturerPartNumber"];
       component.type = filter.type;
 
-      component.price = 0.0;
-      component.shop = "PCBuilder";
-      component.url = "#";
+      component.price = componentData["price"];
+      component.shop = componentData["shop"];
+      component.url = componentData["url"];
+
+      for (Map alternativeShop in componentData["alternativeShops"]) {
+        AlternativeShopItem shopItem = new AlternativeShopItem();
+        shopItem.shop = alternativeShop["shop"];
+        shopItem.url = alternativeShop["url"];
+        shopItem.price = alternativeShop["price"];
+        component.alternativeShops.add(shopItem);
+      }
 
       responds.components.add(component);
     }

@@ -3,7 +3,7 @@ import 'view.dart';
 import 'pcbuilder.dart';
 import 'configuration.dart';
 import 'dart:async';
-import 'component.dart';
+import 'componentitem.dart';
 
 class MainView extends View {
   MainView() {
@@ -29,7 +29,7 @@ class MainView extends View {
       e.querySelector(".type").text = component;
       e.onClick.listen((_) async {
         hide();
-        Component c = await pcbuilder.selectComponentView
+        ComponentItem c = await pcbuilder.selectComponentView
             .selectComponent(component.toUpperCase(), _configuration);
         show();
 

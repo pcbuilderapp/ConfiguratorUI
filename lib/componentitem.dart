@@ -1,6 +1,9 @@
-library PCBuilder.Component;
+library PCBuilder.ComponentItem;
 
-class Component {
+import 'alternativeshopitem.dart';
+export 'alternativeshopitem.dart';
+
+class ComponentItem {
   int id;
   String name;
   String brand;
@@ -12,4 +15,6 @@ class Component {
   double price;
   String url;
   String image;
+
+  List<AlternativeShopItem> alternativeShops = [];
 }

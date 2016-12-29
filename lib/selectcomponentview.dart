@@ -2,12 +2,13 @@ import 'dart:async';
 import 'view.dart';
 import 'dart:html';
 import 'config.dart';
-import 'component.dart';
+import 'componentitem.dart';
 import 'componentmatchingsearch.dart';
 import 'dart:convert';
 import 'configuration.dart';
 import 'backend.dart';
 import 'pcbuilder.dart';
+import 'util.dart';
 
 class SelectComponentView extends View {
   SelectComponentView() {
@@ -27,7 +28,7 @@ class SelectComponentView extends View {
     });
   }
 
-  Future<Component> selectComponent(String componentType, Configuration configuration) async {
+  Future<ComponentItem> selectComponent(String componentType, Configuration configuration) async {
     _selectComponentCompleter = new Completer();
     _viewElement.querySelector("h2 .component-type").text = componentType;
     show();
@@ -44,7 +45,7 @@ class SelectComponentView extends View {
 
     // generate product list
 
-    for (Component c in responds.components) {
+    for (ComponentItem c in responds.components) {
       Element item = _productItem.clone(true);
 
       // product row
@@ -56,6 +57,16 @@ class SelectComponentView extends View {
       // product detail view
 
       item.querySelector(".details .productInfo .info .ean-nr").text = c.europeanArticleNumber;
+
+      if (c.alternativeShops.length == 0) {
+        item.querySelector(".alternativeShops").text = "No alternative shops found.";
+      } else {
+        Element shopsElement = item.querySelector(".alternativeShops");
+        shopsElement.text = "Also sold by: ";
+        for (AlternativeShopItem alternativeItem in c.alternativeShops) {
+          shopsElement.append(makeUrl(alternativeItem.shop,alternativeItem.url));
+        }
+      }
 
       // actions
 
