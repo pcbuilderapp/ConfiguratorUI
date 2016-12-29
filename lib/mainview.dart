@@ -30,11 +30,35 @@ class MainView extends View {
       e.onClick.listen((_) async {
         hide();
         ComponentItem c = await pcbuilder.selectComponentView
-            .selectComponent(component.toUpperCase(), _configuration);
+            .selectComponent(component, _configuration);
         show();
+
+        if (component == "Motherboard") {
+          _configuration.motherboard = c;
+        } else if (component == "CPU") {
+          _configuration.cpu = c;
+        } else if (component == "GPU") {
+          _configuration.gpu = c;
+        } else if (component == "Memory") {
+          _configuration.memory = c;
+        } else if (component == "Storage") {
+          _configuration.storage = c;
+        } else if (component == "PSU") {
+          _configuration.psu= c;
+        } else if (component == "Case") {
+          _configuration.casing = c;
+        }
 
         e.querySelector(".name").text = c.name;
         e.querySelector(".price p").text = "€ ${c.price}";
+
+        // update price
+        double price = _configuration.priceTotal();
+        if (price == 0.0) {
+          querySelector("#pricetotal span").text = "0.-";
+        } else {
+          querySelector("#pricetotal span").text = price.toStringAsFixed(2);
+        }
       });
 
       componentContainer.append(e);

@@ -31,6 +31,8 @@ class SelectComponentView extends View {
   Future<ComponentItem> selectComponent(String componentType, Configuration configuration) async {
     _selectComponentCompleter = new Completer();
     _viewElement.querySelector("h2 .component-type").text = componentType;
+    componentType = componentType.toUpperCase();
+    if (componentType == "CASE") componentType = "CASING";
     show();
 
     // show load indicator

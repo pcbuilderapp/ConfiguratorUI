@@ -22,6 +22,11 @@ section {
     }
   }
 
+  .loading {
+    max-width: $maxWidth;
+    margin: 0 auto;
+  }
+
   .content {
     max-width: $maxWidth;
     margin: 0 auto;

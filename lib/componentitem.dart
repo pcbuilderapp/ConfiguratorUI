@@ -17,4 +17,8 @@ class ComponentItem {
   String image;
 
   List<AlternativeShopItem> alternativeShops = [];
+
+  Map toJson() => {
+    "id":id
+  };
 }
