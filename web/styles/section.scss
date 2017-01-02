@@ -25,6 +25,10 @@ section {
   .loading {
     max-width: $maxWidth;
     margin: 0 auto;
+    height: calc(100vh - 96px - 144px - 48px - 32px); // 100% - header - banner - menu - footer
+    background-image: url(../images/loading.svg);
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .content {

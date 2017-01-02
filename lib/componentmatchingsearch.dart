@@ -5,11 +5,13 @@ class ComponentMatchingSearch {
   String type;
   Configuration configuration;
   int page;
+  int maxItems;
 
   Map toJson() => {
     "filter":filter,
     "type":type,
     "configuration": configuration,
-    "page": page
+    "page": page,
+    "maxItems": maxItems
   };
 }

@@ -17,6 +17,9 @@ class SelectComponentView extends View {
     _productItem = template.clone(true);
     template.remove();
     _filterField = querySelector("#searchbar input") as InputElement;
+    _filterField.onSearch.listen((_){
+      filter(_filterField.value);
+    });
     _productList = _viewElement.querySelector("#productList");
     (querySelector("#searchbar form") as FormElement).onSubmit.listen((Event e){
       filter(_filterField.value);
@@ -25,6 +28,15 @@ class SelectComponentView extends View {
     _viewElement.querySelector(".back-btn").onClick.listen((MouseEvent e){
       hide();
       pcbuilder.mainView.show();
+    });
+    _pager = querySelector("#pager");
+    _pager.querySelector(".previous").onClick.listen((_){
+      if (_currentPage <= 1) return;
+      loadComponents(_currentPage-1);
+    });
+    _pager.querySelector(".next").onClick.listen((_){
+      if (_currentPage >= _pageCount) return;
+      loadComponents(_currentPage+1);
     });
   }
 
@@ -35,12 +47,27 @@ class SelectComponentView extends View {
     if (componentType == "CASE") componentType = "CASING";
     show();
 
+    _currentType = componentType;
+    _currentConfiguration = configuration;
+    _currentFilter = "";
+    _filterField.value = "";
+
+    loadComponents(1);
+
+    return _selectComponentCompleter.future;
+  }
+
+  Future loadComponents(int page) async {
     // show load indicator
+    _viewElement.querySelector(".content").style.display = "none";
+    _viewElement.querySelector(".loading").style.display = "block";
 
     ComponentMatchingSearch search =  new ComponentMatchingSearch();
-    search.type = componentType;
-    search.filter = _filterField.value;
-    search.configuration = configuration;
+    search.type = _currentType;
+    search.filter = _currentFilter;
+    search.configuration = _currentConfiguration;
+    search.maxItems = MAX_ITEMS;
+    search.page = page;
 
     GetMatchingComponentsResponds responds = await backend.getMatchingComponents(search);
     _productList.innerHtml = "";
@@ -82,13 +109,35 @@ class SelectComponentView extends View {
 
     // set paging
 
-    // hide load indicator
+    _currentPage = responds.currentPage;
+    _pageCount = responds.pages;
+    Element pages = _pager.querySelector(".pages");
+    pages.innerHtml = "";
 
-    return _selectComponentCompleter.future;
+    // TODO: max nr of page buttons?
+    for (int i=1;i<=responds.pages;i++) {
+      Element pagebtn = new Element.div();
+      pagebtn.text = "$i";
+      pagebtn.classes.add("pagebtn");
+      if (i == responds.currentPage) {
+        pagebtn.classes.add("current");
+      } else {
+        pagebtn.onClick.listen((_) {
+          loadComponents(i);
+        });
+      }
+      pages.append(pagebtn);
+    }
+
+    // hide load indicator
+    _viewElement.querySelector(".content").style.display = "block";
+    _viewElement.querySelector(".loading").style.display = "none";
   }
 
   void filter(String filter) {
-
+    if (filter == _currentFilter) return;
+    _currentFilter = filter;
+    loadComponents(1);
   }
 
   Element get element => _viewElement;
@@ -96,6 +145,12 @@ class SelectComponentView extends View {
   Element _viewElement;
   Element _productItem;
   Element _productList;
+  Element _pager;
   InputElement _filterField;
   Completer _selectComponentCompleter;
+  String _currentType;
+  String _currentFilter;
+  Configuration _currentConfiguration;
+  int _currentPage;
+  int _pageCount;
 }

@@ -39,8 +39,8 @@ class Backend {
     GetMatchingComponentsResponds responds =
     new GetMatchingComponentsResponds();
 
-    List<Map> json = new JsonDecoder().convert(request.responseText);
-    for (Map componentData in json) {
+    Map json = new JsonDecoder().convert(request.responseText);
+    for (Map componentData in json["components"]) {
       ComponentItem component = new ComponentItem();
       component.id = componentData["id"];
       component.name = componentData["name"];
@@ -64,8 +64,8 @@ class Backend {
       responds.components.add(component);
     }
 
-    responds.pages = 1;
-    responds.currentPage = 1;
+    responds.pages = json["pageCount"];
+    responds.currentPage = json["page"];
 
     return responds;
   }
