@@ -52,7 +52,7 @@ class SelectComponentView extends View {
     _currentFilter = "";
     _filterField.value = "";
 
-    loadComponents(1);
+    loadComponents(0);
 
     return _selectComponentCompleter.future;
   }
@@ -115,9 +115,9 @@ class SelectComponentView extends View {
     pages.innerHtml = "";
 
     // TODO: max nr of page buttons?
-    for (int i=1;i<=responds.pages;i++) {
+    for (int i=0;i<responds.pages;i++) {
       Element pagebtn = new Element.div();
-      pagebtn.text = "$i";
+      pagebtn.text = "${i+1}";
       pagebtn.classes.add("pagebtn");
       if (i == responds.currentPage) {
         pagebtn.classes.add("current");
@@ -137,7 +137,7 @@ class SelectComponentView extends View {
   void filter(String filter) {
     if (filter == _currentFilter) return;
     _currentFilter = filter;
-    loadComponents(1);
+    loadComponents(0);
   }
 
   Element get element => _viewElement;
