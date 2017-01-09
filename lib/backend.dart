@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:html';
 import 'componenttype.dart';
-import 'componentitem.dart';
-import 'componentmatchingsearch.dart';
+import 'package:ConfiguratorUI/transport/componentitem.dart';
+import 'package:ConfiguratorUI/transport/componentmatchingsearch.dart';
 import 'dart:convert';
 import 'configuration.dart';
 import 'config.dart';

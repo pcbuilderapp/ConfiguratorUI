@@ -3,7 +3,7 @@ import 'view.dart';
 import 'pcbuilder.dart';
 import 'configuration.dart';
 import 'dart:async';
-import 'componentitem.dart';
+import 'package:ConfiguratorUI/transport/componentitem.dart';
 
 class MainView extends View {
   MainView() {
@@ -14,7 +14,7 @@ class MainView extends View {
 
     // maak component types
     Element componentContainer = querySelector("#pcconfiglist");
-    var components = [
+    List<String> components = [
       "Motherboard",
       "CPU",
       "GPU",

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'view.dart';
 import 'dart:html';
 import 'config.dart';
-import 'componentitem.dart';
-import 'componentmatchingsearch.dart';
+import 'package:ConfiguratorUI/transport/componentitem.dart';
+import 'package:ConfiguratorUI/transport/componentmatchingsearch.dart';
 import 'dart:convert';
 import 'configuration.dart';
 import 'backend.dart';
@@ -62,64 +62,35 @@ class SelectComponentView extends View {
     _viewElement.querySelector(".content").style.display = "none";
     _viewElement.querySelector(".loading").style.display = "block";
 
-    ComponentMatchingSearch search =  new ComponentMatchingSearch();
-    search.type = _currentType;
-    search.filter = _currentFilter;
-    search.configuration = _currentConfiguration;
-    search.maxItems = MAX_ITEMS;
-    search.page = page;
+    ComponentMatchingSearch componentSearchRequest =  new ComponentMatchingSearch();
+    componentSearchRequest.type = _currentType;
+    componentSearchRequest.filter = _currentFilter;
+    componentSearchRequest.configuration = _currentConfiguration;
+    componentSearchRequest.maxItems = MAX_ITEMS;
+    componentSearchRequest.page = page;
 
-    GetMatchingComponentsResponds responds = await backend.getMatchingComponents(search);
+    GetMatchingComponentsResponds componentSearchResponds = await backend.getMatchingComponents(componentSearchRequest);
     _productList.innerHtml = "";
 
     // generate product list
 
-    for (ComponentItem c in responds.components) {
-      Element item = _productItem.clone(true);
-
-      // product row
-
-      item.querySelector(".fields .name").text = c.name;
-      item.querySelector(".fields .shop").text = c.shop;
-      item.querySelector(".fields .price").text = "€ ${c.price}";
-
-      // product detail view
-
-      item.querySelector(".details .productInfo .info .ean-nr").text = c.europeanArticleNumber;
-
-      if (c.alternativeShops.length == 0) {
-        item.querySelector(".alternativeShops").text = "No alternative shops found.";
-      } else {
-        Element shopsElement = item.querySelector(".alternativeShops");
-        shopsElement.text = "Also sold by: ";
-        for (AlternativeShopItem alternativeItem in c.alternativeShops) {
-          shopsElement.append(makeUrl(alternativeItem.shop,alternativeItem.url));
-        }
-      }
-
-      // actions
-
-      item.querySelector(".selectAction").onClick.listen((_){
-        _selectComponentCompleter.complete(c);
-        hide();
-      });
-
-      _productList.append(item);
+    for (ComponentItem c in componentSearchResponds.components) {
+      _productList.append(createComponentElement(c));
     }
 
     // set paging
 
-    _currentPage = responds.currentPage;
-    _pageCount = responds.pages;
+    _currentPage = componentSearchResponds.currentPage;
+    _pageCount = componentSearchResponds.pages;
     Element pages = _pager.querySelector(".pages");
     pages.innerHtml = "";
 
     // TODO: max nr of page buttons?
-    for (int i=0;i<responds.pages;i++) {
+    for (int i=0;i<componentSearchResponds.pages;i++) {
       Element pagebtn = new Element.div();
       pagebtn.text = "${i+1}";
       pagebtn.classes.add("pagebtn");
-      if (i == responds.currentPage) {
+      if (i == componentSearchResponds.currentPage) {
         pagebtn.classes.add("current");
       } else {
         pagebtn.onClick.listen((_) {
@@ -132,6 +103,39 @@ class SelectComponentView extends View {
     // hide load indicator
     _viewElement.querySelector(".content").style.display = "block";
     _viewElement.querySelector(".loading").style.display = "none";
+  }
+
+  Element createComponentElement(ComponentItem item) {
+    Element e = _productItem.clone(true);
+
+    // product row
+
+    e.querySelector(".fields .name").text = item.name;
+    e.querySelector(".fields .shop").text = item.shop;
+    e.querySelector(".fields .price").text = "€ ${item.price}";
+
+    // product detail view
+
+    e.querySelector(".details .productInfo .info .ean-nr").text = item.europeanArticleNumber;
+
+    if (item.alternativeShops.length == 0) {
+      e.querySelector(".alternativeShops").text = "No alternative shops found.";
+    } else {
+      Element shopsElement = e.querySelector(".alternativeShops");
+      shopsElement.text = "Also sold by: ";
+      for (AlternativeShopItem alternativeItem in item.alternativeShops) {
+        shopsElement.append(makeUrl(alternativeItem.shop,alternativeItem.url));
+      }
+    }
+
+    // actions
+
+    e.querySelector(".selectAction").onClick.listen((_){
+      _selectComponentCompleter.complete(item);
+      hide();
+    });
+
+    return e;
   }
 
   void filter(String filter) {

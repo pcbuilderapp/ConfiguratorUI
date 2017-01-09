@@ -1,4 +1,4 @@
-import 'configuration.dart';
+import '../configuration.dart';
 
 class ComponentMatchingSearch {
   String filter;
