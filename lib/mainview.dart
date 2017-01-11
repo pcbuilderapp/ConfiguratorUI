@@ -2,7 +2,6 @@ import 'dart:html';
 import 'view.dart';
 import 'pcbuilder.dart';
 import 'configuration.dart';
-import 'dart:async';
 import 'package:ConfiguratorUI/transport/componentitem.dart';
 
 class MainView extends View {
