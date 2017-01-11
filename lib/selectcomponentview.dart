@@ -44,7 +44,6 @@ class SelectComponentView extends View {
     _selectComponentCompleter = new Completer();
     _viewElement.querySelector("h2 .component-type").text = componentType;
     componentType = componentType.toUpperCase();
-    if (componentType == "CASE") componentType = "CASING";
     show();
 
     _currentType = componentType;
