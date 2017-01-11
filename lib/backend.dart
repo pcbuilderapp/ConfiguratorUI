@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:html';
-import 'componenttype.dart';
 import 'package:ConfiguratorUI/transport/componentitem.dart';
 import 'package:ConfiguratorUI/transport/componentmatchingsearch.dart';
 import 'dart:convert';
-import 'configuration.dart';
 import 'config.dart';
 
-class GetMatchingComponentsResponds {
+class GetMatchingComponentsResponse {
   List<ComponentItem> components = [];
   int pages;
   int currentPage;
@@ -16,7 +14,7 @@ class GetMatchingComponentsResponds {
 Backend backend = new Backend();
 
 class Backend {
-  Future<GetMatchingComponentsResponds> getMatchingComponents(
+  Future<GetMatchingComponentsResponse> getMatchingComponents(
       ComponentMatchingSearch filter) async {
     String data = (new JsonEncoder()).convert(filter);
 
@@ -33,11 +31,10 @@ class Backend {
           });
     } catch (e) {
       print(e);
-      return new GetMatchingComponentsResponds();
+      return new GetMatchingComponentsResponse();
     }
 
-    GetMatchingComponentsResponds responds =
-    new GetMatchingComponentsResponds();
+    GetMatchingComponentsResponse responds = new GetMatchingComponentsResponse();
 
     Map json = new JsonDecoder().convert(request.responseText);
     for (Map componentData in json["components"]) {
@@ -52,6 +49,7 @@ class Backend {
       component.price = componentData["price"];
       component.shop = componentData["shop"];
       component.url = componentData["url"];
+      component.image = componentData["image"];
 
       for (Map alternativeShop in componentData["alternativeShops"]) {
         AlternativeShopItem shopItem = new AlternativeShopItem();

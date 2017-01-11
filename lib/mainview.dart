@@ -50,6 +50,7 @@ class MainView extends View {
 
         e.querySelector(".name").text = c.name;
         e.querySelector(".price p").text = "€ ${c.price}";
+        e.querySelector(".image").style.backgroundImage = "url(${c.image})";
 
         // update price
         double price = _configuration.priceTotal();

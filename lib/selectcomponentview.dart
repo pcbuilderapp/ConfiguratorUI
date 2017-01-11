@@ -68,28 +68,28 @@ class SelectComponentView extends View {
     componentSearchRequest.maxItems = MAX_ITEMS;
     componentSearchRequest.page = page;
 
-    GetMatchingComponentsResponds componentSearchResponds = await backend.getMatchingComponents(componentSearchRequest);
+    GetMatchingComponentsResponse componentSearchResponse = await backend.getMatchingComponents(componentSearchRequest);
     _productList.innerHtml = "";
 
     // generate product list
 
-    for (ComponentItem c in componentSearchResponds.components) {
+    for (ComponentItem c in componentSearchResponse.components) {
       _productList.append(createComponentElement(c));
     }
 
     // set paging
 
-    _currentPage = componentSearchResponds.currentPage;
-    _pageCount = componentSearchResponds.pages;
+    _currentPage = componentSearchResponse.currentPage;
+    _pageCount = componentSearchResponse.pages;
     Element pages = _pager.querySelector(".pages");
     pages.innerHtml = "";
 
     // TODO: max nr of page buttons?
-    for (int i=0;i<componentSearchResponds.pages;i++) {
+    for (int i=0;i<componentSearchResponse.pages;i++) {
       Element pagebtn = new Element.div();
       pagebtn.text = "${i+1}";
       pagebtn.classes.add("pagebtn");
-      if (i == componentSearchResponds.currentPage) {
+      if (i == componentSearchResponse.currentPage) {
         pagebtn.classes.add("current");
       } else {
         pagebtn.onClick.listen((_) {
@@ -108,14 +108,13 @@ class SelectComponentView extends View {
     Element e = _productItem.clone(true);
 
     // product row
-
     e.querySelector(".fields .name").text = item.name;
     e.querySelector(".fields .shop").text = item.shop;
     e.querySelector(".fields .price").text = "€ ${item.price}";
 
     // product detail view
-
     e.querySelector(".details .productInfo .info .ean-nr").text = item.europeanArticleNumber;
+    e.querySelector(".details .productInfo .image").style.backgroundImage = "url(${item.image})";
 
     if (item.alternativeShops.length == 0) {
       e.querySelector(".alternativeShops").text = "No alternative shops found.";
