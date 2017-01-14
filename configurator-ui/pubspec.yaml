@@ -11,6 +11,9 @@ dependencies:
   pcbuilder.api:
     path: ../pcbuilder-api
     version: any
+  uilib:
+    path: ../ui-lib
+    version: any
 
 dev_dependencies:
   browser: '>=0.10.0 <0.11.0'

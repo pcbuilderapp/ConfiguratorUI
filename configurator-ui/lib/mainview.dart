@@ -1,10 +1,12 @@
 import 'dart:html';
-import 'view.dart';
+import 'package:uilib/view.dart';
 import 'pcbuilder.dart';
 import 'package:pcbuilder.api/transport/configuration.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
 
 class MainView extends View {
+  static String get id => "mainview";
+
   MainView() {
     _view = querySelector("#mainview");
     Element template = _view.querySelector(".componentItem");
@@ -27,10 +29,9 @@ class MainView extends View {
 
       e.querySelector(".type").text = component;
       e.onClick.listen((_) async {
-        hide();
         ComponentItem c = await pcbuilder.selectComponentView
             .selectComponent(component, _configuration);
-        show();
+        pcbuilder.setView(MainView.id);
 
         if (component == "Motherboard") {
           _configuration.motherboard = c;

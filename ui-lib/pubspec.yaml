@@ -1,0 +1,12 @@
+name: 'uilib'
+version: 0.0.1
+description: PCBuilder UI lib
+#author: Your Name <email@example.com>
+#homepage: https://www.example.com
+
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+
+dependencies:
+  route_hierarchical: any
+

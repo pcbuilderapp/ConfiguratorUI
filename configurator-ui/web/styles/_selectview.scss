@@ -87,11 +87,11 @@
   .productItem {
     margin: 1px 0;
 
-    &:hover {
+    /*&:hover {
       .details {
         height: calc(128px + 2em);
       }
-    }
+    }*/
 
     .fields {
       display: flex;
@@ -99,6 +99,10 @@
       height: 32px;
       font-size: 0.8em;
       background-color: $fgColor4;
+      &:hover {
+        background-color: $fgColor3;
+      }
+      cursor: pointer;
       p {
         padding: 0 1em;
         margin: 0;

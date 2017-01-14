@@ -9,7 +9,7 @@ $minWidth: 360px;
 @import "footer";
 
 @import "mainview";
-@import "selectview";
+@import "productsview";
 
 html, body {
   width: 100%;
@@ -17,4 +17,13 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+}
+
+main {
+  flex-grow: 1;
 }

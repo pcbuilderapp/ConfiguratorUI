@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'view.dart';
+import 'package:uilib/view.dart';
 import 'dart:html';
 import 'config.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
@@ -8,9 +8,11 @@ import 'dart:convert';
 import 'package:pcbuilder.api/transport/configuration.dart';
 import 'package:pcbuilder.api/backend.dart';
 import 'pcbuilder.dart';
-import 'util.dart';
+import 'package:uilib/util.dart';
 
 class SelectComponentView extends View {
+  static String get id => "selectcomponent";
+
   SelectComponentView() {
     _viewElement = querySelector("#selectview");
     Element template = _viewElement.querySelector(".productItem");
@@ -26,8 +28,7 @@ class SelectComponentView extends View {
       e.preventDefault();
     });
     _viewElement.querySelector(".back-btn").onClick.listen((MouseEvent e){
-      hide();
-      pcbuilder.mainView.show();
+      pcbuilder.setView(SelectComponentView.id);
     });
     _pager = querySelector("#pager");
     _pager.querySelector(".previous").onClick.listen((_){
@@ -44,7 +45,7 @@ class SelectComponentView extends View {
     _selectComponentCompleter = new Completer();
     _viewElement.querySelector("h2 .component-type").text = componentType;
     componentType = componentType.toUpperCase();
-    show();
+    pcbuilder.setView("selectcomponent");
 
     _currentType = componentType;
     _currentConfiguration = configuration;
@@ -112,6 +113,17 @@ class SelectComponentView extends View {
     e.querySelector(".fields .shop").text = item.shop;
     e.querySelector(".fields .price").text = "€ ${item.price}";
 
+    // show detail view for row
+    e.querySelector(".fields").onClick.listen((_){
+      bool bIsActive = e.querySelector(".details").classes.contains("active");
+      if (bIsActive) {
+        e.querySelector(".details").classes.remove("active");
+      } else {
+        _productList.querySelector(".details.active")?.classes?.remove("active");
+        e.querySelector(".details").classes.add("active");
+      }
+    });
+
     // product detail view
     e.querySelector(".details .productInfo .info .ean-nr").text = item.europeanArticleNumber;
     e.querySelector(".details .productInfo .image").style.backgroundImage = "url(${item.image})";
@@ -130,7 +142,6 @@ class SelectComponentView extends View {
 
     e.querySelector(".selectAction").onClick.listen((_){
       _selectComponentCompleter.complete(item);
-      hide();
     });
 
     return e;

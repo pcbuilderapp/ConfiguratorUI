@@ -1,17 +1,7 @@
 
 
-#selectview {
+#productview {
   display:none;
-
-  .header h2 {
-    .back-btn {
-      color: $fgColor3;
-      cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
 
   #searchbar {
     position: relative;

@@ -18,51 +18,17 @@
 
 <body>
     <nav>
+        <div class="header">
+            <div class="logo"></div>
+            <h1>Dashboard</h1>
+        </div>
         <ol>
-            <li><a href="#">Help</a></li>
+            <li><a id="productsNav" href="#">Products</a></li>
+            <li><a id="searchesNav" href="#">Searches</a></li>
         </ol>
     </nav>
-    <header>
-        <div>
-            <div class="logo"></div>
-            <h1>PCBuilder</h1>
-        </div>
-    </header>
     <main>
-        <section id="mainview">
-            <div class="header">
-                <h2>Create a PC configuration</h2>
-            </div>
-            <div class="content">
-                <div id="pcconfiglist">
-                    <div class="componentItem">
-                        <div class="image"></div>
-                        <div class="details">
-                            <p class="type">Motherboard</p>
-                            <p class="name">None selected.</p>
-                        </div>
-                        <div class="price"><p>-</p></div>
-                        <div class="indicator"></div>
-                        <div class="hover">
-                            <p>Select component.</p>
-                        </div>
-                        <div class="children">
-                            <div class="parentmarker"></div>
-                            <div class="list"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pricetotalbar">
-                    <p>Price total:</p>
-                    <p id="pricetotal">&euro; <span>0,-</span></p>
-                </div>
-            </div>
-        </section>
-
-        <section id="selectview">
-            <div class="header">
-                <h2><span class="back-btn">Create a PC configuration</span> &gt; <span>Select a <span class="component-type">CPU</span></span></h2>
-            </div>
+        <section id="productview">
             <div class="loading"></div>
             <div class="content">
                 <div id="searchbar">
@@ -111,7 +77,10 @@
             </div>
         </section>
 
+        <section id="searchesview">
+
+        </section>
+
     </main>
-    <footer>Copyright (c) 2016 - PCBuilder</footer>
 </body>
 </html>
