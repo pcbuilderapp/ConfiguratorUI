@@ -1,7 +1,7 @@
 library PCBuilder.ComponentItem;
 
-import 'package:ConfiguratorUI/transport/alternativeshopitem.dart';
-export 'package:ConfiguratorUI/transport/alternativeshopitem.dart';
+import 'alternativeshopitem.dart';
+export 'alternativeshopitem.dart';
 
 class ComponentItem {
   int id;

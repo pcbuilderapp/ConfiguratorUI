@@ -1,0 +1,38 @@
+
+
+section {
+  //position: absolute;
+  //left:0;
+  //right:0;
+  padding-bottom: 32px;
+
+  .header {
+    background-color: $fgColor1;
+    height: 96px;
+    h2 {
+      max-width: $maxWidth;
+      margin: 0 auto;
+      padding: 0 40px;
+      box-sizing: border-box;
+      line-height: 96px;
+      vertical-align: middle;
+      border-right: 1px solid darken($fgColor1,$darken);
+      border-left: 1px solid darken($fgColor1,$darken);
+      color: #fff;
+    }
+  }
+
+  .loading {
+    max-width: $maxWidth;
+    margin: 0 auto;
+    height: calc(100vh - 96px - 144px - 48px - 32px); // 100% - header - banner - menu - footer
+    background-image: url(../images/loading.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .content {
+    max-width: $maxWidth;
+    margin: 0 auto;
+  }
+}

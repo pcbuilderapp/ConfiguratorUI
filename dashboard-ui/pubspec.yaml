@@ -1,6 +1,6 @@
-name: 'ConfiguratorUI'
+name: 'Dashboard'
 version: 0.0.1
-description: PCBuilder congigurator front-end
+description: PCBuilder dashboard front-end
 #author: Your Name <email@example.com>
 #homepage: https://www.example.com
 

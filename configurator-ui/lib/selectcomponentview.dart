@@ -2,11 +2,11 @@ import 'dart:async';
 import 'view.dart';
 import 'dart:html';
 import 'config.dart';
-import 'package:ConfiguratorUI/transport/componentitem.dart';
-import 'package:ConfiguratorUI/transport/componentmatchingsearch.dart';
+import 'package:pcbuilder.api/transport/componentitem.dart';
+import 'package:pcbuilder.api/transport/componentmatchingsearch.dart';
 import 'dart:convert';
-import 'configuration.dart';
-import 'backend.dart';
+import 'package:pcbuilder.api/transport/configuration.dart';
+import 'package:pcbuilder.api/backend.dart';
 import 'pcbuilder.dart';
 import 'util.dart';
 

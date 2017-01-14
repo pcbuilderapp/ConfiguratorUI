@@ -1,0 +1,36 @@
+//main: styles.scss
+
+nav {
+  position: relative;
+  height: 48px;
+  background-color: $fgColor1;
+  ol {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    max-width: $maxWidth;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-right: 1px solid darken($fgColor1,$darken);
+    border-left: 1px solid darken($fgColor1,$darken);
+    li {
+      display: block;
+      height:48px;
+      border-left: 1px solid darken($fgColor1,$darken);
+      padding: 0 30px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($fgColor1,5%);
+      }
+
+      a {
+        color: #fff;
+        font-size: 0.8em;
+        line-height: 48px;
+        vertical-align: middle;
+        text-decoration: none;
+      }
+    }
+  }
+}

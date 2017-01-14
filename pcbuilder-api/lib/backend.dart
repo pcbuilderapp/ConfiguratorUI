@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:ConfiguratorUI/transport/componentitem.dart';
-import 'package:ConfiguratorUI/transport/componentmatchingsearch.dart';
+import 'transport/componentitem.dart';
+import 'transport/componentmatchingsearch.dart';
+import 'transport/alternativeshopitem.dart';
 import 'dart:convert';
-import 'config.dart';
+import '_config.dart';
 
 class GetMatchingComponentsResponse {
   List<ComponentItem> components = [];

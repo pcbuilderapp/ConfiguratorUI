@@ -1,5 +1,5 @@
 
-import 'package:ConfiguratorUI/transport/componentitem.dart';
+import 'componentitem.dart';
 
 class Configuration {
   ComponentItem motherboard;

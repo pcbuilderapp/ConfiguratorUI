@@ -1,8 +1,8 @@
 import 'dart:html';
 import 'view.dart';
 import 'pcbuilder.dart';
-import 'configuration.dart';
-import 'package:ConfiguratorUI/transport/componentitem.dart';
+import 'package:pcbuilder.api/transport/configuration.dart';
+import 'package:pcbuilder.api/transport/componentitem.dart';
 
 class MainView extends View {
   MainView() {
