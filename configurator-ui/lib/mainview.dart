@@ -66,6 +66,14 @@ class MainView extends View {
     }
   }
 
+  void onShow() {
+
+  }
+
+  void onHide() {
+
+  }
+
   Element get element => _view;
 
   Element _view;

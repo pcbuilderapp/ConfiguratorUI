@@ -16,7 +16,7 @@ class ViewController {
   void setView(String id) {
     View view = _viewRegistry[id];
     if (view == null) throw "Invalid id.";
-    _viewRegistry[_currentViewId]?.hide();
+    _viewRegistry[_currentViewId].hide();
     _currentViewId = id;
     view.show();
   }
@@ -26,6 +26,7 @@ class ViewController {
 
   View registerView(String id, View view, {bool isDefaultView:false}) {
     _viewRegistry[id] = view;
+    if (isDefaultView) _currentViewId = id;
     _router.root.addRoute(name: id,path:"/$id",defaultRoute: isDefaultView,enter: (_){
       setView(id);
     });

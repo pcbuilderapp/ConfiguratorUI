@@ -6,7 +6,7 @@ PCBuilder pcbuilder = new PCBuilder();
 
 class PCBuilder extends ViewController {
   void init() {
-    _mainView = registerView(MainView.id,new MainView()) as MainView;
+    _mainView = registerView(MainView.id,new MainView(),isDefaultView: true) as MainView;
     _selectComponentView = registerView(SelectComponentView.id,new SelectComponentView()) as SelectComponentView;
   }
 

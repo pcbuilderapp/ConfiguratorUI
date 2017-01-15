@@ -9,6 +9,7 @@ import 'package:pcbuilder.api/transport/configuration.dart';
 import 'package:pcbuilder.api/backend.dart';
 import 'pcbuilder.dart';
 import 'package:uilib/util.dart';
+import 'mainview.dart';
 
 class SelectComponentView extends View {
   static String get id => "selectcomponent";
@@ -28,7 +29,7 @@ class SelectComponentView extends View {
       e.preventDefault();
     });
     _viewElement.querySelector(".back-btn").onClick.listen((MouseEvent e){
-      pcbuilder.setView(SelectComponentView.id);
+      pcbuilder.setView(MainView.id);
     });
     _pager = querySelector("#pager");
     _pager.querySelector(".previous").onClick.listen((_){
@@ -151,6 +152,14 @@ class SelectComponentView extends View {
     if (filter == _currentFilter) return;
     _currentFilter = filter;
     loadComponents(0);
+  }
+
+  void onShow() {
+
+  }
+
+  void onHide() {
+
   }
 
   Element get element => _viewElement;
