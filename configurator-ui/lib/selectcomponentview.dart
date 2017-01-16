@@ -67,7 +67,7 @@ class SelectComponentView extends View {
     componentSearchRequest.type = _currentType;
     componentSearchRequest.filter = _currentFilter;
     componentSearchRequest.configuration = _currentConfiguration;
-    componentSearchRequest.maxItems = config.value("max-items",30);
+    componentSearchRequest.maxItems = config["max-items"] ?? 30;
     componentSearchRequest.page = page;
 
     GetMatchingComponentsResponse componentSearchResponse = await backend.getMatchingComponents(componentSearchRequest);

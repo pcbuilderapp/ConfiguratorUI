@@ -23,7 +23,7 @@ class Backend {
 
     try {
       request = await HttpRequest.request(
-          config.value("backend-server","/backend/") + "componentitem/getmatchingcomponents",
+          (config["backend-server"] ?? "/backend/") + "componentitem/getmatchingcomponents",
           method: "POST",
           sendData: data,
           requestHeaders: {

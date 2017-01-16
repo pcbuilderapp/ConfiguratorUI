@@ -8,9 +8,6 @@ class Config {
   void init(String cfgSource) {
     _yaml = loadYaml(cfgSource);
   }
-
-  dynamic value(String key, dynamic defaultValue) {
-    if (!_yaml.containsKey(key)) return defaultValue;
-    return _yaml[key];
-  }
+  bool contains(String key) => _yaml.containsKey(key);
+  dynamic operator[](String key) => _yaml != null ? _yaml[key] : null;
 }
