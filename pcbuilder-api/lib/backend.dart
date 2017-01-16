@@ -4,7 +4,7 @@ import 'transport/componentitem.dart';
 import 'transport/componentmatchingsearch.dart';
 import 'transport/alternativeshopitem.dart';
 import 'dart:convert';
-import '_config.dart';
+import 'config.dart';
 
 class GetMatchingComponentsResponse {
   List<ComponentItem> components = [];
@@ -23,7 +23,7 @@ class Backend {
 
     try {
       request = await HttpRequest.request(
-          BACKEND_SERVER + "componentitem/getmatchingcomponents",
+          config.value("backend-server","/backend/") + "componentitem/getmatchingcomponents",
           method: "POST",
           sendData: data,
           requestHeaders: {

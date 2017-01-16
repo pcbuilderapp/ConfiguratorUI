@@ -1,11 +1,20 @@
 import 'mainview.dart';
 import 'selectcomponentview.dart';
 import 'package:uilib/viewcontroller.dart';
+import 'package:pcbuilder.api/config.dart';
+import 'dart:html';
+import 'dart:async';
 
 PCBuilder pcbuilder = new PCBuilder();
 
 class PCBuilder extends ViewController {
-  void init() {
+  Future init() async {
+    try {
+      String yamlSrc = await HttpRequest.getString("config.yaml");
+      config.init(yamlSrc);
+    } catch (e) {
+      print(e);
+    }
     _mainView = registerView(MainView.id,new MainView(),isDefaultView: true) as MainView;
     _selectComponentView = registerView(SelectComponentView.id,new SelectComponentView()) as SelectComponentView;
   }

@@ -7,5 +7,5 @@ description: PCBuilder API
 environment:
   sdk: '>=1.0.0 <2.0.0'
 
-#dependencies:
-#  my_dependency: any
+dependencies:
+  yaml: any

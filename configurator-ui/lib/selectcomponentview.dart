@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:uilib/view.dart';
 import 'dart:html';
-import 'config.dart';
+import 'package:pcbuilder.api/config.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
 import 'package:pcbuilder.api/transport/componentmatchingsearch.dart';
 import 'dart:convert';
@@ -67,7 +67,7 @@ class SelectComponentView extends View {
     componentSearchRequest.type = _currentType;
     componentSearchRequest.filter = _currentFilter;
     componentSearchRequest.configuration = _currentConfiguration;
-    componentSearchRequest.maxItems = MAX_ITEMS;
+    componentSearchRequest.maxItems = config.value("max-items",30);
     componentSearchRequest.page = page;
 
     GetMatchingComponentsResponse componentSearchResponse = await backend.getMatchingComponents(componentSearchRequest);

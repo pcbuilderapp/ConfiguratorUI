@@ -1,4 +1,3 @@
-library PCBuilder.ComponentItem.AlternativeShopItem;
 
 class AlternativeShopItem {
   String shop;
