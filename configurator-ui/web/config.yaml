@@ -1,0 +1,3 @@
+backend-server: http://localhost:8090/
+max-items: 30
+page-width: 5

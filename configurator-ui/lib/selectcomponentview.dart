@@ -86,19 +86,27 @@ class SelectComponentView extends View {
     Element pages = _pager.querySelector(".pages");
     pages.innerHtml = "";
 
-    // TODO: max nr of page buttons?
+    bool lastAddedPoints = false;
     for (int i=0;i<componentSearchResponse.pages;i++) {
-      Element pagebtn = new Element.div();
-      pagebtn.text = "${i+1}";
-      pagebtn.classes.add("pagebtn");
-      if (i == componentSearchResponse.currentPage) {
-        pagebtn.classes.add("current");
+      if (showpage(i, componentSearchResponse.currentPage, pageWidth, componentSearchResponse.pages -1)) {
+        Element pagebtn = new Element.div();
+        pagebtn.text = "${i + 1}";
+        pagebtn.classes.add("pagebtn");
+        if (i == componentSearchResponse.currentPage) {
+          pagebtn.classes.add("current");
+        } else {
+          pagebtn.onClick.listen((_) {
+            loadComponents(i);
+          });
+        }
+        pages.append(pagebtn);
+        lastAddedPoints = false;
       } else {
-        pagebtn.onClick.listen((_) {
-          loadComponents(i);
-        });
+        if (!lastAddedPoints) {
+          pages.append(points());
+          lastAddedPoints = true;
+        }
       }
-      pages.append(pagebtn);
     }
 
     // hide load indicator
@@ -175,4 +183,5 @@ class SelectComponentView extends View {
   Configuration _currentConfiguration;
   int _currentPage;
   int _pageCount;
+  int pageWidth = config["page-width"] ?? 5;
 }
