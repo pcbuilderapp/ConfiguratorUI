@@ -78,6 +78,5 @@ class MainView extends View {
 
   Element _view;
   Element _componentItem;
-  Map<String, Element> _components;
   Configuration _configuration = new Configuration();
 }

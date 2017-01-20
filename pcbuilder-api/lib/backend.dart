@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 import 'transport/componentitem.dart';
+import 'transport/connector.dart';
 import 'transport/componentmatchingsearch.dart';
 import 'transport/alternativeshopitem.dart';
 import 'dart:convert';
@@ -58,6 +59,13 @@ class Backend {
         shopItem.url = alternativeShop["url"];
         shopItem.price = alternativeShop["price"];
         component.alternativeShops.add(shopItem);
+      }
+
+      for (Map connectorMap in componentData["connectors"]) {
+        Connector connector = new Connector();
+        connector.name = connectorMap["name"];
+        connector.type = connectorMap["type"];
+        component.connectors.add(connector);
       }
 
       responds.components.add(component);

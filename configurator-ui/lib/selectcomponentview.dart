@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:uilib/view.dart';
 import 'dart:html';
 import 'package:pcbuilder.api/config.dart';
+import 'package:pcbuilder.api/transport/connector.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
 import 'package:pcbuilder.api/transport/componentmatchingsearch.dart';
 import 'package:pcbuilder.api/transport/configuration.dart';
@@ -161,6 +162,22 @@ class SelectComponentView extends View {
       for (AlternativeShopItem alternativeItem in item.alternativeShops) {
         shopsElement.append(makeUrl(alternativeItem.shop,alternativeItem.url));
       }
+    }
+
+    if (item.connectors.length != 0)  {
+
+      Element connectorsElement = e.querySelector(".connectors");
+      Element connectorTemplate = connectorsElement.querySelector(".connector");
+      Element connector;
+
+      for (Connector c in item.connectors) {
+
+        connector = connectorTemplate.clone(true);
+        connector.text = c.name + "(" + c.type + ")";
+        connectorsElement.append(connector);
+      }
+
+      connectorTemplate.remove();
     }
 
     // actions

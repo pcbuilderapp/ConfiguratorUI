@@ -3,7 +3,7 @@
 nav {
   position: relative;
   height: 48px;
-  background-color: $fgColor1;
+  background-color: $blue-dark;
   ol {
     display: flex;
     flex-direction: row;
@@ -11,17 +11,17 @@ nav {
     max-width: $maxWidth;
     margin: 0 auto;
     box-sizing: border-box;
-    border-right: 1px solid darken($fgColor1, $shadefactor);
-    border-left: 1px solid darken($fgColor1, $shadefactor);
+    border-right: 1px solid darken($blue-dark, $shadefactor);
+    border-left: 1px solid darken($blue-dark, $shadefactor);
     li {
       display: block;
       height:48px;
-      border-left: 1px solid darken($fgColor1, $shadefactor);
+      border-left: 1px solid darken($blue-dark, $shadefactor);
       padding: 0 30px;
       cursor: pointer;
 
       &:hover {
-        background-color: darken($fgColor1,5%);
+        background-color: darken($blue-dark,5%);
       }
 
       a {

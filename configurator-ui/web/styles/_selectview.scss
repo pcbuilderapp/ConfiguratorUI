@@ -5,7 +5,7 @@
 
   .header h2 {
     .back-btn {
-      color: $fgColor3;
+      color: $blue-light;
       cursor: pointer;
       &:hover {
         text-decoration: underline;
@@ -26,7 +26,7 @@
       background-repeat: no-repeat;
       height: 32px;
       width: 32px;
-      background-color: $fgColor3;
+      background-color: $blue-light;
     }
 
     form {
@@ -39,7 +39,7 @@
         width: 100%;
         padding: 0 1em;
         border: none;
-        background-color: $fgColor4;
+        background-color: $blue-lighest;
         outline: none;
       }
     }
@@ -54,17 +54,17 @@
   }
 
   p.shop-header, p.price-header, p.brand-header, p.name-header {
-    border-left: 1px solid darken($fgColor2, $shadefactor);
-    border-bottom: 1px solid darken($fgColor2, $shadefactor);
-    border-right: 1px solid lighten($fgColor2, $shadefactor);
-    border-top: 1px solid lighten($fgColor2, $shadefactor);
+    border-left: 1px solid darken($blue, $shadefactor);
+    border-bottom: 1px solid darken($blue, $shadefactor);
+    border-right: 1px solid lighten($blue, $shadefactor);
+    border-top: 1px solid lighten($blue, $shadefactor);
   }
 
   p.shop, p.price, p.brand, p.name {
-    border-left: 1px solid darken($fgColor4, $shadefactor);
-    border-bottom: 1px solid darken($fgColor4, $shadefactor);
-    border-right: 1px solid lighten($fgColor4, $shadefactor);
-    border-top: 1px solid lighten($fgColor4, $shadefactor);
+    border-left: 1px solid darken($blue-lighest, $shadefactor);
+    border-bottom: 1px solid darken($blue-lighest, $shadefactor);
+    border-right: 1px solid lighten($blue-lighest, $shadefactor);
+    border-top: 1px solid lighten($blue-lighest, $shadefactor);
   }
 
   p.shop, p.shop-header{
@@ -88,14 +88,14 @@
     flex-direction: row;
     height: 32px;
     font-size: 0.8em;
-    background-color: $fgColor2;
+    background-color: $blue;
     margin: 1px 0;
     p {
       padding: 0 1em;
       margin: 0;
       line-height: 32px;
       vertical-align: middle;
-      color: #fff;
+      color: $white;
     }
   }
 
@@ -113,9 +113,9 @@
       flex-direction: row;
       height: 32px;
       font-size: 0.8em;
-      background-color: $fgColor4;
+      background-color: $blue-lighest;
       &:hover {
-        background-color: $fgColor3;
+        background-color: $blue-light;
       }
       cursor: pointer;
       p {
@@ -131,9 +131,9 @@
 
     .details {
       position: relative;
-      background-color: $fgColor3;
-      border-left: 1px solid darken($fgColor3, $shadefactor);
-      border-right: 1px solid lighten($fgColor3, $shadefactor);
+      background-color: $blue-light;
+      border-left: 1px solid darken($blue-light, $shadefactor);
+      border-right: 1px solid lighten($blue-light, $shadefactor);
       overflow: hidden;
       height: 0;
       transition: height 0.4s;
@@ -156,41 +156,65 @@
         flex-direction: row;
         margin: 1em;
 
+        .connectors {
+          margin-top:10px;
+
+          .image {
+            box-sizing: border-box;
+            height: 32px;
+            width: 32px;
+            background-image: url(../images/connector.svg);
+            background-size: contain;
+            border: 0;
+          }
+          .connector {
+            display: inline-block;
+            margin-top: 3px;
+            margin-left: 10px;
+          }
+        }
+
         .image {
           box-sizing: border-box;
           height: 128px;
           width: 128px;
           background-image: url(../images/no-product-image.png);
           background-size: contain;
-          border: 1px solid #cccccc;
+          border: 1px solid $blue;
         }
 
         .info {
           position: relative;
           flex-grow: 1;
           margin-left: 10px;
+          margin-right: 100px;
           font-size: 0.8em;
+          .detail-text .alternativeShops {
+            margin-top:3px;
+          }
+          .alternativeShops {
+            margin-top:5px;
+          }
+        }
+        .actions {
+          position: absolute;
+          bottom:10px;
+          right:10px;
+          left:0;
+          text-align: right;
 
-          .actions {
-            position: absolute;
-            bottom: 0;
-            right:0;
-            left:0;
-            text-align: right;
-
-            input {
-              background-color: transparent;
-              border: 1px solid $fgColor1;
-              color: $fgColor1;
-              padding: 6px 20px;
-              border-radius: 4px;
-              &:hover {
-                background-color: $fgColor1;
-                color: #fff;
-              }
-              cursor: pointer;
-              transition: all 0.2s;
+          input {
+            background-color: transparent;
+            border: 1px solid $blue-dark;
+            color: $blue-dark;
+            padding: 6px 20px;
+            border-radius: 4px;
+            &:hover {
+              background-color: $blue-dark;
+              color: $white;
             }
+            cursor: pointer;
+            transition: all 0.2s;
           }
         }
       }
@@ -212,12 +236,12 @@
     }
     .previous, .next {
       @include pagebtn();
-      background-color: $fgColor1;
-      border: 1px solid $fgColor1;
-      color: #fff;
+      background-color: $blue-dark;
+      border: 1px solid $blue-dark;
+      color: $white;
       &:hover {
-        background-color: #fff;
-        color: $fgColor1;
+        background-color: $white;
+        color: $blue-dark;
       }
     }
     .pages {
@@ -225,14 +249,14 @@
       flex-direction: row;
       .pagebtn {
         @include pagebtn();
-        border: 1px solid #fff;
-        color: $fgColor1;
+        border: 1px solid $white;
+        color: $blue-dark;
         &:hover {
-          border: 1px solid $fgColor1;
+          border: 1px solid $blue-dark;
         }
       }
       .current {
-        border: 1px solid $fgColor1;
+        border: 1px solid $blue-dark;
       }
     }
 

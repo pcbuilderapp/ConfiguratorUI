@@ -7,7 +7,7 @@ section {
   padding-bottom: 32px;
 
   .header {
-    background-color: $fgColor1;
+    background-color: $blue-dark;
     height: 96px;
     h2 {
       max-width: $maxWidth;
@@ -16,8 +16,8 @@ section {
       box-sizing: border-box;
       line-height: 96px;
       vertical-align: middle;
-      border-right: 1px solid darken($fgColor1, $shadefactor);
-      border-left: 1px solid darken($fgColor1, $shadefactor);
+      border-right: 1px solid darken($blue-dark, $shadefactor);
+      border-left: 1px solid darken($blue-dark, $shadefactor);
       color: #fff;
     }
   }

@@ -6,7 +6,7 @@ nav {
   width: 200px;
 
   .header {
-    background-color: $fgColor1;
+    background-color: $blue-dark;
     .logo {
       height: 64px;
       width: 64px;
@@ -44,12 +44,12 @@ nav {
       &:hover {
         background-color: #303030;
         a {
-          color: $fgColor1;
+          color: $blue-dark;
         }
       }
 
       &.active {
-        background-color: $fgColor1;
+        background-color: $blue-dark;
         color:#fff;
       }
 

@@ -16,7 +16,7 @@
       background-repeat: no-repeat;
       height: 32px;
       width: 32px;
-      background-color: $fgColor3;
+      background-color: $blue-light;
     }
 
     form {
@@ -29,7 +29,7 @@
         width: 100%;
         padding: 0 1em;
         border: none;
-        background-color: $fgColor4;
+        background-color: $blue-lighest;
         outline: none;
       }
     }
@@ -44,7 +44,7 @@
   }
 
   p.shop, p.price {
-    border-left: 1px solid darken($fgColor2, $shadefactor);
+    border-left: 1px solid darken($blue, $shadefactor);
     text-align: center;
   }
 
@@ -63,7 +63,7 @@
     flex-direction: row;
     height: 32px;
     font-size: 0.8em;
-    background-color: $fgColor2;
+    background-color: $blue;
     margin: 1px 0;
     p {
       padding: 0 1em;
@@ -88,7 +88,7 @@
       flex-direction: row;
       height: 32px;
       font-size: 0.8em;
-      background-color: $fgColor4;
+      background-color: $blue-lighest;
       p {
         padding: 0 1em;
         margin: 0;
@@ -102,7 +102,7 @@
 
     .details {
       position: relative;
-      background-color: $fgColor3;
+      background-color: $blue-light;
       overflow: hidden;
       height: 0;
       transition: height 0.4s;
@@ -149,12 +149,12 @@
 
             input {
               background-color: transparent;
-              border: 1px solid $fgColor1;
-              color: $fgColor1;
+              border: 1px solid $blue-dark;
+              color: $blue-dark;
               padding: 6px 20px;
               border-radius: 4px;
               &:hover {
-                background-color: $fgColor1;
+                background-color: $blue-dark;
                 color: #fff;
               }
               cursor: pointer;
@@ -181,12 +181,12 @@
     }
     .previous, .next {
       @include pagebtn();
-      background-color: $fgColor1;
-      border: 1px solid $fgColor1;
+      background-color: $blue-dark;
+      border: 1px solid $blue-dark;
       color: #fff;
       &:hover {
         background-color: #fff;
-        color: $fgColor1;
+        color: $blue-dark;
       }
     }
     .pages {
@@ -195,13 +195,13 @@
       .pagebtn {
         @include pagebtn();
         border: 1px solid #fff;
-        color: $fgColor1;
+        color: $blue-dark;
         &:hover {
-          border: 1px solid $fgColor1;
+          border: 1px solid $blue-dark;
         }
       }
       .active {
-        border: 1px solid $fgColor1;
+        border: 1px solid $blue-dark;
       }
     }
 
