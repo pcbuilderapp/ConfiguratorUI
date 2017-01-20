@@ -1,9 +1,11 @@
 library PCBuilder.ComponentItem;
 
+import 'connector.dart';
 import 'alternativeshopitem.dart';
 export 'alternativeshopitem.dart';
 
 class ComponentItem {
+
   int id;
   String name;
   String brand;
@@ -16,6 +18,7 @@ class ComponentItem {
   String url;
   String image;
 
+  List<Connector> connectors = [];
   List<AlternativeShopItem> alternativeShops = [];
 
   Map toJson() => {

@@ -11,9 +11,11 @@ import 'package:uilib/util.dart';
 import 'mainview.dart';
 
 class SelectComponentView extends View {
+
   static String get id => "selectcomponent";
 
   SelectComponentView() {
+
     _viewElement = querySelector("#selectview");
     Element template = _viewElement.querySelector(".productItem");
     _productItem = template.clone(true);
@@ -22,19 +24,23 @@ class SelectComponentView extends View {
     _filterField.onSearch.listen((_){
       filter(_filterField.value);
     });
+
     _productList = _viewElement.querySelector("#productList");
     (querySelector("#searchbar form") as FormElement).onSubmit.listen((Event e){
       filter(_filterField.value);
       e.preventDefault();
     });
+
     _viewElement.querySelector(".back-btn").onClick.listen((MouseEvent e){
       pcbuilder.setView(MainView.id);
     });
+
     _pager = querySelector("#pager");
     _pager.querySelector(".previous").onClick.listen((_){
       if (_currentPage <= 1) return;
       loadComponents(_currentPage-1);
     });
+
     _pager.querySelector(".next").onClick.listen((_){
       if (_currentPage >= _pageCount) return;
       loadComponents(_currentPage+1);
@@ -42,6 +48,7 @@ class SelectComponentView extends View {
   }
 
   Future<ComponentItem> selectComponent(String componentType, Configuration configuration) async {
+
     _selectComponentCompleter = new Completer();
     _viewElement.querySelector("h2 .component-type").text = componentType;
     componentType = componentType.toUpperCase();
@@ -58,6 +65,7 @@ class SelectComponentView extends View {
   }
 
   Future loadComponents(int page) async {
+
     // show load indicator
     _viewElement.querySelector(".content").style.display = "none";
     _viewElement.querySelector(".loading").style.display = "block";
@@ -73,34 +81,40 @@ class SelectComponentView extends View {
     _productList.innerHtml = "";
 
     // generate product list
-
     for (ComponentItem c in componentSearchResponse.components) {
       _productList.append(createComponentElement(c));
     }
 
     // set paging
-
     _currentPage = componentSearchResponse.currentPage;
     _pageCount = componentSearchResponse.pages;
     Element pages = _pager.querySelector(".pages");
     pages.innerHtml = "";
 
     bool lastAddedPoints = false;
+
     for (int i=0;i<componentSearchResponse.pages;i++) {
+
       if (showpage(i, componentSearchResponse.currentPage, pageWidth, componentSearchResponse.pages -1)) {
+
         Element pagebtn = new Element.div();
         pagebtn.text = "${i + 1}";
         pagebtn.classes.add("pagebtn");
+
         if (i == componentSearchResponse.currentPage) {
           pagebtn.classes.add("current");
+
         } else {
           pagebtn.onClick.listen((_) {
             loadComponents(i);
           });
         }
+
         pages.append(pagebtn);
         lastAddedPoints = false;
+
       } else {
+
         if (!lastAddedPoints) {
           pages.append(points());
           lastAddedPoints = true;
@@ -114,13 +128,14 @@ class SelectComponentView extends View {
   }
 
   Element createComponentElement(ComponentItem item) {
+
     Element e = _productItem.clone(true);
 
     // product row
     e.querySelector(".fields .name").text = item.name;
     e.querySelector(".fields .brand").text = item.brand;
     e.querySelector(".fields .shop").text = item.shop;
-    e.querySelector(".fields .price").text = "€ ${item.price}";
+    e.querySelector(".fields .price").text = formatCurrency(item.price);
 
     // show detail view for row
     e.querySelector(".fields").onClick.listen((_){
@@ -149,7 +164,6 @@ class SelectComponentView extends View {
     }
 
     // actions
-
     e.querySelector(".selectAction").onClick.listen((_){
       _selectComponentCompleter.complete(item);
     });

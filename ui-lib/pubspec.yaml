@@ -9,4 +9,5 @@ environment:
 
 dependencies:
   route_hierarchical: any
+  intl: any
 

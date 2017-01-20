@@ -1,12 +1,19 @@
 library PCBuilder.Util;
 
 import 'dart:html';
+import "package:intl/intl.dart";
+
+var eurosFormatter = new NumberFormat.currency(locale: "nl_NL", symbol: "€");
 
 Element makeUrl(String name, String url) {
   Element e = new Element.a();
   e.attributes["href"] = url;
   e.text = name;
   return e;
+}
+
+String formatCurrency(double currency) {
+  return eurosFormatter.format(currency);
 }
 
 int maxPage(int currentPage, int pageWidth, int totalPages) {
