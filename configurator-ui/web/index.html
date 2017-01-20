@@ -1,57 +1,73 @@
 <!DOCTYPE html>
 
-<!--
-  Copyright (c) 2016, <your name>. All rights reserved. Use of this source code
-  is governed by a BSD-style license that can be found in the LICENSE file.
--->
-
 <html>
+
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>ConfiguratorUI</title>
     <link rel="stylesheet" href="styles/styles.css">
+
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
+
 </head>
 
 <body>
+
     <nav>
         <ol>
             <li><a href="#">Help</a></li>
         </ol>
     </nav>
+
     <header>
         <div>
             <div class="logo"></div>
             <h1>PCBuilder</h1>
         </div>
     </header>
+
     <main>
+
         <section id="mainview">
+
             <div class="header">
                 <h2>Create a PC configuration</h2>
             </div>
+
             <div class="content">
+
                 <div id="pcconfiglist">
+
                     <div class="componentItem">
+
                         <div class="image"></div>
+
                         <div class="details">
                             <p class="type">Motherboard</p>
                             <p class="name">None selected.</p>
                         </div>
+
                         <div class="price"><p>-</p></div>
                         <div class="indicator"></div>
+
                         <div class="hover">
                             <p>Select component.</p>
                         </div>
+
                         <div class="children">
                             <div class="parentmarker"></div>
                             <div class="list"></div>
                         </div>
+
                     </div>
+
                 </div>
+
                 <div class="pricetotalbar">
                     <div class="actions">
                         <input class="buyAction" type="button" value="Buy this configuration">
@@ -60,26 +76,34 @@
                     <p>Price total:</p>
                     <p id="pricetotal">&euro; <span>0,-</span></p>
                 </div>
+
             </div>
+
         </section>
 
         <section id="selectview">
+
             <div class="header">
                 <h2><span class="back-btn">Create a PC configuration</span> &gt; <span>Select a <span class="component-type">CPU</span></span></h2>
             </div>
+
             <div class="loading"></div>
+
             <div class="content">
+
                 <div id="searchbar">
                     <div class="icon"></div>
                     <form>
                         <input type="search" placeholder="search...">
                     </form>
                 </div>
+
                 <div class="productListHeader">
                     <p class="name">Product</p>
                     <p class="shop">Shop</p>
                     <p class="price">Price</p>
                 </div>
+
                 <div id="productList">
                     <div class="productItem">
                         <div class="fields">
@@ -87,12 +111,14 @@
                             <p class="shop">Informatique</p>
                             <p class="price">€ 217,-</p>
                         </div>
+
                         <div class="details">
                             <div class="shader"></div>
                             <div class="productInfo">
                                 <div class="image"></div>
                                 <div class="info">
                                     <p>EAN: <span class="ean-nr"></span></p>
+                                    <p>MPN: <span class="mpn-nr"></span></p>
                                     <p class="alternativeShops">Also sold by: <a href="#">Alternate</a>, <a href="#">CoolBlue</a></p>
                                     <div class="actions">
                                         <input class="selectAction" type="button" value="Select">
@@ -116,6 +142,9 @@
         </section>
 
     </main>
+
     <footer>Copyright (c) 2016 - PCBuilder</footer>
+
 </body>
+
 </html>

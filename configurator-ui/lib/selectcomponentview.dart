@@ -4,7 +4,6 @@ import 'dart:html';
 import 'package:pcbuilder.api/config.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
 import 'package:pcbuilder.api/transport/componentmatchingsearch.dart';
-import 'dart:convert';
 import 'package:pcbuilder.api/transport/configuration.dart';
 import 'package:pcbuilder.api/backend.dart';
 import 'pcbuilder.dart';
@@ -135,6 +134,7 @@ class SelectComponentView extends View {
 
     // product detail view
     e.querySelector(".details .productInfo .info .ean-nr").text = item.europeanArticleNumber;
+    e.querySelector(".details .productInfo .info .mpn-nr").text = item.manufacturerPartNumber;
     e.querySelector(".details .productInfo .image").style.backgroundImage = "url(${item.image})";
 
     if (item.alternativeShops.length == 0) {
