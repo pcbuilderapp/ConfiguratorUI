@@ -11,8 +11,9 @@
     background-color: $blue-light;
 
     .image {
-      height: 64px;
-      width: 64px;
+      height: 60px;
+      width: 60px;
+      margin-left: 2px;
       margin-left: 16px;
       background-image: url(../images/no-product-image.png);
       background-size: contain;
@@ -62,7 +63,7 @@
       background-color: fade-out($blue-darkest,0.5);
       cursor: pointer;
       p {
-        color: #fff;
+        color: $white;
         font-size: 0.9em;
         font-weight: bold;
         text-align: center;
@@ -108,12 +109,12 @@
       flex-grow: 1;
       input {
         background-color: transparent;
-        border: 1px solid #fff;
-        color: #fff;
+        border: 1px solid $white;
+        color: $white;
         padding: 6px 20px;
         border-radius: 4px;
         &:hover {
-          background-color: #fff;
+          background-color: $white;
           color: $blue;
           border-color: $blue;
         }

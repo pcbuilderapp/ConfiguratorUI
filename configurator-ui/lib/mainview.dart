@@ -28,6 +28,8 @@ class MainView extends View {
       Element e = _componentItem.clone(true);
 
       e.querySelector(".type").text = component;
+      e.querySelector(".image").style.backgroundImage = "url("+getDefaultImage(component)+")";
+
       e.onClick.listen((_) async {
         ComponentItem c = await pcbuilder.selectComponentView
             .selectComponent(component, _configuration);
@@ -79,4 +81,25 @@ class MainView extends View {
   Element _view;
   Element _componentItem;
   Configuration _configuration = new Configuration();
+
+  String getDefaultImage(component) {
+
+    if (component == "Motherboard") {
+      return "./images/motherboard.png";
+    } else if (component == "CPU") {
+      return "./images/cpu.png";
+    } else if (component == "GPU") {
+      return "./images/gpu.png";
+    } else if (component == "Memory") {
+      return "./images/mem.png";
+    } else if (component == "Storage") {
+      return "./images/storage.png";
+    } else if (component == "PSU") {
+      return "./images/psu.png";
+    } else if (component == "Case") {
+      return "./images/case.png";
+    } else {
+      return "";
+    }
+  }
 }
