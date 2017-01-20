@@ -16,8 +16,8 @@ section {
       box-sizing: border-box;
       line-height: 96px;
       vertical-align: middle;
-      border-right: 1px solid darken($fgColor1,$darken);
-      border-left: 1px solid darken($fgColor1,$darken);
+      border-right: 1px solid darken($fgColor1, $shadefactor);
+      border-left: 1px solid darken($fgColor1, $shadefactor);
       color: #fff;
     }
   }

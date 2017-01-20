@@ -11,12 +11,12 @@ nav {
     max-width: $maxWidth;
     margin: 0 auto;
     box-sizing: border-box;
-    border-right: 1px solid darken($fgColor1,$darken);
-    border-left: 1px solid darken($fgColor1,$darken);
+    border-right: 1px solid darken($fgColor1, $shadefactor);
+    border-left: 1px solid darken($fgColor1, $shadefactor);
     li {
       display: block;
       height:48px;
-      border-left: 1px solid darken($fgColor1,$darken);
+      border-left: 1px solid darken($fgColor1, $shadefactor);
       padding: 0 30px;
       cursor: pointer;
 

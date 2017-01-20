@@ -118,6 +118,7 @@ class SelectComponentView extends View {
 
     // product row
     e.querySelector(".fields .name").text = item.name;
+    e.querySelector(".fields .brand").text = item.brand;
     e.querySelector(".fields .shop").text = item.shop;
     e.querySelector(".fields .price").text = "€ ${item.price}";
 

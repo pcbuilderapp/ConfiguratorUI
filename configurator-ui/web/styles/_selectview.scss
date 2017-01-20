@@ -45,26 +45,41 @@
     }
   }
 
-  p.shop, p.price, p.name {
+  p.shop, p.price, p.name, p.brand, p.shop-header, p.price-header, p.name-header, p.brand-header {
     box-sizing: border-box;
   }
 
-  p.name {
+  p.name, p.name-header {
     flex-grow: 1;
   }
 
-  p.shop, p.price {
-    border-left: 1px solid darken($fgColor2,$darken);
-    text-align: center;
+  p.shop-header, p.price-header, p.brand-header, p.name-header {
+    border-left: 1px solid darken($fgColor2, $shadefactor);
+    border-bottom: 1px solid darken($fgColor2, $shadefactor);
+    border-right: 1px solid lighten($fgColor2, $shadefactor);
+    border-top: 1px solid lighten($fgColor2, $shadefactor);
   }
 
-  p.shop {
-    width: 20%;
+  p.shop, p.price, p.brand, p.name {
+    border-left: 1px solid darken($fgColor4, $shadefactor);
+    border-bottom: 1px solid darken($fgColor4, $shadefactor);
+    border-right: 1px solid lighten($fgColor4, $shadefactor);
+    border-top: 1px solid lighten($fgColor4, $shadefactor);
+  }
+
+  p.shop, p.shop-header{
+    width: 15%;
     min-width: 96px;
   }
 
-  p.price {
-    width: 20%;
+  p.price, p.price-header {
+    width: 10%;
+    min-width: 64px;
+    text-align: right;
+  }
+
+  p.brand, p.brand-header {
+    width: 15%;
     min-width: 96px;
   }
 
@@ -117,6 +132,8 @@
     .details {
       position: relative;
       background-color: $fgColor3;
+      border-left: 1px solid darken($fgColor3, $shadefactor);
+      border-right: 1px solid lighten($fgColor3, $shadefactor);
       overflow: hidden;
       height: 0;
       transition: height 0.4s;

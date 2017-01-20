@@ -44,7 +44,7 @@
   }
 
   p.shop, p.price {
-    border-left: 1px solid darken($fgColor2,$darken);
+    border-left: 1px solid darken($fgColor2, $shadefactor);
     text-align: center;
   }
 
