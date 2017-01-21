@@ -28,10 +28,10 @@ class MainView extends View {
       Element e = _componentItem.clone(true);
 
       e.querySelector(".type").text = component;
-      e.querySelector(".image").style.backgroundImage =
-          "url(" + getDefaultImage(component) + ")";
+      /*e.querySelector(".image").style.backgroundImage =
+          "url(" + getDefaultImage(component) + ")";*/
 
-      e.onClick.listen((_) async {
+      e.querySelector(".selectComponent").onClick.listen((_) async {
         ComponentItem c = await pcbuilder.selectComponentView
             .selectComponent(component, _configuration);
         pcbuilder.setView(MainView.id);
@@ -77,6 +77,9 @@ class MainView extends View {
             } else if (component == "Case") {
               _configuration.casing = null;
             }
+            e.querySelector(".name").text = _componentItem.querySelector(".name").text;
+            e.querySelector(".price p").text = _componentItem.querySelector(".price p").text;
+            e.querySelector(".image").setAttribute("style","");
             rmComponentElement.style.display = "none";
           });
 
