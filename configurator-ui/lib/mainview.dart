@@ -28,7 +28,8 @@ class MainView extends View {
       Element e = _componentItem.clone(true);
 
       e.querySelector(".type").text = component;
-      e.querySelector(".image").style.backgroundImage = "url("+getDefaultImage(component)+")";
+      e.querySelector(".image").style.backgroundImage =
+          "url(" + getDefaultImage(component) + ")";
 
       e.onClick.listen((_) async {
         ComponentItem c = await pcbuilder.selectComponentView
@@ -46,7 +47,7 @@ class MainView extends View {
         } else if (component == "Storage") {
           _configuration.storage = c;
         } else if (component == "PSU") {
-          _configuration.psu= c;
+          _configuration.psu = c;
         } else if (component == "Case") {
           _configuration.casing = c;
         }
@@ -54,6 +55,30 @@ class MainView extends View {
         e.querySelector(".name").text = c.name;
         e.querySelector(".price p").text = "€ ${c.price}";
         e.querySelector(".image").style.backgroundImage = "url(${c.image})";
+
+        // enable remove
+
+        Element rmComponentElement = e.querySelector(".rmComponent");
+        rmComponentElement
+          ..style.display = "block"
+          ..onClick.listen((_) {
+            if (component == "Motherboard") {
+              _configuration.motherboard = null;
+            } else if (component == "CPU") {
+              _configuration.cpu = null;
+            } else if (component == "GPU") {
+              _configuration.gpu = null;
+            } else if (component == "Memory") {
+              _configuration.memory = null;
+            } else if (component == "Storage") {
+              _configuration.storage = null;
+            } else if (component == "PSU") {
+              _configuration.psu = null;
+            } else if (component == "Case") {
+              _configuration.casing = null;
+            }
+            rmComponentElement.style.display = "none";
+          });
 
         // update price
         double price = _configuration.priceTotal();
@@ -68,13 +93,9 @@ class MainView extends View {
     }
   }
 
-  void onShow() {
+  void onShow() {}
 
-  }
-
-  void onHide() {
-
-  }
+  void onHide() {}
 
   Element get element => _view;
 
@@ -83,7 +104,6 @@ class MainView extends View {
   Configuration _configuration = new Configuration();
 
   String getDefaultImage(component) {
-
     if (component == "Motherboard") {
       return "./images/motherboard.png";
     } else if (component == "CPU") {

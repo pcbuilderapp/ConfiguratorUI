@@ -9,9 +9,15 @@ header {
   background-size:cover;
   &>div {
     display: flex;
+    box-sizing: border-box;
     flex-direction: row;
     max-width: $maxWidth;
     padding: 0 40px;
+
+    @media (min-width: $maxWidth) {
+      width: $maxWidth;
+      align-self: center;
+    }
 
     .logo {
       height: 67px;

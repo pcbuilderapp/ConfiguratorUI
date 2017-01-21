@@ -13,7 +13,6 @@
     .image {
       height: 60px;
       width: 60px;
-      margin-left: 2px;
       margin-left: 16px;
       background-image: url(../images/no-product-image.png);
       background-size: contain;
@@ -60,21 +59,41 @@
       bottom:0;
       left:0;
       right:0;
-      background-color: fade-out($blue-darkest,0.5);
-      cursor: pointer;
-      p {
-        color: $white;
-        font-size: 0.9em;
-        font-weight: bold;
-        text-align: center;
-        line-height: 64px;
-        vertical-align: middle;
-        margin: 0;
+
+      .selectComponent {
+        flex-grow: 1;
+        cursor: pointer;
+        background-color: fade-out($blue-darkest,0.5);
+        p {
+          color: $white;
+          font-size: 0.9em;
+          font-weight: bold;
+          text-align: center;
+          line-height: 64px;
+          vertical-align: middle;
+          margin: 0;
+        }
       }
+
+      .rmComponent {
+        display: none;
+        color: $white;
+        font-size: 20px;
+        cursor: pointer;
+        margin-left:1px;
+        background-color: fade-out($red-darkest,0.5);
+        width: 64px;
+        line-height: 64px;
+        text-align: center;
+        &:hover {
+          background-color: $red-dark;
+        }
+      }
+
     }
 
     &:hover .hover {
-      display: block;
+      display: flex;
     }
 
     .children {
