@@ -167,13 +167,20 @@ class SelectComponentView extends View {
     }
 
     if (item.connectors.length != 0) {
+
       Element connectorsElement = e.querySelector(".connectors");
+
       for (Connector c in item.connectors) {
-        if (connectorsElement.text != "") connectorsElement.appendText(", ");
-        Element connectorSpan = new Element.span();
-        connectorSpan.text = "${c.name} ";
-        connectorSpan.append(new Element.span()..classes.add("connector-icon-${c.type.toLowerCase()}"));
-        connectorSpan.classes.add("connector");
+
+        Element connectorSpan = new Element.span()..classes.add("connector");
+
+        Element connectorImg = new Element.span()..classes.add("connector-icon-${c.type.toLowerCase()}");
+
+        Element connectorSpanText = new Element.span()..classes.add("connector-text");
+        connectorSpanText.text = "${c.name} ";
+
+        connectorSpan.append(connectorImg);
+        connectorSpan.append(connectorSpanText);
         connectorsElement.append(connectorSpan);
       }
     }

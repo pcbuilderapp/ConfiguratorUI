@@ -179,16 +179,26 @@
         margin: 1em;
 
         .connectors {
-          margin-top:10px;
+
+          margin-top: 7px;
 
           .connector {
+
             white-space: nowrap;
 
             span {
+              margin-left: 10px;
               display: inline-block;
-              height: 1em;
-              width: 1em;
+              height: 25px;
+              width: 25px;
               background-size: cover;
+            }
+
+            .connector-text {
+              margin-left: 5px;
+              width: auto;
+              height: 32px;
+              vertical-align: middle;
             }
 
             .connector-icon-cpu {
@@ -233,12 +243,15 @@
           margin-left: 10px;
           margin-right: 100px;
           font-size: 0.8em;
-          .detail-text .alternativeShops {
-            margin-top:3px;
+
+          .detail-text {
+            margin-top: 7px;
           }
+
           .alternativeShops {
-            margin-top:5px;
+            margin-top: 7px;
           }
+
         }
         .actions {
           position: absolute;
@@ -303,6 +316,5 @@
         border: 1px solid $blue-dark;
       }
     }
-
   }
 }
