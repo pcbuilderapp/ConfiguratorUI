@@ -12,44 +12,44 @@ import 'package:uilib/util.dart';
 import 'mainview.dart';
 
 class SelectComponentView extends View {
-
   static String get id => "selectcomponent";
 
   SelectComponentView() {
-
     _viewElement = querySelector("#selectview");
     Element template = _viewElement.querySelector(".productItem");
     _productItem = template.clone(true);
     template.remove();
     _filterField = querySelector("#searchbar input") as InputElement;
-    _filterField.onSearch.listen((_){
+    _filterField.onSearch.listen((_) {
       filter(_filterField.value);
     });
 
     _productList = _viewElement.querySelector("#productList");
-    (querySelector("#searchbar form") as FormElement).onSubmit.listen((Event e){
+    (querySelector("#searchbar form") as FormElement)
+        .onSubmit
+        .listen((Event e) {
       filter(_filterField.value);
       e.preventDefault();
     });
 
-    _viewElement.querySelector(".back-btn").onClick.listen((MouseEvent e){
+    _viewElement.querySelector(".back-btn").onClick.listen((MouseEvent e) {
       pcbuilder.setView(MainView.id);
     });
 
     _pager = querySelector("#pager");
-    _pager.querySelector(".previous").onClick.listen((_){
+    _pager.querySelector(".previous").onClick.listen((_) {
       if (_currentPage <= 1) return;
-      loadComponents(_currentPage-1);
+      loadComponents(_currentPage - 1);
     });
 
-    _pager.querySelector(".next").onClick.listen((_){
+    _pager.querySelector(".next").onClick.listen((_) {
       if (_currentPage >= _pageCount) return;
-      loadComponents(_currentPage+1);
+      loadComponents(_currentPage + 1);
     });
   }
 
-  Future<ComponentItem> selectComponent(String componentType, Configuration configuration) async {
-
+  Future<ComponentItem> selectComponent(
+      String componentType, Configuration configuration) async {
     _selectComponentCompleter = new Completer();
     _viewElement.querySelector("h2 .component-type").text = componentType;
     componentType = componentType.toUpperCase();
@@ -66,19 +66,20 @@ class SelectComponentView extends View {
   }
 
   Future loadComponents(int page) async {
-
     // show load indicator
     _viewElement.querySelector(".content").style.display = "none";
     _viewElement.querySelector(".loading").style.display = "block";
 
-    ComponentMatchingSearch componentSearchRequest =  new ComponentMatchingSearch();
+    ComponentMatchingSearch componentSearchRequest =
+        new ComponentMatchingSearch();
     componentSearchRequest.type = _currentType;
     componentSearchRequest.filter = _currentFilter;
     componentSearchRequest.configuration = _currentConfiguration;
     componentSearchRequest.maxItems = config["max-items"] ?? 30;
     componentSearchRequest.page = page;
 
-    GetMatchingComponentsResponse componentSearchResponse = await backend.getMatchingComponents(componentSearchRequest);
+    GetMatchingComponentsResponse componentSearchResponse =
+        await backend.getMatchingComponents(componentSearchRequest);
     _productList.innerHtml = "";
 
     // generate product list
@@ -94,17 +95,15 @@ class SelectComponentView extends View {
 
     bool lastAddedPoints = false;
 
-    for (int i=0;i<componentSearchResponse.pages;i++) {
-
-      if (showpage(i, componentSearchResponse.currentPage, pageWidth, componentSearchResponse.pages -1)) {
-
+    for (int i = 0; i < componentSearchResponse.pages; i++) {
+      if (showpage(i, componentSearchResponse.currentPage, pageWidth,
+          componentSearchResponse.pages - 1)) {
         Element pagebtn = new Element.div();
         pagebtn.text = "${i + 1}";
         pagebtn.classes.add("pagebtn");
 
         if (i == componentSearchResponse.currentPage) {
           pagebtn.classes.add("current");
-
         } else {
           pagebtn.onClick.listen((_) {
             loadComponents(i);
@@ -113,9 +112,7 @@ class SelectComponentView extends View {
 
         pages.append(pagebtn);
         lastAddedPoints = false;
-
       } else {
-
         if (!lastAddedPoints) {
           pages.append(points());
           lastAddedPoints = true;
@@ -129,7 +126,6 @@ class SelectComponentView extends View {
   }
 
   Element createComponentElement(ComponentItem item) {
-
     Element e = _productItem.clone(true);
 
     // product row
@@ -139,20 +135,26 @@ class SelectComponentView extends View {
     e.querySelector(".fields .price").text = formatCurrency(item.price);
 
     // show detail view for row
-    e.querySelector(".fields").onClick.listen((_){
+    e.querySelector(".fields").onClick.listen((_) {
       bool bIsActive = e.querySelector(".details").classes.contains("active");
       if (bIsActive) {
         e.querySelector(".details").classes.remove("active");
       } else {
-        _productList.querySelector(".details.active")?.classes?.remove("active");
+        _productList
+            .querySelector(".details.active")
+            ?.classes
+            ?.remove("active");
         e.querySelector(".details").classes.add("active");
       }
     });
 
     // product detail view
-    e.querySelector(".details .productInfo .info .ean-nr").text = item.europeanArticleNumber;
-    e.querySelector(".details .productInfo .info .mpn-nr").text = item.manufacturerPartNumber;
-    e.querySelector(".details .productInfo .image").style.backgroundImage = "url(${item.image})";
+    e.querySelector(".details .productInfo .info .ean-nr").text =
+        item.europeanArticleNumber;
+    e.querySelector(".details .productInfo .info .mpn-nr").text =
+        item.manufacturerPartNumber;
+    e.querySelector(".details .productInfo .image").style.backgroundImage =
+        "url(${item.image})";
 
     if (item.alternativeShops.length == 0) {
       e.querySelector(".alternativeShops").text = "No alternative shops found.";
@@ -160,28 +162,24 @@ class SelectComponentView extends View {
       Element shopsElement = e.querySelector(".alternativeShops");
       shopsElement.text = "Also sold by: ";
       for (AlternativeShopItem alternativeItem in item.alternativeShops) {
-        shopsElement.append(makeUrl(alternativeItem.shop,alternativeItem.url));
+        shopsElement.append(makeUrl(alternativeItem.shop, alternativeItem.url));
       }
     }
 
-    if (item.connectors.length != 0)  {
-
+    if (item.connectors.length != 0) {
       Element connectorsElement = e.querySelector(".connectors");
-      Element connectorTemplate = connectorsElement.querySelector(".connector");
-      Element connector;
-
       for (Connector c in item.connectors) {
-
-        connector = connectorTemplate.clone(true);
-        connector.text = c.name + "(" + c.type + ")";
-        connectorsElement.append(connector);
+        if (connectorsElement.text != "") connectorsElement.appendText(", ");
+        Element connectorSpan = new Element.span();
+        connectorSpan.text = "${c.name} ";
+        connectorSpan.append(new Element.span()..classes.add("connector-icon-${c.type.toLowerCase()}"));
+        connectorSpan.classes.add("connector");
+        connectorsElement.append(connectorSpan);
       }
-
-      connectorTemplate.remove();
     }
 
     // actions
-    e.querySelector(".selectAction").onClick.listen((_){
+    e.querySelector(".selectAction").onClick.listen((_) {
       _selectComponentCompleter.complete(item);
     });
 
@@ -194,13 +192,9 @@ class SelectComponentView extends View {
     loadComponents(0);
   }
 
-  void onShow() {
+  void onShow() {}
 
-  }
-
-  void onHide() {
-
-  }
+  void onHide() {}
 
   Element get element => _viewElement;
 

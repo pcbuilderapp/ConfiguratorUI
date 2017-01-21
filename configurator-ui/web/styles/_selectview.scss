@@ -53,6 +53,14 @@
     flex-grow: 1;
   }
 
+  p.shop-header, p.price-header, p.brand-header, p.shop, p.price, p.brand {
+    border-left: 1px solid darken($blue,$shadefactor);
+  }
+
+  p.shop-header, p.price-header, p.brand-header, p.shop, p.brand {
+  text-align: center;
+  }
+/*
   p.shop-header, p.price-header, p.brand-header, p.name-header {
     border-left: 1px solid darken($blue, $shadefactor);
     border-bottom: 1px solid darken($blue, $shadefactor);
@@ -66,7 +74,7 @@
     border-right: 1px solid lighten($blue-lighest, $shadefactor);
     border-top: 1px solid lighten($blue-lighest, $shadefactor);
   }
-
+*/
   p.shop, p.shop-header{
     width: 15%;
     min-width: 96px;
@@ -75,6 +83,9 @@
   p.price, p.price-header {
     width: 10%;
     min-width: 64px;
+  }
+
+  p.price {
     text-align: right;
   }
 
@@ -159,18 +170,39 @@
         .connectors {
           margin-top:10px;
 
-          .image {
-            box-sizing: border-box;
-            height: 32px;
-            width: 32px;
-            background-image: url(../images/connector.svg);
-            background-size: contain;
-            border: 0;
-          }
           .connector {
-            display: inline-block;
-            margin-top: 3px;
-            margin-left: 10px;
+            white-space: nowrap;
+
+            span {
+              display: inline-block;
+              height: 1em;
+              width: 1em;
+              background-size: cover;
+            }
+
+            .connector-icon-cpu {
+              background-image: url(../images/cpu.png);
+            }
+
+            .connector-icon-gpu {
+              background-image: url(../images/gpu.png);
+            }
+
+            .connector-icon-memory {
+              background-image: url(../images/mem.png);
+            }
+
+            .connector-icon-storage {
+              background-image: url(../images/storage.png);
+            }
+
+            .connector-icon-psu {
+              background-image: url(../images/psu.png);
+            }
+
+            .connector-icon-case {
+              background-image: url(../images/case.png);
+            }
           }
         }
 
