@@ -4,25 +4,47 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 144px;
+  height: 14.06vw;
   background: url(../images/bg.jpg);
   background-size:cover;
+  @media (min-width: $maxWidth) {
+    height: 144px;
+  }
+  @media (max-width: $medWidth) {
+    height: 84px;
+  }
   &>div {
     display: flex;
     box-sizing: border-box;
     flex-direction: row;
     max-width: $maxWidth;
     padding: 0 40px;
+    font-size: 1.56vw;
 
     @media (min-width: $maxWidth) {
       width: $maxWidth;
       align-self: center;
+      font-size: 16px;
+    }
+
+    @media (max-width: $medWidth) {
+      font-size: 9.36px;
     }
 
     .logo {
-      height: 67px;
-      width: 67px;
-      background: url(../images/logo.png);
+      //height: 6.54vw;
+      width: 6.54vw;
+      @media (min-width: $maxWidth) {
+        //height: 67px;
+        width: 67px;
+      }
+      @media (max-width: $medWidth) {
+        width: 39.23px;
+      }
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url(../images/logo.png);
     }
 
     h1 {

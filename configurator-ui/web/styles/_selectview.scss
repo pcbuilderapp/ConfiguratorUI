@@ -3,6 +3,10 @@
 #selectview {
   display:none;
 
+  .content {
+    font-size: 15px;
+  }
+
   .header h2 {
     .back-btn {
       color: $blue-light;
@@ -58,7 +62,7 @@
   }
 
   p.shop-header, p.price-header, p.brand-header, p.shop, p.brand {
-  text-align: center;
+    text-align: center;
   }
 /*
   p.shop-header, p.price-header, p.brand-header, p.name-header {
@@ -78,11 +82,15 @@
   p.shop, p.shop-header{
     width: 15%;
     min-width: 96px;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 
   p.price, p.price-header {
-    width: 10%;
+    width: 100px;
     min-width: 64px;
+    flex-shrink: 0;
   }
 
   p.price {
@@ -92,6 +100,9 @@
   p.brand, p.brand-header {
     width: 15%;
     min-width: 96px;
+    @media (max-width: 800px) {
+     display: none;
+    }
   }
 
   .productListHeader {
@@ -213,6 +224,7 @@
           background-image: url(../images/no-product-image.png);
           background-size: contain;
           border: 1px solid $blue;
+          background-repeat: no-repeat;
         }
 
         .info {
@@ -230,8 +242,8 @@
         }
         .actions {
           position: absolute;
-          bottom:10px;
-          right:10px;
+          bottom:14px;
+          right:14px;
           left:0;
           text-align: right;
 

@@ -8,17 +8,39 @@ section {
 
   .header {
     background-color: $blue-dark;
-    height: 96px;
+    height: 9.3vw;
+
+    @media (min-width: $maxWidth) {
+      height: 96px;
+    }
+    @media (max-width: $medWidth) {
+      height: 55px;
+    }
+
     h2 {
       max-width: $maxWidth;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 3.91vw;
       box-sizing: border-box;
-      line-height: 96px;
+      line-height: 9.3vw;
       vertical-align: middle;
       border-right: 1px solid darken($blue-dark, $shadefactor);
       border-left: 1px solid darken($blue-dark, $shadefactor);
       color: $white;
+      font-size: 2.34vw;
+      @media (min-width: $maxWidth) {
+        font-size: 24px;
+        line-height: 96px;
+        padding: 0 40px;
+      }
+      @media (max-width: $medWidth) {
+        font-size: 14px;
+        line-height: 55px;
+        padding: 0 23.46px;
+        .back-btn span {
+          display: none;
+        }
+      }
     }
   }
 
