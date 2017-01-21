@@ -57,8 +57,12 @@
     flex-grow: 1;
   }
 
-  p.shop-header, p.price-header, p.brand-header, p.shop, p.price, p.brand {
-    border-left: 1px solid darken($blue,$shadefactor);
+  p.shop-header, p.price-header, p.brand-header {
+    border-left: 1px solid $white
+  }
+
+  p.shop, p.price, p.brand {
+    border-left: 1px solid $white
   }
 
   p.shop-header, p.price-header, p.brand-header, p.shop, p.brand {
@@ -139,6 +143,7 @@
       &:hover {
         background-color: $blue-light;
       }
+
       cursor: pointer;
       p {
         padding: 0 1em;

@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'package:uilib/view.dart';
+import 'package:uilib/util.dart';
 import 'pcbuilder.dart';
 import 'package:pcbuilder.api/transport/configuration.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
@@ -24,6 +25,7 @@ class MainView extends View {
       "PSU",
       "Case"
     ];
+
     for (String component in components) {
       Element e = _componentItem.clone(true);
 
@@ -53,7 +55,7 @@ class MainView extends View {
         }
 
         e.querySelector(".name").text = c.name;
-        e.querySelector(".price p").text = "€ ${c.price}";
+        e.querySelector(".price p").text = formatCurrency(c.price);
         e.querySelector(".image").style.backgroundImage = "url(${c.image})";
 
         // enable remove
@@ -81,18 +83,22 @@ class MainView extends View {
             e.querySelector(".price p").text = _componentItem.querySelector(".price p").text;
             e.querySelector(".image").setAttribute("style","");
             rmComponentElement.style.display = "none";
+            setPriceTotal();
           });
-
-        // update price
-        double price = _configuration.priceTotal();
-        if (price == 0.0) {
-          querySelector("#pricetotal span").text = "0.-";
-        } else {
-          querySelector("#pricetotal span").text = price.toStringAsFixed(2);
-        }
+        setPriceTotal();
       });
 
       componentContainer.append(e);
+    }
+  }
+
+  void setPriceTotal() {
+    // update price
+    double price = _configuration.priceTotal();
+    if (price == 0.0) {
+      querySelector("#pricetotal span").text = "0.-";
+    } else {
+      querySelector("#pricetotal span").text = formatCurrency(price);
     }
   }
 
