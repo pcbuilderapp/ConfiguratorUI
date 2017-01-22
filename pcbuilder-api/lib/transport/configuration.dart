@@ -9,6 +9,16 @@ class Configuration {
   ComponentItem psu;
   ComponentItem casing;
 
+  Configuration.fromJson(Map json) {
+    motherboard = json["motherboard"];
+    cpu = json["cpu"];
+    gpu = json["gpu"];
+    memory = json["memory"];
+    storage = json["storage"];
+    psu = json["psu"];
+    casing = json["casing"];
+  }
+
   double priceTotal() {
     double total = 0.0;
     total += motherboard != null ? motherboard.price : 0.0;

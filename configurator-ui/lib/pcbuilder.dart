@@ -4,10 +4,13 @@ import 'package:uilib/viewcontroller.dart';
 import 'package:pcbuilder.api/config.dart';
 import 'dart:html';
 import 'dart:async';
+import 'helpdialog.dart';
 
 PCBuilder pcbuilder = new PCBuilder();
 
 class PCBuilder extends ViewController {
+  HelpDialog _helpDialog = new HelpDialog();
+
   Future init() async {
     try {
       String yamlSrc = await HttpRequest.getString("config.yaml");
@@ -20,6 +23,8 @@ class PCBuilder extends ViewController {
     _selectComponentView =
         registerView(SelectComponentView.id, new SelectComponentView())
             as SelectComponentView;
+
+    querySelector("#helpBtn").onClick.listen((_)=>showHelp());
   }
 
   MainView get mainView => _mainView;
@@ -27,4 +32,8 @@ class PCBuilder extends ViewController {
 
   MainView _mainView;
   SelectComponentView _selectComponentView;
+
+  void showHelp() {
+    _helpDialog.show();
+  }
 }

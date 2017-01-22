@@ -1,0 +1,57 @@
+
+#dialogs {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  top:0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  background-color: fade-out($blue-darkest,0.5);
+
+  &> div {
+    display: none;
+    align-self: center;
+    height: 480px;
+    width: 360px;
+
+    .title {
+      display: flex;
+      box-sizing: border-box;
+      justify-content: space-between;
+      background-color: $blue-dark;
+      color: $white;
+      height: 32px;
+      line-height: 24px;
+      margin-bottom: 2px;
+      padding: 4px 12px;
+      .text {
+        font-size: 0.9em;
+        font-weight: bold;
+      }
+      .closeBtn {
+        font-size: 1.2em;
+        cursor: pointer;
+        &:hover {
+          color: $blue;
+        }
+      }
+    }
+
+    .content {
+      box-sizing: border-box;
+      padding: 4px 12px;
+      background-color: $blue-light;
+    }
+  }
+}
+
+#buyOverviewDialog {
+}
+
+#helpDialog {
+  h3 {
+    color: $blue-dark;
+    font-size: 1.2em;
+  }
+}
