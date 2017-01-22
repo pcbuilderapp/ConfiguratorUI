@@ -186,47 +186,62 @@
         .connectors {
 
           margin-top: 7px;
+          line-height: 22px;
 
           .connector {
 
+            font-size: 0.9em;
+            line-height: normal;
             white-space: nowrap;
+            background-color: $blue-lighest;
+            border-radius: 4px;
+            margin:2px;
+            padding: 4px 4px;
 
-            span {
-              margin-left: 10px;
+            @mixin connector-icon {
+              //margin-left: 10px;
               display: inline-block;
-              height: 25px;
-              width: 25px;
+              height: 14px;
+              width: 14px;
               background-size: cover;
+              vertical-align: middle;
+              margin-bottom: 2px;
             }
 
             .connector-text {
               margin-left: 5px;
-              width: auto;
-              height: 32px;
-              vertical-align: middle;
+              //width: auto;
+              //height: 20px;
+              //vertical-align: middle;
             }
 
             .connector-icon-cpu {
+              @include connector-icon;
               background-image: url(../images/cpu.png);
             }
 
             .connector-icon-gpu {
+              @include connector-icon;
               background-image: url(../images/gpu.png);
             }
 
             .connector-icon-memory {
+              @include connector-icon;
               background-image: url(../images/mem.png);
             }
 
             .connector-icon-storage {
+              @include connector-icon;
               background-image: url(../images/storage.png);
             }
 
             .connector-icon-psu {
+              @include connector-icon;
               background-image: url(../images/psu.png);
             }
 
             .connector-icon-case {
+              @include connector-icon;
               background-image: url(../images/case.png);
             }
           }
@@ -240,6 +255,10 @@
           background-size: contain;
           border: 1px solid $blue;
           background-repeat: no-repeat;
+          flex-shrink: 0;
+          @media (max-width: $medWidth) {
+            display: none;
+          }
         }
 
         .info {

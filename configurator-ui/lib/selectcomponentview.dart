@@ -182,6 +182,7 @@ class SelectComponentView extends View {
         connectorSpan.append(connectorImg);
         connectorSpan.append(connectorSpanText);
         connectorsElement.append(connectorSpan);
+        connectorsElement.appendText(" "); // for wraping
       }
     }
 
