@@ -8,6 +8,7 @@ class SearchesView extends View {
   void onShow() {
     querySelector("#searchesNav").classes.add("active");
   }
+
   void onHide() {
     querySelector("#searchesNav").classes.remove("active");
   }

@@ -5,7 +5,6 @@ import 'alternativeshopitem.dart';
 export 'alternativeshopitem.dart';
 
 class ComponentItem {
-
   int id;
   String name;
   String brand;
@@ -21,7 +20,5 @@ class ComponentItem {
   List<Connector> connectors = [];
   List<AlternativeShopItem> alternativeShops = [];
 
-  Map toJson() => {
-    "id":id
-  };
+  Map toJson() => {"id": id};
 }

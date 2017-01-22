@@ -8,6 +8,7 @@ class ProductView extends View {
   void onShow() {
     querySelector("#productsNav").classes.add("active");
   }
+
   void onHide() {
     querySelector("#productsNav").classes.remove("active");
   }

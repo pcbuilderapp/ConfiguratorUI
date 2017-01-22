@@ -1,4 +1,5 @@
 library uilib.view;
+
 import 'dart:html';
 
 abstract class View {
@@ -6,10 +7,12 @@ abstract class View {
     element.style.display = "none";
     onHide();
   }
+
   void show() {
     element.style.display = "block";
     onShow();
   }
+
   void onShow();
   void onHide();
   Element get element;

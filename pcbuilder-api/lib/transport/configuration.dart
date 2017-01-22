@@ -1,4 +1,3 @@
-
 import 'componentitem.dart';
 
 class Configuration {
@@ -23,12 +22,12 @@ class Configuration {
   }
 
   Map toJson() => {
-    "motherboard":motherboard,
-    "cpu":cpu,
-    "gpu": gpu,
-    "memory": memory,
-    "storage":storage,
-    "psu":psu,
-    "casing": casing
-  };
+        "motherboard": motherboard,
+        "cpu": cpu,
+        "gpu": gpu,
+        "memory": memory,
+        "storage": storage,
+        "psu": psu,
+        "casing": casing
+      };
 }

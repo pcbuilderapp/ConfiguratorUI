@@ -15,8 +15,11 @@ class PCBuilder extends ViewController {
     } catch (e) {
       print(e);
     }
-    _mainView = registerView(MainView.id,new MainView(),isDefaultView: true) as MainView;
-    _selectComponentView = registerView(SelectComponentView.id,new SelectComponentView()) as SelectComponentView;
+    _mainView = registerView(MainView.id, new MainView(), isDefaultView: true)
+        as MainView;
+    _selectComponentView =
+        registerView(SelectComponentView.id, new SelectComponentView())
+            as SelectComponentView;
   }
 
   MainView get mainView => _mainView;

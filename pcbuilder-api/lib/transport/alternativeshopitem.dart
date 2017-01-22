@@ -1,4 +1,3 @@
-
 class AlternativeShopItem {
   String shop;
   String url;

@@ -24,7 +24,8 @@ class Backend {
 
     try {
       request = await HttpRequest.request(
-          (config["backend-server"] ?? "/backend/") + "componentitem/getmatchingcomponents",
+          (config["backend-server"] ?? "/backend/") +
+              "componentitem/getmatchingcomponents",
           method: "POST",
           sendData: data,
           requestHeaders: {
@@ -36,7 +37,8 @@ class Backend {
       return new GetMatchingComponentsResponse();
     }
 
-    GetMatchingComponentsResponse responds = new GetMatchingComponentsResponse();
+    GetMatchingComponentsResponse responds =
+        new GetMatchingComponentsResponse();
 
     Map json = new JsonDecoder().convert(request.responseText);
     for (Map componentData in json["components"]) {
@@ -45,7 +47,8 @@ class Backend {
       component.name = componentData["name"];
       component.brand = componentData["brand"];
       component.europeanArticleNumber = componentData["europeanArticleNumber"];
-      component.manufacturerPartNumber = componentData["manufacturerPartNumber"];
+      component.manufacturerPartNumber =
+          componentData["manufacturerPartNumber"];
       component.type = filter.type;
 
       component.price = componentData["price"];

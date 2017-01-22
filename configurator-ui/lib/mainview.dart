@@ -79,9 +79,11 @@ class MainView extends View {
             } else if (component == "Case") {
               _configuration.casing = null;
             }
-            e.querySelector(".name").text = _componentItem.querySelector(".name").text;
-            e.querySelector(".price p").text = _componentItem.querySelector(".price p").text;
-            e.querySelector(".image").setAttribute("style","");
+            e.querySelector(".name").text =
+                _componentItem.querySelector(".name").text;
+            e.querySelector(".price p").text =
+                _componentItem.querySelector(".price p").text;
+            e.querySelector(".image").setAttribute("style", "");
             rmComponentElement.style.display = "none";
             setPriceTotal();
           });

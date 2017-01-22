@@ -17,7 +17,9 @@ String formatCurrency(double currency) {
 }
 
 int maxPage(int currentPage, int pageWidth, int totalPages) {
-  return currentPage + pageWidth > totalPages ? totalPages : currentPage + pageWidth;
+  return currentPage + pageWidth > totalPages
+      ? totalPages
+      : currentPage + pageWidth;
 }
 
 int minPage(int currentPage, int pageWidth) {
@@ -25,7 +27,9 @@ int minPage(int currentPage, int pageWidth) {
 }
 
 bool showpage(int page, int currentPage, int pageWidth, int totalPages) {
-  return page == 0 || page == totalPages || (page <= currentPage + pageWidth && page >= currentPage - pageWidth);
+  return page == 0 ||
+      page == totalPages ||
+      (page <= currentPage + pageWidth && page >= currentPage - pageWidth);
 }
 
 Element points() {

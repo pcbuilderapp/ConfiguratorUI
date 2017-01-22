@@ -1,4 +1,3 @@
-
 class ComponentType {
   static final String MOTHERBOARD = "MOTHERBOARD";
   static final String CPU = "CPU";

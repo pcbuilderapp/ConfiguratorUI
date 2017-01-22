@@ -5,9 +5,9 @@ import 'dart:async';
 import 'package:route_hierarchical/client.dart';
 
 class ViewController {
-  Router _router=new Router();
+  Router _router = new Router();
   String _currentViewId;
-  Map<String,View> _viewRegistry = {};
+  Map<String, View> _viewRegistry = {};
 
   void enableRouting() {
     _router.listen();
@@ -24,12 +24,16 @@ class ViewController {
   String get currentViewId => _currentViewId;
   View get currentView => _viewRegistry[_currentViewId];
 
-  View registerView(String id, View view, {bool isDefaultView:false}) {
+  View registerView(String id, View view, {bool isDefaultView: false}) {
     _viewRegistry[id] = view;
     if (isDefaultView) _currentViewId = id;
-    _router.root.addRoute(name: id,path:"/$id",defaultRoute: isDefaultView,enter: (_){
-      setView(id);
-    });
+    _router.root.addRoute(
+        name: id,
+        path: "/$id",
+        defaultRoute: isDefaultView,
+        enter: (_) {
+          setView(id);
+        });
     return view;
   }
 

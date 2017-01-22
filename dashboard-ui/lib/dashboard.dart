@@ -7,10 +7,8 @@ final Dashboard dashboard = new Dashboard();
 
 class Dashboard extends ViewController {
   void init() {
-    registerView(ProductView.id,new ProductView(),isDefaultView: true);
-    registerView(SearchesView.id,new SearchesView());
+    registerView(ProductView.id, new ProductView(), isDefaultView: true);
+    registerView(SearchesView.id, new SearchesView());
     enableRouting();
   }
-
-
 }

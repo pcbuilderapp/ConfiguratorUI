@@ -167,16 +167,16 @@ class SelectComponentView extends View {
     }
 
     if (item.connectors.length != 0) {
-
       Element connectorsElement = e.querySelector(".connectors");
 
       for (Connector c in item.connectors) {
-
         Element connectorSpan = new Element.span()..classes.add("connector");
 
-        Element connectorImg = new Element.span()..classes.add("connector-icon-${c.type.toLowerCase()}");
+        Element connectorImg = new Element.span()
+          ..classes.add("connector-icon-${c.type.toLowerCase()}");
 
-        Element connectorSpanText = new Element.span()..classes.add("connector-text");
+        Element connectorSpanText = new Element.span()
+          ..classes.add("connector-text");
         connectorSpanText.text = "${c.name} ";
 
         connectorSpan.append(connectorImg);
