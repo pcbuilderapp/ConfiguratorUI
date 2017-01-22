@@ -14,6 +14,7 @@ import 'mainview.dart';
 class SelectComponentView extends View {
   static String get id => "selectcomponent";
 
+
   SelectComponentView() {
     _viewElement = querySelector("#selectview");
     Element template = _viewElement.querySelector(".productItem");
@@ -34,6 +35,19 @@ class SelectComponentView extends View {
 
     _viewElement.querySelector(".back-btn").onClick.listen((MouseEvent e) {
       pcbuilder.setView(MainView.id);
+    });
+
+    _viewElement.querySelector(".name-header").onClick.listen((MouseEvent e) {
+      setSort("name");
+    });
+    _viewElement.querySelector(".shop-header").onClick.listen((MouseEvent e) {
+      setSort("shop");
+    });
+    _viewElement.querySelector(".brand-header").onClick.listen((MouseEvent e) {
+      setSort("brand");
+    });
+    _viewElement.querySelector(".price-header").onClick.listen((MouseEvent e) {
+      setSort("price");
     });
 
     _pager = querySelector("#pager");
@@ -74,6 +88,7 @@ class SelectComponentView extends View {
         new ComponentMatchingSearch();
     componentSearchRequest.type = _currentType;
     componentSearchRequest.filter = _currentFilter;
+    componentSearchRequest.sort = _currentSort;
     componentSearchRequest.configuration = _currentConfiguration;
     componentSearchRequest.maxItems = config["max-items"] ?? 30;
     componentSearchRequest.page = page;
@@ -200,6 +215,14 @@ class SelectComponentView extends View {
     loadComponents(0);
   }
 
+  void setSort(String sortColumn) {
+    if (sortColumn == _currentSort) return;
+    _currentSort = sortColumn;
+    _viewElement.querySelectorAll(".header-selected").classes.remove("header-selected");
+    _viewElement.querySelector(".$sortColumn-header").classes.add("header-selected");
+    loadComponents(0);
+  }
+
   void onShow() {}
 
   void onHide() {}
@@ -214,6 +237,7 @@ class SelectComponentView extends View {
   Completer _selectComponentCompleter;
   String _currentType;
   String _currentFilter;
+  String _currentSort;
   Configuration _currentConfiguration;
   int _currentPage;
   int _pageCount;
