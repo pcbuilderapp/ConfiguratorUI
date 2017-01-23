@@ -58,11 +58,16 @@
   }
 
   p.shop-header, p.price-header, p.brand-header {
-    border-left: 1px solid $white
+    border-left: 1px solid $white;
+    cursor: pointer;
+  }
+
+  p.header-selected {
+    text-decoration: underline;
   }
 
   p.shop, p.price, p.brand {
-    border-left: 1px solid $white
+    border-left: 1px solid $white;
   }
 
   p.shop-header, p.price-header, p.brand-header, p.shop, p.brand {
