@@ -10,4 +10,5 @@ environment:
 dependencies:
   route_hierarchical: any
   intl: any
+  google_charts: any
 
