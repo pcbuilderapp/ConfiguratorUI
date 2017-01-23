@@ -3,6 +3,10 @@
 #productview {
   display:none;
 
+  .content {
+    display:none;
+  }
+
   .productInfo {
     display: flex;
     flex-direction: row;
@@ -48,7 +52,7 @@
     }
   }
 
-  #searchbar {
+  .searchbar {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -151,7 +155,7 @@
     }
   }
 
-  #pager {
+  .pager {
     display: flex;
     flex-direction: row;
     justify-content: center;

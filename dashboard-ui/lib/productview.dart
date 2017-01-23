@@ -15,6 +15,7 @@ class ProductView extends View {
   static String get id => "productview";
   Element _productItem;
   Element _productList;
+  Element _productInfo;
   Element _pager;
   InputElement _filterField;
   String _currentFilter;
@@ -22,6 +23,52 @@ class ProductView extends View {
   int _currentPage;
   int _pageCount;
   int pageWidth = config["page-width"] ?? 5;
+
+  ProductView() {
+    Element template = _viewElement.querySelector(".productItem");
+    _productItem = template.clone(true);
+    template.remove();
+    _filterField = _viewElement.querySelector(".searchbar input") as InputElement;
+    _filterField.onSearch.listen((_) {
+      filter(_filterField.value);
+    });
+
+    _productInfo = _viewElement.querySelector(".productInfo");
+
+    _productList = _viewElement.querySelector("#productList");
+    (_viewElement.querySelector(".searchbar form") as FormElement)
+        .onSubmit
+        .listen((Event e) {
+      filter(_filterField.value);
+      e.preventDefault();
+    });
+    
+    _viewElement.querySelector(".productListHeader .name").onClick.listen((MouseEvent e) {
+      setSort("name");
+    });
+    _viewElement.querySelector(".productListHeader .shop").onClick.listen((MouseEvent e) {
+      setSort("shop");
+    });
+    _viewElement.querySelector(".productListHeader .type").onClick.listen((MouseEvent e) {
+      setSort("type");
+    });
+    _viewElement.querySelector(".productListHeader .price").onClick.listen((MouseEvent e) {
+      setSort("price");
+    });
+
+    _pager = _viewElement.querySelector(".pager");
+    _pager.querySelector(".previous").onClick.listen((_) {
+      if (_currentPage <= 1) return;
+      loadProducts(_currentPage - 1);
+    });
+
+    _pager.querySelector(".next").onClick.listen((_) {
+      if (_currentPage >= _pageCount) return;
+      loadProducts(_currentPage + 1);
+    });
+
+    loadProducts(0);
+  }
 
   void onShow() {
     querySelector("#productsNav").classes.add("active");
@@ -48,7 +95,7 @@ class ProductView extends View {
 
     // generate product list
     for (Product p in productSearchResponse.products) {
-      _productList.append(createComponentElement(c));
+      _productList.append(createProductElement(p));
     }
 
     // set paging
@@ -89,51 +136,39 @@ class ProductView extends View {
     _viewElement.querySelector(".loading").style.display = "none";
   }
 
-  Element createComponentElement(ComponentItem item) {
+  Element createProductElement(Product item) {
     Element e = _productItem.clone(true);
 
     // product row
-    e.querySelector(".fields .name").text = item.name;
-    e.querySelector(".fields .brand").text = item.brand;
-    e.querySelector(".fields .shop").text = item.shop;
-    e.querySelector(".fields .price").text = formatCurrency(item.price);
+    e.querySelector(".fields .name").text = item.component.name;
+    e.querySelector(".fields .type").text = item.component.type;
+    e.querySelector(".fields .shop").text = item.shop.name;
+    e.querySelector(".fields .price").text = formatCurrency(item.currentPrice);
 
-    // show detail view for row
-    e.querySelector(".fields").onClick.listen((_) {
-      bool bIsActive = e.querySelector(".details").classes.contains("active");
-      if (bIsActive) {
-        e.querySelector(".details").classes.remove("active");
-      } else {
-        _productList
-            .querySelector(".details.active")
-            ?.classes
-            ?.remove("active");
-        e.querySelector(".details").classes.add("active");
-      }
+    // actions
+    e.onClick.listen((_) {
+      // load details
+      loadProductDetail(item);
     });
 
+    return e;
+  }
+
+  void loadProductDetail(Product p) {
+
     // product detail view
-    e.querySelector(".details .productInfo .info .ean-nr").text =
-        item.europeanArticleNumber;
-    e.querySelector(".details .productInfo .info .mpn-nr").text =
-        item.manufacturerPartNumber;
-    e.querySelector(".details .productInfo .image").style.backgroundImage =
-    "url(${item.image})";
+    _productInfo.querySelector(".info .ean-nr").text =
+        p.component.europeanArticleNumber;
+    _productInfo.querySelector(".info .mpn-nr").text =
+        p.component.manufacturerPartNumber;
+    _productInfo.querySelector(".image").style.backgroundImage =
+    "url(${p.component.pictureUrl})";
 
-    if (item.alternativeShops.length == 0) {
-      e.querySelector(".alternativeShops").text = "No alternative shops found.";
-    } else {
-      Element shopsElement = e.querySelector(".alternativeShops");
-      shopsElement.text = "Also sold by: ";
-      for (AlternativeShopItem alternativeItem in item.alternativeShops) {
-        shopsElement.append(makeUrl(alternativeItem.shop, alternativeItem.url));
-      }
-    }
 
-    if (item.connectors.length != 0) {
-      Element connectorsElement = e.querySelector(".connectors");
+    /*if (p.component.connectors.length != 0) {
+      Element connectorsElement = _productInfo.querySelector(".connectors");
 
-      for (Connector c in item.connectors) {
+      for (Connector c in p.component.connectors) {
         Element connectorSpan = new Element.span()..classes.add("connector");
 
         Element connectorImg = new Element.span()
@@ -148,20 +183,14 @@ class ProductView extends View {
         connectorsElement.append(connectorSpan);
         connectorsElement.appendText(" "); // for wraping
       }
-    }
+    }*/
 
-    // actions
-    e.querySelector(".selectAction").onClick.listen((_) {
-      _selectComponentCompleter.complete(item);
-    });
-
-    return e;
   }
 
   void filter(String filter) {
     if (filter == _currentFilter) return;
     _currentFilter = filter;
-    loadComponents(0);
+    loadProducts(0);
   }
 
   void setSort(String sortColumn) {
@@ -169,7 +198,7 @@ class ProductView extends View {
     _currentSort = sortColumn;
     _viewElement.querySelectorAll(".header-selected").classes.remove("header-selected");
     _viewElement.querySelector(".$sortColumn-header").classes.add("header-selected");
-    loadComponents(0);
+    loadProducts(0);
   }
 
   Element get element => _viewElement;

@@ -48,7 +48,7 @@ class Backend {
     try {
       request = await HttpRequest.request(
           (config["backend-server"] ?? "/backend/") +
-              "componentitem/getmatchingcomponents",
+              "product/getmatching",
           method: "POST",
           sendData: data,
           requestHeaders: {
