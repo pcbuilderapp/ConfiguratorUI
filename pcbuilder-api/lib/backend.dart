@@ -9,15 +9,14 @@ import 'transport/productsresponse.dart';
 import 'transport/productsearch.dart';
 import 'domain/product.dart';
 import 'config.dart';
-import 'package:dartson/dartson.dart';
+import 'serializer.dart';
 
 Backend backend = new Backend();
 
 class Backend {
   Future<GetMatchingComponentsResponse> getMatchingComponents(
       ComponentMatchingSearch filter) async {
-    var dson = new Dartson.JSON();
-    String data = dson.encode(filter);
+    String data = toJson(filter);
 
     HttpRequest request;
 
@@ -36,14 +35,13 @@ class Backend {
       return new GetMatchingComponentsResponse();
     }
     GetMatchingComponentsResponse responds =
-        dson.decode(request.responseText, new GetMatchingComponentsResponse());
+        fromJson(request.responseText, new GetMatchingComponentsResponse());
 
     return responds;
   }
 
   Future<ProductsResponse> getProducts(ProductSearch filter) async {
-    var dson = new Dartson.JSON();
-    String data = dson.encode(filter);
+    String data = toJson(filter);
 
     HttpRequest request;
 
@@ -63,7 +61,7 @@ class Backend {
     }
 
     ProductsResponse responds =
-        dson.decode(request.responseText, new ProductsResponse());
+        fromJson(request.responseText, new ProductsResponse());
 
     return responds;
   }

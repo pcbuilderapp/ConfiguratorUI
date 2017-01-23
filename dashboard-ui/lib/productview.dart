@@ -2,7 +2,7 @@ import 'package:uilib/view.dart';
 import 'dart:html';
 import 'dart:async';
 import 'package:pcbuilder.api/config.dart';
-import 'package:pcbuilder.api/transport/connector.dart';
+import 'package:pcbuilder.api/domain/connector.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
 import 'package:pcbuilder.api/transport/componentmatchingsearch.dart';
 import 'package:pcbuilder.api/backend.dart';
