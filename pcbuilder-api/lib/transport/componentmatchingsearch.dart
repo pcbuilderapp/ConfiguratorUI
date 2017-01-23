@@ -5,8 +5,8 @@ import 'package:dartson/dartson.dart';
 class ComponentMatchingSearch {
   String filter;
   String type;
-  String sort;
   Configuration configuration;
   int page;
   int maxItems;
+  String sort;
 }

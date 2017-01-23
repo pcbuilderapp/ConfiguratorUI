@@ -4,8 +4,11 @@ import 'dart:async';
 import 'package:pcbuilder.api/config.dart';
 import 'package:pcbuilder.api/domain/connector.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
-import 'package:pcbuilder.api/transport/componentmatchingsearch.dart';
+import 'package:pcbuilder.api/transport/productsearch.dart';
+import 'package:pcbuilder.api/transport/productsresponse.dart';
+import 'package:pcbuilder.api/domain/product.dart';
 import 'package:pcbuilder.api/backend.dart';
+import 'package:uilib/util.dart';
 
 class ProductView extends View {
   Element _viewElement = querySelector("#productview");
@@ -28,49 +31,46 @@ class ProductView extends View {
     querySelector("#productsNav").classes.remove("active");
   }
 
-  Future loadComponents(int page) async {
+  Future loadProducts(int page) async {
     // show load indicator
     _viewElement.querySelector(".content").style.display = "none";
     _viewElement.querySelector(".loading").style.display = "block";
 
-    ComponentMatchingSearch componentSearchRequest =
-    new ComponentMatchingSearch();
-    componentSearchRequest.type = _currentType;
-    componentSearchRequest.filter = _currentFilter;
-    componentSearchRequest.sort = _currentSort;
-    componentSearchRequest.configuration = _currentConfiguration;
-    componentSearchRequest.maxItems = config["max-items"] ?? 30;
-    componentSearchRequest.page = page;
+    ProductSearch productSearch = new ProductSearch();
+    productSearch.filter = _currentFilter;
+    productSearch.page = page;
+    productSearch.maxItems = config["max-items"] ?? 30;
+    productSearch.sort = _currentSort;
 
-    GetMatchingComponentsResponse componentSearchResponse =
-    await backend.getMatchingComponents(componentSearchRequest);
+    ProductsResponse productSearchResponse =
+    await backend.getProducts(productSearch);
     _productList.innerHtml = "";
 
     // generate product list
-    for (ComponentItem c in componentSearchResponse.components) {
+    for (Product p in productSearchResponse.products) {
       _productList.append(createComponentElement(c));
     }
 
     // set paging
-    _currentPage = componentSearchResponse.currentPage;
-    _pageCount = componentSearchResponse.pages;
+    _currentPage = productSearchResponse.page;
+    _pageCount = productSearchResponse.pageCount;
     Element pages = _pager.querySelector(".pages");
     pages.innerHtml = "";
 
     bool lastAddedPoints = false;
 
-    for (int i = 0; i < componentSearchResponse.pages; i++) {
-      if (showpage(i, componentSearchResponse.currentPage, pageWidth,
-          componentSearchResponse.pages - 1)) {
+    for (int i = 0; i < productSearchResponse.pageCount; i++) {
+      if (showpage(i, productSearchResponse.page, pageWidth,
+          productSearchResponse.pageCount - 1)) {
         Element pagebtn = new Element.div();
         pagebtn.text = "${i + 1}";
         pagebtn.classes.add("pagebtn");
 
-        if (i == componentSearchResponse.currentPage) {
+        if (i == productSearchResponse.page) {
           pagebtn.classes.add("current");
         } else {
           pagebtn.onClick.listen((_) {
-            loadComponents(i);
+            loadProducts(i);
           });
         }
 

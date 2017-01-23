@@ -11,7 +11,7 @@ Dartson _initSerializer() {
 }
 
 String toJson(dynamic object) {
-  _dson.encode(object);
+  return _dson.encode(object);
 }
 
 dynamic fromJson(String json, Object target) {
