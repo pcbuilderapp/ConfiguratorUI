@@ -1,5 +1,7 @@
 import 'componentitem.dart';
+import 'package:dartson/dartson.dart';
 
+@Entity()
 class Configuration {
   ComponentItem motherboard;
   ComponentItem cpu;
@@ -8,16 +10,6 @@ class Configuration {
   ComponentItem storage;
   ComponentItem psu;
   ComponentItem casing;
-
-  Configuration.fromJson(Map json) {
-    motherboard = json["motherboard"];
-    cpu = json["cpu"];
-    gpu = json["gpu"];
-    memory = json["memory"];
-    storage = json["storage"];
-    psu = json["psu"];
-    casing = json["casing"];
-  }
 
   double priceTotal() {
     double total = 0.0;
@@ -30,14 +22,4 @@ class Configuration {
     total += casing != null ? casing.price : 0.0;
     return total;
   }
-
-  Map toJson() => {
-        "motherboard": motherboard,
-        "cpu": cpu,
-        "gpu": gpu,
-        "memory": memory,
-        "storage": storage,
-        "psu": psu,
-        "casing": casing
-      };
 }

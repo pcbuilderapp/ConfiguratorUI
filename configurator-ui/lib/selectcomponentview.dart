@@ -2,10 +2,11 @@ import 'dart:async';
 import 'package:uilib/view.dart';
 import 'dart:html';
 import 'package:pcbuilder.api/config.dart';
-import 'package:pcbuilder.api/transport/connector.dart';
+import 'package:pcbuilder.api/domain/connector.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
 import 'package:pcbuilder.api/transport/componentmatchingsearch.dart';
 import 'package:pcbuilder.api/transport/configuration.dart';
+import 'package:pcbuilder.api/transport/matchingcomponentsresponse.dart';
 import 'package:pcbuilder.api/backend.dart';
 import 'pcbuilder.dart';
 import 'package:uilib/util.dart';
@@ -103,21 +104,21 @@ class SelectComponentView extends View {
     }
 
     // set paging
-    _currentPage = componentSearchResponse.currentPage;
-    _pageCount = componentSearchResponse.pages;
+    _currentPage = componentSearchResponse.page;
+    _pageCount = componentSearchResponse.pageCount;
     Element pages = _pager.querySelector(".pages");
     pages.innerHtml = "";
 
     bool lastAddedPoints = false;
 
-    for (int i = 0; i < componentSearchResponse.pages; i++) {
-      if (showpage(i, componentSearchResponse.currentPage, pageWidth,
-          componentSearchResponse.pages - 1)) {
+    for (int i = 0; i < componentSearchResponse.pageCount; i++) {
+      if (showpage(i, componentSearchResponse.page, pageWidth,
+          componentSearchResponse.pageCount - 1)) {
         Element pagebtn = new Element.div();
         pagebtn.text = "${i + 1}";
         pagebtn.classes.add("pagebtn");
 
-        if (i == componentSearchResponse.currentPage) {
+        if (i == componentSearchResponse.page) {
           pagebtn.classes.add("current");
         } else {
           pagebtn.onClick.listen((_) {

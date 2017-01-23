@@ -1,9 +1,11 @@
 library PCBuilder.ComponentItem;
 
-import 'connector.dart';
+import '../domain/connector.dart';
 import 'alternativeshopitem.dart';
 export 'alternativeshopitem.dart';
+import 'package:dartson/dartson.dart';
 
+@Entity()
 class ComponentItem {
   int id;
   String name;
@@ -19,6 +21,4 @@ class ComponentItem {
 
   List<Connector> connectors = [];
   List<AlternativeShopItem> alternativeShops = [];
-
-  Map toJson() => {"id": id};
 }

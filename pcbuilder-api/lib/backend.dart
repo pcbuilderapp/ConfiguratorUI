@@ -1,24 +1,23 @@
 import 'dart:async';
 import 'dart:html';
 import 'transport/componentitem.dart';
-import 'transport/connector.dart';
+import 'domain/connector.dart';
 import 'transport/componentmatchingsearch.dart';
 import 'transport/alternativeshopitem.dart';
-import 'dart:convert';
+import 'transport/matchingcomponentsresponse.dart';
+import 'transport/productsresponse.dart';
+import 'transport/productsearch.dart';
+import 'domain/product.dart';
 import 'config.dart';
-
-class GetMatchingComponentsResponse {
-  List<ComponentItem> components = [];
-  int pages;
-  int currentPage;
-}
+import 'package:dartson/dartson.dart';
 
 Backend backend = new Backend();
 
 class Backend {
   Future<GetMatchingComponentsResponse> getMatchingComponents(
       ComponentMatchingSearch filter) async {
-    String data = (new JsonEncoder()).convert(filter);
+    var dson = new Dartson.JSON();
+    String data = dson.encode(filter);
 
     HttpRequest request;
 
@@ -36,46 +35,35 @@ class Backend {
       print(e);
       return new GetMatchingComponentsResponse();
     }
-
     GetMatchingComponentsResponse responds =
-        new GetMatchingComponentsResponse();
+        dson.decode(request.responseText, new GetMatchingComponentsResponse());
 
-    Map json = new JsonDecoder().convert(request.responseText);
-    for (Map componentData in json["components"]) {
-      ComponentItem component = new ComponentItem();
-      component.id = componentData["id"];
-      component.name = componentData["name"];
-      component.brand = componentData["brand"];
-      component.europeanArticleNumber = componentData["europeanArticleNumber"];
-      component.manufacturerPartNumber =
-          componentData["manufacturerPartNumber"];
-      component.type = filter.type;
+    return responds;
+  }
 
-      component.price = componentData["price"];
-      component.shop = componentData["shop"];
-      component.url = componentData["url"];
-      component.image = componentData["image"];
+  Future<ProductsResponse> getProducts(ProductSearch filter) async {
+    var dson = new Dartson.JSON();
+    String data = dson.encode(filter);
 
-      for (Map alternativeShop in componentData["alternativeShops"]) {
-        AlternativeShopItem shopItem = new AlternativeShopItem();
-        shopItem.shop = alternativeShop["shop"];
-        shopItem.url = alternativeShop["url"];
-        shopItem.price = alternativeShop["price"];
-        component.alternativeShops.add(shopItem);
-      }
+    HttpRequest request;
 
-      for (Map connectorMap in componentData["connectors"]) {
-        Connector connector = new Connector();
-        connector.name = connectorMap["name"];
-        connector.type = connectorMap["type"];
-        component.connectors.add(connector);
-      }
-
-      responds.components.add(component);
+    try {
+      request = await HttpRequest.request(
+          (config["backend-server"] ?? "/backend/") +
+              "componentitem/getmatchingcomponents",
+          method: "POST",
+          sendData: data,
+          requestHeaders: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          });
+    } catch (e) {
+      print(e);
+      return new ProductsResponse();
     }
 
-    responds.pages = json["pageCount"];
-    responds.currentPage = json["page"];
+    ProductsResponse responds =
+        dson.decode(request.responseText, new ProductsResponse());
 
     return responds;
   }

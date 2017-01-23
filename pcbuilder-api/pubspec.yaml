@@ -9,3 +9,7 @@ environment:
 
 dependencies:
   yaml: any
+  dartson: any
+
+transformers:
+  - dartson

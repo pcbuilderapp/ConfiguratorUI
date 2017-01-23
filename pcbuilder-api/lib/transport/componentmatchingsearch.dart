@@ -1,5 +1,7 @@
 import 'configuration.dart';
+import 'package:dartson/dartson.dart';
 
+@Entity()
 class ComponentMatchingSearch {
   String filter;
   String type;
@@ -7,13 +9,4 @@ class ComponentMatchingSearch {
   Configuration configuration;
   int page;
   int maxItems;
-
-  Map toJson() => {
-        "filter": filter,
-        "type": type,
-        "configuration": configuration,
-        "page": page,
-        "maxItems": maxItems,
-        "sort": sort
-      };
 }
