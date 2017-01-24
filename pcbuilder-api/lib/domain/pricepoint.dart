@@ -1,11 +1,12 @@
 library PCBuilder.PriceHistory;
 
 import 'package:dartson/dartson.dart';
+import 'product.dart';
 
 @Entity()
-class PriceHistory {
-  int year;
-  int month;
-  int day;
+class PricePoint {
+  int id;
+  Product product;
+  DateTime pricingDate;
   double price;
 }

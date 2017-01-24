@@ -10,12 +10,15 @@ import 'transport/productsearch.dart';
 import 'domain/product.dart';
 import 'config.dart';
 import 'serializer.dart';
+import 'package:pcbuilder.api/transport/pricepointresponse.dart';
 
 Backend backend = new Backend();
 
 class Backend {
+
   Future<GetMatchingComponentsResponse> getMatchingComponents(
       ComponentMatchingSearch filter) async {
+
     String data = toJson(filter);
 
     HttpRequest request;
@@ -41,6 +44,7 @@ class Backend {
   }
 
   Future<ProductsResponse> getProducts(ProductSearch filter) async {
+
     String data = toJson(filter);
 
     HttpRequest request;
@@ -64,5 +68,26 @@ class Backend {
         fromJson(request.responseText, new ProductsResponse());
 
     return responds;
+  }
+
+  Future<PricePointResponse> getPriceHistory(int productId) async {
+
+    HttpRequest request;
+
+    try {
+      request = await HttpRequest.request(
+          (config["backend-server"] ?? "/backend/") +
+              "product/getpricehistory?id="+productId.toString(),
+          method: "GET",
+          requestHeaders: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          });
+    } catch (e) {
+      print(e);
+      return null;
+    }
+
+    return fromJson(request.responseText, new PricePointResponse());
   }
 }

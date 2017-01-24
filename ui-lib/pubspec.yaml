@@ -12,3 +12,7 @@ dependencies:
   intl: any
   google_charts: any
 
+  pcbuilder.api:
+    path: ../pcbuilder-api
+    version: any
+

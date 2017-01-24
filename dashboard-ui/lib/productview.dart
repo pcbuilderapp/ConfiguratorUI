@@ -9,6 +9,9 @@ import 'package:pcbuilder.api/transport/productsresponse.dart';
 import 'package:pcbuilder.api/domain/product.dart';
 import 'package:pcbuilder.api/backend.dart';
 import 'package:uilib/util.dart';
+import 'package:uilib/charts.dart';
+import 'package:pcbuilder.api/domain/pricepoint.dart';
+import 'package:pcbuilder.api/transport/pricepointresponse.dart';
 
 class ProductView extends View {
   Element _viewElement = querySelector("#productview");
@@ -18,7 +21,7 @@ class ProductView extends View {
   Element _productInfo;
   Element _pager;
   InputElement _filterField;
-  String _currentFilter="";
+  String _currentFilter="Asus";
   String _currentSort;
   int _currentPage;
   int _pageCount;
@@ -91,11 +94,16 @@ class ProductView extends View {
 
     ProductsResponse productSearchResponse =
     await backend.getProducts(productSearch);
+
     _productList.innerHtml = "";
 
     // generate product list
     for (Product p in productSearchResponse.products) {
-      _productList.append(createProductElement(p));
+
+      PricePointResponse pricePointResponse =
+      await backend.getPriceHistory(p.component.id);
+
+      _productList.append(createProductElement(p, pricePointResponse));
     }
 
     // set paging
@@ -136,7 +144,7 @@ class ProductView extends View {
     _viewElement.querySelector(".loading").style.display = "none";
   }
 
-  Element createProductElement(Product item) {
+  Element createProductElement(Product item, PricePointResponse pricePointResponse) {
     Element e = _productItem.clone(true);
 
     // product row
@@ -148,13 +156,13 @@ class ProductView extends View {
     // actions
     e.onClick.listen((_) {
       // load details
-      loadProductDetail(item);
+      loadProductDetail(item, pricePointResponse);
     });
 
     return e;
   }
 
-  void loadProductDetail(Product p) {
+  void loadProductDetail(Product p, PricePointResponse pricePointResponse) {
 
     // product detail view
     _productInfo.querySelector(".info .ean-nr").text =
@@ -163,6 +171,9 @@ class ProductView extends View {
         p.component.manufacturerPartNumber;
     _productInfo.querySelector(".image").style.backgroundImage =
     "url(${p.component.pictureUrl})";
+
+    drawLineChart(pricePointResponse.pricePoints, _productInfo.querySelector(".pricehistory"));
+
 
 
     /*if (p.component.connectors.length != 0) {
