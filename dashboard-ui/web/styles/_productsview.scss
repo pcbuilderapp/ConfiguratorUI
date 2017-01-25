@@ -88,10 +88,6 @@
     box-sizing: border-box;
   }
 
-  .name {
-    flex-grow: 1;
-  }
-
   .shop, .price, .type {
     border-left: 1px solid $white;
     text-align: center;
@@ -107,50 +103,42 @@
     min-width: 96px;
   }
 
-  .productListHeader {
-    display: flex;
-    flex-direction: row;
-    height: 32px;
+  table {
     font-size: 0.8em;
-    background-color: $blue;
-    margin: 1px 0;
-    p {
+    border: none;
+    border-spacing: 0;
+    width: 100%;
+
+    thead, tbody {
+      border: none;
+
+    }
+
+    td, th {
+      height: 32px;
       padding: 0 1em;
       margin: 0;
       line-height: 32px;
       vertical-align: middle;
+    }
+
+    tr {
+      margin: 1px 0;
+    }
+
+    th {
+      background-color: $blue;
       color: #fff;
     }
-  }
 
-  .productItem {
-    margin: 1px 0;
-
-    &:hover {
-      .details {
-        height: calc(128px + 2em);
-      }
-    }
-
-    .fields {
-      display: flex;
-      flex-direction: row;
-      height: 32px;
-      font-size: 0.8em;
+    td {
       background-color: $blue-lighest;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
       &:hover {
         background-color: $blue-light;
-      }
-
-      cursor: pointer;
-      p {
-        padding: 0 1em;
-        margin: 0;
-        line-height: 32px;
-        vertical-align: middle;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
       }
     }
   }

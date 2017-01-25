@@ -2,6 +2,7 @@ import 'dart:html';
 import 'package:uilib/viewcontroller.dart';
 import 'productview.dart';
 import 'searchesview.dart';
+import 'crawlersview.dart';
 import 'package:pcbuilder.api/config.dart';
 import 'dart:async';
 
@@ -17,6 +18,7 @@ class Dashboard extends ViewController {
     }
     registerView(ProductView.id, new ProductView(), isDefaultView: true);
     registerView(SearchesView.id, new SearchesView());
+    registerView(CrawlersView.id, new CrawlersView());
     enableRouting();
   }
 }

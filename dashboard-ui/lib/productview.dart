@@ -46,16 +46,16 @@ class ProductView extends View {
       e.preventDefault();
     });
     
-    _viewElement.querySelector(".productListHeader .name").onClick.listen((MouseEvent e) {
+    _viewElement.querySelector("thead .name").onClick.listen((MouseEvent e) {
       setSort("name");
     });
-    _viewElement.querySelector(".productListHeader .shop").onClick.listen((MouseEvent e) {
+    _viewElement.querySelector("thead .shop").onClick.listen((MouseEvent e) {
       setSort("shop");
     });
-    _viewElement.querySelector(".productListHeader .type").onClick.listen((MouseEvent e) {
+    _viewElement.querySelector("thead .type").onClick.listen((MouseEvent e) {
       setSort("type");
     });
-    _viewElement.querySelector(".productListHeader .price").onClick.listen((MouseEvent e) {
+    _viewElement.querySelector("thead .price").onClick.listen((MouseEvent e) {
       setSort("price");
     });
 
@@ -148,10 +148,10 @@ class ProductView extends View {
     Element e = _productItem.clone(true);
 
     // product row
-    e.querySelector(".fields .name").text = item.component.name;
-    e.querySelector(".fields .type").text = item.component.type;
-    e.querySelector(".fields .shop").text = item.shop.name;
-    e.querySelector(".fields .price").text = formatCurrency(item.currentPrice);
+    e.querySelector(".name").text = item.component.name;
+    e.querySelector(".type").text = item.component.type;
+    e.querySelector(".shop").text = item.shop.name;
+    e.querySelector(".price").text = formatCurrency(item.currentPrice);
 
     // actions
     e.onClick.listen((_) {

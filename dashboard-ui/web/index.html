@@ -48,23 +48,24 @@
                         <input type="search" placeholder="search...">
                     </form>
                 </div>
-                <div class="productListHeader">
-                    <p class="name">Product</p>
-                    <p class="type">Type</p>
-                    <p class="shop">Shop</p>
-                    <p class="price">Price</p>
-                </div>
-                <div id="productList">
-                    <div class="productItem">
-                        <div class="fields">
-                            <p class="name">AMD FX-9590, 4.7GHz, 8MB, AM3+</p>
-                            <p class="type">CPU</p>
-                            <p class="shop">Informatique</p>
-                            <p class="price">€ 217,-</p>
-                        </div>
-                    </div>
-                </div>
-
+                <table>
+                    <thead class="productListHeader">
+                        <tr>
+                            <th class="name">Product</th>
+                            <th class="type">Type</th>
+                            <th class="shop">Shop</th>
+                            <th class="price">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productList">
+                        <tr class="productItem">
+                            <td class="name">AMD FX-9590, 4.7GHz, 8MB, AM3+</td>
+                            <td class="type">CPU</td>
+                            <td class="shop">Informatique</td>
+                            <td class="price">€ 217,-</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <div class="pager">
                     <div class="previous">&lt;</div>
                     <div class="pages">
@@ -81,6 +82,9 @@
 
         </section>
 
+        <section id="crawlersview">
+
+        </section>
     </main>
 </body>
 </html>
