@@ -7,6 +7,6 @@ import 'product.dart';
 class PricePoint {
   int id;
   Product product;
-  DateTime pricingDate;
+  int pricingDate;
   double price;
 }
