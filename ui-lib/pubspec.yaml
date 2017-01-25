@@ -10,7 +10,10 @@ environment:
 dependencies:
   route_hierarchical: any
   intl: any
-  google_charts: any
+  google_charts:
+    git:
+      url: git://github.com/sladage/google_charts.git
+      ref: add_language_setting
 
   pcbuilder.api:
     path: ../pcbuilder-api
