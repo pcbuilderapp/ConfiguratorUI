@@ -133,6 +133,11 @@
 
     tr {
       margin: 1px 0;
+      &:hover {
+        td {
+          background-color: $blue-light;
+        }
+      }
     }
 
     th {
@@ -146,9 +151,6 @@
       overflow: hidden;
       white-space: nowrap;
       cursor: pointer;
-      &:hover {
-        background-color: $blue-light;
-      }
     }
   }
 
