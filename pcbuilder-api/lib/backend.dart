@@ -77,7 +77,7 @@ class Backend {
     try {
       request = await HttpRequest.request(
           (config["backend-server"] ?? "/backend/") +
-              "product/getpricehistory?id="+productId.toString(),
+              "product/getpricehistory?componentId="+productId.toString(),
           method: "GET",
           requestHeaders: {
             "Accept": "application/json",

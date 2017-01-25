@@ -99,11 +99,7 @@ class ProductView extends View {
 
     // generate product list
     for (Product p in productSearchResponse.products) {
-
-      PricePointResponse pricePointResponse =
-      await backend.getPriceHistory(p.component.id);
-
-      _productList.append(createProductElement(p, pricePointResponse));
+      _productList.append(createProductElement(p));
     }
 
     // set paging
@@ -144,7 +140,7 @@ class ProductView extends View {
     _viewElement.querySelector(".loading").style.display = "none";
   }
 
-  Element createProductElement(Product item, PricePointResponse pricePointResponse) {
+  Element createProductElement(Product item) {
     Element e = _productItem.clone(true);
 
     // product row
@@ -156,13 +152,13 @@ class ProductView extends View {
     // actions
     e.onClick.listen((_) {
       // load details
-      loadProductDetail(item, pricePointResponse);
+      loadProductDetail(item);
     });
 
     return e;
   }
 
-  void loadProductDetail(Product p, PricePointResponse pricePointResponse) {
+  Future loadProductDetail(Product p) async {
 
     // product detail view
     _productInfo.querySelector(".info .ean-nr").text =
@@ -172,6 +168,8 @@ class ProductView extends View {
     _productInfo.querySelector(".image").style.backgroundImage =
     "url(${p.component.pictureUrl})";
 
+    PricePointResponse pricePointResponse =
+        await backend.getPriceHistory(p.component.id);
     drawLineChart(pricePointResponse.pricePoints, _productInfo.querySelector(".pricehistory"));
 
 
