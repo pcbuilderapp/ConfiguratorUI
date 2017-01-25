@@ -24,9 +24,9 @@
             <h1>Dashboard</h1>
         </div>
         <ol>
-            <li><a id="productsNav" href="#">Products</a></li>
-            <li><a id="searchesNav" href="#">Searches</a></li>
-            <li><a id="crawlersNav" href="#">Crawlers</a></li>
+            <li><a id="productsNav" href="/productview">Products</a></li>
+            <li><a id="searchesNav" href="/searchesview">Searches</a></li>
+            <li><a id="crawlersNav" href="/crawlersview">Crawlers</a></li>
         </ol>
     </nav>
     <main>
@@ -79,7 +79,42 @@
         </section>
 
         <section id="searchesview">
-
+            <div class="loading"></div>
+            <div class="content">
+                <div class="searchbar">
+                    <div class="icon"></div>
+                    <form>
+                        <input type="search" placeholder="search...">
+                    </form>
+                </div>
+                <table>
+                    <thead class="productListHeader">
+                    <tr>
+                        <th class="filter">Filter</th>
+                        <th class="type">Type</th>
+                        <th class="component">Component</th>
+                        <th class="count">Count</th>
+                    </tr>
+                    </thead>
+                    <tbody id="searchesList">
+                    <tr class="searchesItem">
+                        <td class="filter">AMD FX-9590, 4.7GHz, 8MB, AM3+</td>
+                        <td class="type">Selection</td>
+                        <td class="component">AMD FX-9590, 4.7GHz, 8MB, AM3+</td>
+                        <td class="count">0</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pager">
+                    <div class="previous">&lt;</div>
+                    <div class="pages">
+                        <div class="pagebtn active">1</div>
+                        <div class="pagebtn">2</div>
+                        <div class="pagebtn">3</div>
+                    </div>
+                    <div class="next">&gt;</div>
+                </div>
+            </div>
         </section>
 
         <section id="crawlersview">

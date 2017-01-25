@@ -168,9 +168,13 @@ class ProductView extends View {
     _productInfo.querySelector(".image").style.backgroundImage =
     "url(${p.component.pictureUrl})";
 
+    Element priceHistory = _productInfo.querySelector(".pricehistory");
+    priceHistory.style.display = "block";
+    priceHistory.innerHtml = "";
+
     PricePointResponse pricePointResponse =
         await backend.getPriceHistory(p.component.id);
-    drawLineChart(pricePointResponse.pricePoints, _productInfo.querySelector(".pricehistory"));
+    drawLineChart(pricePointResponse.pricePoints,priceHistory);
 
 
 
