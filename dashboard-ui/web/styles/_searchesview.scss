@@ -1,0 +1,143 @@
+
+
+#searchesview {
+  display:none;
+
+  .content {
+    display:none;
+  }
+
+  .searchbar {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 32px;
+    margin: 1px 0;
+
+    .icon {
+      background-image: url(../images/search.png);
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 32px;
+      width: 32px;
+      background-color: $blue-light;
+    }
+
+    form {
+      position: relative;
+      flex-grow: 1;
+
+      input {
+        box-sizing: border-box;
+        height: 32px;
+        width: 100%;
+        padding: 0 1em;
+        border: none;
+        background-color: $blue-lighest;
+        outline: none;
+      }
+    }
+  }
+
+  .shop, .price, .name {
+    box-sizing: border-box;
+  }
+
+  .shop, .price, .type {
+    border-left: 1px solid $white;
+    text-align: center;
+  }
+
+  .shop {
+    width: 20%;
+    min-width: 96px;
+  }
+
+  .price {
+    width: 20%;
+    min-width: 96px;
+  }
+
+  table {
+    font-size: 0.8em;
+    border: none;
+    border-spacing: 0;
+    width: 100%;
+
+    thead, tbody {
+      border: none;
+
+    }
+
+    td, th {
+      height: 32px;
+      padding: 0 1em;
+      margin: 0;
+      line-height: 32px;
+      vertical-align: middle;
+    }
+
+    tr {
+      margin: 1px 0;
+      &:hover {
+        td {
+          background-color: $blue-light;
+        }
+      }
+    }
+
+    th {
+      background-color: $blue;
+      color: #fff;
+    }
+
+    td {
+      background-color: $blue-lighest;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+  }
+
+  .pager {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2em;
+    @mixin pagebtn() {
+      margin: 2px;
+      height: 16px;
+      width: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .previous, .next {
+      @include pagebtn();
+      background-color: $blue-dark;
+      border: 1px solid $blue-dark;
+      color: #fff;
+      &:hover {
+        background-color: #fff;
+        color: $blue-dark;
+      }
+    }
+    .pages {
+      display: flex;
+      flex-direction: row;
+      .pagebtn {
+        @include pagebtn();
+        border: 1px solid #fff;
+        color: $blue-dark;
+        &:hover {
+          border: 1px solid $blue-dark;
+        }
+      }
+      .current {
+        border: 1px solid $blue-dark;
+      }
+    }
+
+  }
+}
