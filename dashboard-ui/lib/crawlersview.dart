@@ -32,7 +32,7 @@ class CrawlersView extends View {
     _viewElement.querySelector(".content").style.display = "none";
     _viewElement.querySelector(".loading").style.display = "block";
 
-    Element crawlerContainer  = querySelector("#crawlerlist");
+    Element crawlerContainer  = querySelector(".crawlerlist");
     CrawlerResponse crawlerResponse = await backend.getCrawlers();
 
     for (Crawler crawler in crawlerResponse.crawlers) {

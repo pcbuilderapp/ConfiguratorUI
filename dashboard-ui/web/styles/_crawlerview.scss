@@ -1,97 +1,111 @@
-//main: styles.scss
+
 
 #crawlerview {
 
-  .crawlerItem {
-    position: relative;
+  display:none;
+
+  .content {
+    display:none;
+  }
+
+  .crawlerlist {
+
     display: flex;
     flex-direction: row;
-    height: 64px;
-    margin: 1px 0;
-    background-color: $blue-light;
+    padding: 1em;
+    background-color: $blue-dark;
 
-    .detail {
+    .crawleritem {
+      position: relative;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex-grow: 1;
-      padding: 0 16px;
-      .name {
-        font-size: 0.7em;
-        margin:0;
-      }
-      .switch {
-        font-size: 0.8em;
-        font-weight: bold;
-        margin: 0 0 0.2em 0;
-      }
-    }
+      flex-direction: row;
+      height: 164px;
+      margin: 1px 0;
+      background-color: $blue-light;
 
-    .indicator {
-      position: absolute;
-    }
-
-    .hover {
-      position: absolute;
-      display: none;
-      top:0;
-      bottom:0;
-      left:0;
-      right:0;
-
-      .selectComponent {
+      .detail {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         flex-grow: 1;
-        cursor: pointer;
-        background-color: fade-out($blue-darkest,0.5);
-        p {
-          color: $white;
-          font-size: 0.9em;
-          font-weight: bold;
-          text-align: center;
-          line-height: 64px;
-          vertical-align: middle;
+        padding: 0 16px;
+        .name {
+          font-size: 0.7em;
           margin: 0;
         }
-      }
-
-      .activate {
-        display: none;
-        color: $white;
-        font-size: 20px;
-        cursor: pointer;
-        margin-left:1px;
-        background-color: fade-out($green-darkest,0.5);
-        width: 64px;
-        line-height: 64px;
-        text-align: center;
-        &:hover {
-          background-color: $green-dark;
+        .switch {
+          font-size: 0.8em;
+          font-weight: bold;
+          margin: 0 0 0.2em 0;
         }
       }
 
-      .deactivate {
-        display: none;
-        color: $white;
-        font-size: 20px;
-        cursor: pointer;
-        margin-left:1px;
-        background-color: fade-out($red-darkest,0.5);
-        width: 64px;
-        line-height: 64px;
-        text-align: center;
-        &:hover {
-          background-color: $red-dark;
-        }
+      .indicator {
+        position: absolute;
       }
 
-    }
+      .hover {
+        position: absolute;
+        display: none;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
 
-    &:hover .hover {
-      display: flex;
-    }
+        .selectComponent {
+          flex-grow: 1;
+          cursor: pointer;
+          background-color: fade-out($blue-darkest, 0.5);
+          p {
+            color: $white;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-align: center;
+            line-height: 64px;
+            vertical-align: middle;
+            margin: 0;
+          }
+        }
 
-    .children {
-      position: absolute;
+        .activate {
+          display: none;
+          color: $white;
+          font-size: 20px;
+          cursor: pointer;
+          margin-left: 1px;
+          background-color: fade-out($green-darkest, 0.5);
+          width: 64px;
+          line-height: 64px;
+          text-align: center;
+          &:hover {
+            background-color: $green-dark;
+          }
+        }
+
+        .deactivate {
+          display: none;
+          color: $white;
+          font-size: 20px;
+          cursor: pointer;
+          margin-left: 1px;
+          background-color: fade-out($red-darkest, 0.5);
+          width: 64px;
+          line-height: 64px;
+          text-align: center;
+          &:hover {
+            background-color: $red-dark;
+          }
+        }
+
+      }
+
+      &:hover .hover {
+        display: flex;
+      }
+
+      .children {
+        position: absolute;
+      }
     }
   }
 }
