@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConfiguratorUI</title>
+    <title>PCBuilder Dashboard</title>
     <link rel="stylesheet" href="styles/styles.css">
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
@@ -84,7 +84,36 @@
 
         <section id="crawlersview">
 
+            <div class="loading"></div>
+
+            <div class="header">
+                <h2>Crawler Activation</h2>
+            </div>
+
+            <div class="content">
+
+                <div id="crawlerlist">
+
+                    <div class="crawlerItem">
+
+                        <div class="name">Alternate</div>
+
+                        <div class="switch">Active</div>
+
+                        <div class="hover">
+                            <div class="activate"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
+                            <div class="deactivate"><i class="fa-stop-circle-o" aria-hidden="true"></i></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </section>
+
     </main>
+
 </body>
 </html>

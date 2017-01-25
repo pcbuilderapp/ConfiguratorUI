@@ -1,7 +1,7 @@
 import 'package:dartson/type_transformer.dart';
 
 class CTypeTransformer<T> extends TypeTransformer {
-  T decode(dynamic value) {
+  CType decode(dynamic value) {
     String str = value;
     if (str.toUpperCase() == "CPU") return CType.CPU;
     if (str.toUpperCase() == "GPU") return CType.GPU;

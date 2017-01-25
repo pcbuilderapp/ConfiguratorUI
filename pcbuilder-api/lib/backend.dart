@@ -11,6 +11,7 @@ import 'domain/product.dart';
 import 'config.dart';
 import 'serializer.dart';
 import 'package:pcbuilder.api/transport/pricepointresponse.dart';
+import 'package:pcbuilder.api/transport/crawlerresponse.dart';
 
 Backend backend = new Backend();
 
@@ -89,5 +90,26 @@ class Backend {
     }
 
     return fromJson(request.responseText, new PricePointResponse());
+  }
+
+  Future<CrawlerResponse> getCrawlers() async {
+
+    HttpRequest request;
+
+    try {
+      request = await HttpRequest.request(
+          (config["backend-server"] ?? "/backend/") +
+              "crawler/getall",
+          method: "GET",
+          requestHeaders: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          });
+    } catch (e) {
+      print(e);
+      return null;
+    }
+
+    return fromJson(request.responseText, new CrawlerResponse());
   }
 }
