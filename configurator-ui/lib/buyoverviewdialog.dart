@@ -26,33 +26,69 @@ class BuyOverviewDialog {
       return;
     }
 
-    content.append(new Element.p()..append(new Element.a()
-      ..text = configuration.motherboard.name
-      ..attributes["href"] = configuration.motherboard.url));
+    content.append(new Element.p()..attributes["class"] = "content"
+      ..append(new Element.img()
+        ..attributes["src"] = configuration.motherboard.image
+        ..attributes["style"] = "width:40px;height:40px;"
+        ..attributes["align"] = "left")
+      ..append(new Element.a()
+        ..text = configuration.motherboard.name
+        ..attributes["href"] = configuration.motherboard.url));
 
-    content.append(new Element.p()..append(new Element.a()
-      ..text = configuration.cpu.name
-      ..attributes["href"] = configuration.cpu.url));
+    content.append(new Element.p()..attributes["class"] = "content"
+      ..append(new Element.img()
+        ..attributes["src"] = configuration.cpu.image
+        ..attributes["style"] = "width:40px;height:40px;"
+        ..attributes["align"] = "left")
+      ..append(new Element.a()
+        ..text = configuration.cpu.name
+        ..attributes["href"] = configuration.cpu.url));
 
-    content.append(new Element.p()..append(new Element.a()
-      ..text = configuration.gpu.name
-      ..attributes["href"] = configuration.gpu.url));
+    content.append(new Element.p()..attributes["class"] = "content"
+      ..append(new Element.img()
+        ..attributes["src"] = configuration.gpu.image
+        ..attributes["style"] = "width:40px;height:40px;"
+        ..attributes["align"] = "left")
+      ..append(new Element.a()
+        ..text = configuration.gpu.name
+        ..attributes["href"] = configuration.gpu.url));
 
-    content.append(new Element.p()..append(new Element.a()
-      ..text = configuration.memory.name
-      ..attributes["href"] = configuration.memory.url));
+    content.append(new Element.p()..attributes["class"] = "content"
+      ..append(new Element.img()
+        ..attributes["src"] = configuration.memory.image
+        ..attributes["style"] = "width:40px;height:40px;"
+        ..attributes["align"] = "left")
+      ..append(new Element.a()
+        ..text = configuration.memory.name
+        ..attributes["href"] = configuration.memory.url));
 
-    content.append(new Element.p()..append(new Element.a()
-      ..text = configuration.storage.name
-      ..attributes["href"] = configuration.storage.url));
+    content.append(new Element.p()..attributes["class"] = "content"
+      ..append(new Element.img()
+        ..attributes["src"] = configuration.storage.image
+        ..attributes["style"] = "width:40px;height:40px;"
+        ..attributes["align"] = "left")
+      ..append(new Element.a()
+        ..text = configuration.storage.name
+        ..attributes["href"] = configuration.storage.url));
 
-    content.append(new Element.p()..append(new Element.a()
-      ..text = configuration.psu.name
-      ..attributes["href"] = configuration.psu.url));
 
-    content.append(new Element.p()..append(new Element.a()
-      ..text = configuration.casing.name
-      ..attributes["href"] = configuration.casing.url));
+    content.append(new Element.p()..attributes["class"] = "content"
+      ..append(new Element.img()
+        ..attributes["src"] = configuration.psu.image
+        ..attributes["style"] = "width:40px;height:40px;"
+        ..attributes["align"] = "left")
+      ..append(new Element.a()
+        ..text = configuration.psu.name
+        ..attributes["href"] = configuration.psu.url));
+
+    content.append(new Element.p()..attributes["class"] = "content"
+      ..append(new Element.img()
+        ..attributes["src"] = configuration.casing.image
+        ..attributes["style"] = "width:40px;height:40px;"
+        ..attributes["align"] = "left")
+      ..append(new Element.a()
+        ..text = configuration.casing.name
+        ..attributes["href"] = configuration.casing.url));
 
     _dialogElement.parent.style.display = "flex";
     _dialogElement.style.display = "block";
