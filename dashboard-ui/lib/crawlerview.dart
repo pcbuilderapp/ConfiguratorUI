@@ -14,7 +14,7 @@ class CrawlerView extends View {
   Element get element => _viewElement;
 
   CrawlerView() {
-    Element template = _viewElement.querySelector(".crawleritem");
+    Element template = _viewElement.querySelector(".crawlerItem");
     _crawlertItem = template.clone(true);
     template.remove();
     loadCrawlers();
