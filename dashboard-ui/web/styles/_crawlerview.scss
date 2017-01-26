@@ -11,19 +11,19 @@
   .crawlerlist {
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 1em;
     background-color: $blue-dark;
 
     .crawleritem {
       position: relative;
       display: flex;
-      flex-direction: row;
-      height: 164px;
+      flex-direction: column;
+      height: 64px;
       margin: 1px 0;
       background-color: $blue-light;
 
-      .detail {
+      .details {
         display: flex;
         flex-direction: column;
         justify-content: center;
