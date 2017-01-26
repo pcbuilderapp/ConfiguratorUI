@@ -21,7 +21,7 @@ class ProductView extends View {
   Element _productInfo;
   Element _pager;
   InputElement _filterField;
-  String _currentFilter="Asus";
+  String _currentFilter="";
   String _currentSort;
   int _currentPage;
   int _pageCount;

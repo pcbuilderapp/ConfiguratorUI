@@ -12,6 +12,9 @@ import 'config.dart';
 import 'serializer.dart';
 import 'package:pcbuilder.api/transport/pricepointresponse.dart';
 import 'package:pcbuilder.api/transport/crawlerresponse.dart';
+import 'package:pcbuilder.api/transport/searchqueryrequest.dart';
+import 'package:pcbuilder.api/transport/searchqueryaddrequest.dart';
+import 'package:pcbuilder.api/transport/searchqueryresponse.dart';
 
 Backend backend = new Backend();
 
@@ -111,5 +114,52 @@ class Backend {
     }
 
     return fromJson(request.responseText, new CrawlerResponse());
+  }
+
+  Future<SearchQueryResponse> getSearches(
+      SearchQueryRequest searchQueryRequest) async {
+
+    String data = toJson(searchQueryRequest);
+
+    HttpRequest request;
+
+    try {
+      request = await HttpRequest.request(
+          (config["backend-server"] ?? "/backend/") +
+              "searches/get",
+          method: "POST",
+          sendData: data,
+          requestHeaders: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          });
+    } catch (e) {
+      print(e);
+      return new SearchQueryResponse();
+    }
+    SearchQueryResponse responds =
+    fromJson(request.responseText, new SearchQueryResponse());
+
+    return responds;
+  }
+
+  void postSearchQuery(SearchQueryAddRequest searchQueryAddRequest) {
+    String data = toJson(searchQueryAddRequest);
+
+    HttpRequest request;
+
+    try {
+      HttpRequest.request(
+          (config["backend-server"] ?? "/backend/") +
+              "searches/add",
+          method: "POST",
+          sendData: data,
+          requestHeaders: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          });
+    } catch (e) {
+      print(e);
+    }
   }
 }

@@ -4,6 +4,10 @@ import 'dart:async';
 import 'package:pcbuilder.api/config.dart';
 import 'package:pcbuilder.api/backend.dart';
 import 'package:uilib/util.dart';
+import 'package:pcbuilder.api/transport/searchqueryrequest.dart';
+import 'package:pcbuilder.api/transport/searchqueryresponse.dart';
+import 'package:pcbuilder.api/domain/searchquery.dart';
+import 'package:pcbuilder.api/domain/searchquerytype.dart';
 
 class SearchesView extends View {
   Element _viewElement = querySelector("#searchesview");
@@ -16,18 +20,18 @@ class SearchesView extends View {
   void onHide() {
     querySelector("#searchesNav").classes.remove("active");
   }
-/*
+
   Element _searchesItem;
   Element _searchesList;
   Element _pager;
   InputElement _filterField;
-  String _currentFilter="Asus";
+  String _currentFilter="";
   String _currentSort;
   int _currentPage;
   int _pageCount;
   int pageWidth = config["page-width"] ?? 5;
 
-  searchesView() {
+  SearchesView() {
     Element template = _viewElement.querySelector(".searchesItem");
     _searchesItem = template.clone(true);
     template.remove();
@@ -76,38 +80,38 @@ class SearchesView extends View {
     _viewElement.querySelector(".content").style.display = "none";
     _viewElement.querySelector(".loading").style.display = "block";
 
-    SearchesSearch searchesSearch = new SearchesSearch();
-    searchesSearch.filter = _currentFilter;
-    searchesSearch.page = page;
-    searchesSearch.maxItems = config["max-items"] ?? 30;
-    searchesSearch.sort = _currentSort;
+    SearchQueryRequest searchQueryRequest = new SearchQueryRequest();
+    searchQueryRequest.filter = _currentFilter;
+    searchQueryRequest.page = page;
+    searchQueryRequest.maxItems = config["max-items"] ?? 30;
+    searchQueryRequest.sort = _currentSort;
 
-    SearchesResponse searchesSearchResponse =
-    await backend.getSearches(searchesSearch);
+    SearchQueryResponse searchQueryResponse =
+    await backend.getSearches(searchQueryRequest);
 
     _searchesList.innerHtml = "";
 
     // generate searches list
-    for (searches p in searchesSearchResponse.searches) {
-      _searchesList.append(createsearchesElement(p));
+    for (SearchQuery s in searchQueryResponse.searches) {
+      _searchesList.append(createsearchesElement(s));
     }
 
     // set paging
-    _currentPage = searchesSearchResponse.page;
-    _pageCount = searchesSearchResponse.pageCount;
+    _currentPage = searchQueryResponse.page;
+    _pageCount = searchQueryResponse.pageCount;
     Element pages = _pager.querySelector(".pages");
     pages.innerHtml = "";
 
     bool lastAddedPoints = false;
 
-    for (int i = 0; i < searchesSearchResponse.pageCount; i++) {
-      if (showpage(i, searchesSearchResponse.page, pageWidth,
-          searchesSearchResponse.pageCount - 1)) {
+    for (int i = 0; i < searchQueryResponse.pageCount; i++) {
+      if (showpage(i, searchQueryResponse.page, pageWidth,
+          searchQueryResponse.pageCount - 1)) {
         Element pagebtn = new Element.div();
         pagebtn.text = "${i + 1}";
         pagebtn.classes.add("pagebtn");
 
-        if (i == searchesSearchResponse.page) {
+        if (i == searchQueryResponse.page) {
           pagebtn.classes.add("current");
         } else {
           pagebtn.onClick.listen((_) {
@@ -130,20 +134,20 @@ class SearchesView extends View {
     _viewElement.querySelector(".loading").style.display = "none";
   }
 
-  Element createsearchesElement(Search item) {
+  Element createsearchesElement(SearchQuery item) {
     Element e = _searchesItem.clone(true);
 
     // searches row
-    e.querySelector(".name").text = item.component.name;
-    e.querySelector(".type").text = item.component.type;
-    e.querySelector(".shop").text = item.shop.name;
-    e.querySelector(".price").text = formatCurrency(item.currentPrice);
+    e.querySelector(".filter").text = item.filter;
+    e.querySelector(".type").text = searchQueryType(item.type);
+    e.querySelector(".component").text = item.component.name;
+    e.querySelector(".count").text = "${item.count}";
 
     // actions
-    e.onClick.listen((_) {
+    /*e.onClick.listen((_) {
       // load details
       //loadSearchesDetail(item);
-    });
+    });*/
 
     return e;
   }
@@ -161,6 +165,6 @@ class SearchesView extends View {
     _viewElement.querySelector(".$sortColumn-header").classes.add("header-selected");
     loadSearches(0);
   }
-  */
+
   Element get element => _viewElement;
 }
