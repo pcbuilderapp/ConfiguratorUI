@@ -4,15 +4,15 @@ import 'package:pcbuilder.api/backend.dart';
 import 'package:pcbuilder.api/transport/crawlerresponse.dart';
 import 'package:pcbuilder.api/domain/crawler.dart';
 
-class CrawlersView extends View {
+class CrawlerView extends View {
 
-  Element _viewElement = querySelector("#crawlersview");
-  static String get id => "crawlersview";
+  Element _viewElement = querySelector("#crawlerview");
+  static String get id => "crawlerview";
   Element _crawlertItem;
 
   Element get element => _viewElement;
 
-  CrawlersView() {
+  CrawlerView() {
     Element template = _viewElement.querySelector(".crawlerItem");
     _crawlertItem = template.clone(true);
     template.remove();
@@ -36,10 +36,22 @@ class CrawlersView extends View {
     CrawlerResponse crawlerResponse = await backend.getCrawlers();
 
     for (Crawler crawler in crawlerResponse.crawlers) {
+
       Element c  = _crawlertItem.clone(true);
       c.querySelector(".name").text = crawler.name;
-      c.querySelector(".switch").text = crawler.activated ? "Active" : "Inactive";
+
+      if (crawler.activated) {
+        c.querySelector(".switch").text = "Active";
+        c.querySelector(".hover .activate").style.display = "none";
+        c.querySelector(".hover .deactivate").style.display = "block";
+      } else {
+        c.querySelector(".switch").text = "Inactive";
+        c.querySelector(".hover .activate").style.display = "block";
+        c.querySelector(".hover .deactivate").style.display = "none";
+      }
+
       crawlerContainer.append(c);
+
     }
 
     // hide load indicator
