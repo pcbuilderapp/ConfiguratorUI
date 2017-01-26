@@ -26,14 +26,15 @@ class BuyOverviewDialog {
       return;
     }
 
-    content.append(new Element.p()..attributes["class"] = "content"
-      ..append(new Element.img()
-        ..attributes["src"] = configuration.motherboard.image
-        ..attributes["style"] = "width:40px;height:40px;"
-        ..attributes["align"] = "left")
+    content.append(new Element.p()..classes.add("item")
+      ..append(new Element.div()
+        ..style.backgroundImage = "url(${configuration.motherboard.image})"
+        ..classes.add("image"))
       ..append(new Element.a()
         ..text = configuration.motherboard.name
-        ..attributes["href"] = configuration.motherboard.url));
+        ..attributes["href"] = configuration.motherboard.url
+        ..classes.add("name"))
+        );
 
     content.append(new Element.p()..attributes["class"] = "content"
       ..append(new Element.img()

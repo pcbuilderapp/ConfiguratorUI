@@ -47,6 +47,23 @@
 }
 
 #buyOverviewDialog {
+  font-size: 0.9em;
+  .item {
+    display: flex;
+    flex-direction: row;
+
+    .image {
+      height: 48px;
+      width: 48px;
+      background-size: cover;
+      flex-shrink: 0;
+    }
+
+    .name {
+      align-self: center;
+      padding-left: 4px;
+    }
+  }
 }
 
 #helpDialog {
