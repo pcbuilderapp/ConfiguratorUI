@@ -5,6 +5,7 @@ import 'pcbuilder.dart';
 import 'package:pcbuilder.api/transport/configuration.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
 import 'buyoverviewdialog.dart';
+import 'package:pcbuilder.api/serializer.dart';
 
 class MainView extends View {
   static String get id => "mainview";
@@ -60,23 +61,27 @@ class MainView extends View {
           _configuration.casing = c;
         }
 
-        e.querySelector(".name").text = c.name;
-        e.querySelector(".price p").text = formatCurrency(c.price);
-        e.querySelector(".image").style.backgroundImage = "url(${c.image})";
+        // persist configuration
+        window.localStorage["configuration"] = toJson(_configuration);
 
-        // enable remove
+        updateComponentItem(c,component);
 
-        Element rmComponentElement = e.querySelector(".rmComponent");
-        rmComponentElement
-          ..style.display = "block"
-          ..onClick.listen((_) {
-            removeComponent(component);
-            rmComponentElement.style.display = "none";
-          });
         setPriceTotal();
       });
 
       componentContainer.append(e);
+    }
+
+    // load persisted configuration
+    if (window.localStorage.containsKey("configuration")) {
+      _configuration = fromJson(window.localStorage["configuration"],new Configuration());
+      updateComponentItem(_configuration.motherboard,"Motherboard");
+      updateComponentItem(_configuration.cpu,"CPU");
+      updateComponentItem(_configuration.gpu,"GPU");
+      updateComponentItem(_configuration.memory,"Memory");
+      updateComponentItem(_configuration.storage,"Storage");
+      updateComponentItem(_configuration.psu,"PSU");
+      updateComponentItem(_configuration.casing,"Case");
     }
 
     // clear current config
@@ -97,6 +102,32 @@ class MainView extends View {
       querySelector("#pricetotal span").text = "0.-";
     } else {
       querySelector("#pricetotal span").text = formatCurrency(price);
+    }
+  }
+
+
+  void updateComponentItem(ComponentItem c, String component) {
+    Element e = _view.querySelector(".component-${component.toLowerCase()}");
+    if (c == null) {
+      e.querySelector(".name").text =
+          _componentItem.querySelector(".name").text;
+      e.querySelector(".price p").text =
+          _componentItem.querySelector(".price p").text;
+      e.querySelector(".image").setAttribute("style", "");
+    } else {
+      e.querySelector(".name").text = c.name;
+      e.querySelector(".price p").text = formatCurrency(c.price);
+      e.querySelector(".image").style.backgroundImage = "url(${c.image})";
+
+      // enable remove
+
+      Element rmComponentElement = e.querySelector(".rmComponent");
+      rmComponentElement
+        ..style.display = "block"
+        ..onClick.listen((_) {
+          removeComponent(component);
+          rmComponentElement.style.display = "none";
+        });
     }
   }
 
@@ -143,11 +174,7 @@ class MainView extends View {
     } else if (component == "Case") {
       _configuration.casing = null;
     }
-    e.querySelector(".name").text =
-        _componentItem.querySelector(".name").text;
-    e.querySelector(".price p").text =
-        _componentItem.querySelector(".price p").text;
-    e.querySelector(".image").setAttribute("style", "");
+    updateComponentItem(null,component);
     setPriceTotal();
   }
 
