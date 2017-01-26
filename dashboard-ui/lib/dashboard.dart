@@ -18,7 +18,7 @@ class Dashboard extends ViewController {
     }
     registerView(ProductView.id, new ProductView(), isDefaultView: true);
     registerView(SearchesView.id, new SearchesView());
-    registerView(CrawlersView.id, new CrawlersView());
+    registerView(CrawlerView.id, new CrawlerView());
     enableRouting();
   }
 }
