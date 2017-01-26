@@ -2,15 +2,12 @@ import 'package:uilib/view.dart';
 import 'dart:html';
 import 'dart:async';
 import 'package:pcbuilder.api/config.dart';
-import 'package:pcbuilder.api/domain/connector.dart';
-import 'package:pcbuilder.api/transport/componentitem.dart';
 import 'package:pcbuilder.api/transport/productsearch.dart';
 import 'package:pcbuilder.api/transport/productsresponse.dart';
 import 'package:pcbuilder.api/domain/product.dart';
 import 'package:pcbuilder.api/backend.dart';
 import 'package:uilib/util.dart';
 import 'package:uilib/charts.dart';
-import 'package:pcbuilder.api/domain/pricepoint.dart';
 import 'package:pcbuilder.api/transport/pricepointresponse.dart';
 
 class ProductView extends View {

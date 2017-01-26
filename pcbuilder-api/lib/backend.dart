@@ -1,13 +1,9 @@
 import 'dart:async';
 import 'dart:html';
-import 'transport/componentitem.dart';
-import 'domain/connector.dart';
 import 'transport/componentmatchingsearch.dart';
-import 'transport/alternativeshopitem.dart';
 import 'transport/matchingcomponentsresponse.dart';
 import 'transport/productsresponse.dart';
 import 'transport/productsearch.dart';
-import 'domain/product.dart';
 import 'config.dart';
 import 'serializer.dart';
 import 'package:pcbuilder.api/transport/pricepointresponse.dart';

@@ -2,7 +2,7 @@ import 'dart:html';
 import 'package:uilib/viewcontroller.dart';
 import 'productview.dart';
 import 'searchesview.dart';
-import 'crawlersview.dart';
+import 'crawlerview.dart';
 import 'package:pcbuilder.api/config.dart';
 import 'dart:async';
 
