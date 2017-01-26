@@ -12,31 +12,41 @@
 
     display: flex;
     flex-direction: column;
-    padding: 1em;
-    background-color: $blue-dark;
+    padding: 2em;
 
     .crawleritem {
       position: relative;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       height: 64px;
+      width: 360px;
       margin: 1px 0;
       background-color: $blue-light;
 
+      .crawlericon {
+        color: $blue-dark;
+        font-size: 48px;
+        width: 48px;
+        line-height: 48px;
+        margin-left: 16px;
+        margin-top: 8px;
+      }
+
       .details {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex-direction: row;
         flex-grow: 1;
-        padding: 0 16px;
+        margin-top: 22px;
+        margin-left: 16px;
+
         .name {
-          font-size: 0.7em;
-          margin: 0;
+          font-size: 1em;
+          width: 128px;
+
         }
         .switch {
-          font-size: 0.8em;
+          font-size: 1em;
           font-weight: bold;
-          margin: 0 0 0.2em 0;
         }
       }
 
@@ -70,7 +80,7 @@
         .activate {
           display: none;
           color: $white;
-          font-size: 20px;
+          font-size: 64px;
           cursor: pointer;
           margin-left: 1px;
           background-color: fade-out($green-darkest, 0.5);
@@ -85,7 +95,7 @@
         .deactivate {
           display: none;
           color: $white;
-          font-size: 20px;
+          font-size: 64px;
           cursor: pointer;
           margin-left: 1px;
           background-color: fade-out($red-darkest, 0.5);

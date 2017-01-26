@@ -8,6 +8,7 @@ import 'config.dart';
 import 'serializer.dart';
 import 'package:pcbuilder.api/transport/pricepointresponse.dart';
 import 'package:pcbuilder.api/transport/crawlerresponse.dart';
+import 'package:pcbuilder.api/domain/crawler.dart';
 
 Backend backend = new Backend();
 
@@ -107,5 +108,26 @@ class Backend {
     }
 
     return fromJson(request.responseText, new CrawlerResponse());
+  }
+
+  Future updateCrawler(Crawler crawler) async {
+
+    String data = toJson(crawler);
+
+    try {
+      return await HttpRequest.request(
+          (config["backend-server"] ?? "/backend/") +
+              "crawler/update",
+          method: "POST",
+          sendData: data,
+          requestHeaders: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          });
+
+    } catch (e) {
+      print(e);
+    }
+    return "";
   }
 }
