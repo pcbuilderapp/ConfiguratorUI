@@ -7,6 +7,8 @@ import 'transport/productsearch.dart';
 import 'config.dart';
 import 'serializer.dart';
 import 'package:pcbuilder.api/transport/pricepointresponse.dart';
+import 'package:pcbuilder.api/transport/mindailypriceviewresponse.dart';
+import 'package:pcbuilder.api/transport/maxdailypriceviewresponse.dart';
 import 'package:pcbuilder.api/transport/crawlerresponse.dart';
 import 'package:pcbuilder.api/domain/crawler.dart';
 import 'package:pcbuilder.api/transport/searchqueryrequest.dart';
@@ -71,14 +73,14 @@ class Backend {
     return responds;
   }
 
-  Future<PricePointResponse> getPriceHistory(int productId) async {
+  Future<PricePointResponse> getPriceHistory(int componentId) async {
 
     HttpRequest request;
 
     try {
       request = await HttpRequest.request(
           (config["backend-server"] ?? "/backend/") +
-          "/pricepoint/gethistorybycomponent?componentId="+productId.toString(),
+          "/pricepoint/gethistorybycomponent?componentId="+componentId.toString(),
           method: "GET",
           requestHeaders: {
             "Accept": "application/json",
@@ -90,6 +92,48 @@ class Backend {
     }
 
     return fromJson(request.responseText, new PricePointResponse());
+  }
+
+  Future<MinDailyPriceViewResponse> getMinDailyPriceHistory(int componentId) async {
+
+    HttpRequest request;
+
+    try {
+      request = await HttpRequest.request(
+          (config["backend-server"] ?? "/backend/") +
+              "/component/getminpricehistory?componentId="+componentId.toString(),
+          method: "GET",
+          requestHeaders: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          });
+    } catch (e) {
+      print(e);
+      return null;
+    }
+
+    return fromJson(request.responseText, new MinDailyPriceViewResponse());
+  }
+
+  Future<MaxDailyPriceViewResponse> getMaxDailyPriceHistory(int componentId) async {
+
+    HttpRequest request;
+
+    try {
+      request = await HttpRequest.request(
+          (config["backend-server"] ?? "/backend/") +
+              "/component/getmaxpricehistory?componentId="+componentId.toString(),
+          method: "GET",
+          requestHeaders: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          });
+    } catch (e) {
+      print(e);
+      return null;
+    }
+
+    return fromJson(request.responseText, new MaxDailyPriceViewResponse());
   }
 
   Future<CrawlerResponse> getCrawlers() async {
