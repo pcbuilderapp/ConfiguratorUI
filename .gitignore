@@ -24,3 +24,5 @@ doc/api/
 
 #config files
 config.yaml
+configurator-ui/web/styles/styles.css
+configurator-ui/.analysis_options
