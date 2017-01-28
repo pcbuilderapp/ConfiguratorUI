@@ -8,13 +8,15 @@ import 'package:pcbuilder.api/transport/componentmatchingsearch.dart';
 import 'package:pcbuilder.api/transport/configuration.dart';
 import 'package:pcbuilder.api/transport/matchingcomponentsresponse.dart';
 import 'package:pcbuilder.api/backend.dart';
+import 'package:pcbuilder.api/transport/searchqueryaddrequest.dart';
+import 'package:pcbuilder.api/domain/searchquerytype.dart';
+import 'package:pcbuilder.api/transport/componentref.dart';
 import 'pcbuilder.dart';
 import 'package:uilib/util.dart';
 import 'mainview.dart';
 
 class SelectComponentView extends View {
   static String get id => "selectcomponent";
-
 
   SelectComponentView() {
     _viewElement = querySelector("#selectview");
@@ -204,23 +206,46 @@ class SelectComponentView extends View {
 
     // actions
     e.querySelector(".selectAction").onClick.listen((_) {
+      backend.postSearchQuery(new SearchQueryAddRequest()
+        ..component = (new ComponentRef()..id=item.id)
+        ..filter = _currentFilter
+        ..type = SearchQueryType.SELECTION);
       _selectComponentCompleter.complete(item);
     });
 
     return e;
   }
 
+  /// Set filter
+  ///
+  /// Set the current filter and fetch a new list of components
+  /// filtered by [filter].
+
   void filter(String filter) {
     if (filter == _currentFilter) return;
     _currentFilter = filter;
+    backend.postSearchQuery(new SearchQueryAddRequest()
+      ..filter = filter
+      ..type = SearchQueryType.FILTER);
     loadComponents(0);
   }
+
+  /// Set sorting
+  ///
+  /// Set the current sorting and fetch a new list of components
+  /// sorted by [filter].
 
   void setSort(String sortColumn) {
     if (sortColumn == _currentSort) return;
     _currentSort = sortColumn;
-    _viewElement.querySelectorAll(".header-selected").classes.remove("header-selected");
-    _viewElement.querySelector(".$sortColumn-header").classes.add("header-selected");
+    _viewElement
+        .querySelectorAll(".header-selected")
+        .classes
+        .remove("header-selected");
+    _viewElement
+        .querySelector(".$sortColumn-header")
+        .classes
+        .add("header-selected");
     loadComponents(0);
   }
 

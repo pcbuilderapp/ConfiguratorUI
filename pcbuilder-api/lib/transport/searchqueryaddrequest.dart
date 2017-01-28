@@ -1,10 +1,10 @@
 import 'package:dartson/dartson.dart';
 import '../domain/searchquerytype.dart';
-import '../domain/component.dart';
+import 'componentref.dart';
 
 @Entity()
 class SearchQueryAddRequest {
   String filter;
   SearchQueryType type;
-  Component component;
+  ComponentRef component;
 }
