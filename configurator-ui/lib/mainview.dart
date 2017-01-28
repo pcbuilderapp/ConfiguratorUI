@@ -158,7 +158,7 @@ class MainView extends View {
   }
 
   void removeComponent(String component) {
-    Element e = _view.querySelector(".component-${component.toLowerCase()}");
+
     if (component == "Motherboard") {
       _configuration.motherboard = null;
     } else if (component == "CPU") {

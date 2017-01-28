@@ -2,7 +2,6 @@ import 'package:dartson/type_transformer.dart';
 
 class SearchQueryTypeTransformer<T> extends TypeTransformer {
   SearchQueryType decode(dynamic value) => new _SearchQueryType(value);
-
   dynamic encode(T value) => (value as SearchQueryType).toString();
 }
 
