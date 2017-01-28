@@ -2,7 +2,7 @@ import 'dart:html';
 import 'package:google_charts/google_charts.dart';
 import 'package:pcbuilder.api/domain/pricepointdata.dart';
 
-drawLineChartMinDaily(List<PricePointData> minDailyPrices, List<PricePointData> maxDailyPrices, Element lineChartElement) async {
+drawPriceHistoryChart(List<PricePointData> minDailyPrices, List<PricePointData> maxDailyPrices, Element lineChartElement) async {
 
   if (minDailyPrices!= null && !minDailyPrices.isEmpty) {
 

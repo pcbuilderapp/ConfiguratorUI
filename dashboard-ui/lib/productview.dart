@@ -181,7 +181,7 @@ class ProductView extends View {
     PriceHistoryResponse maxDailyPriceViewResponse =
       await backend.getPriceHistory(priceHistoryRequest);
 
-    drawLineChartMinDaily(minDailyPriceViewResponse.priceHistory, maxDailyPriceViewResponse.priceHistory, priceHistory);
+    drawPriceHistoryChart(minDailyPriceViewResponse.priceHistory, maxDailyPriceViewResponse.priceHistory, priceHistory);
 
     /*if (p.component.connectors.length != 0) {
       Element connectorsElement = _productInfo.querySelector(".connectors");
