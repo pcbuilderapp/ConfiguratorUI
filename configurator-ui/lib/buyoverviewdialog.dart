@@ -1,7 +1,9 @@
 import 'dart:html';
 import 'dart:collection';
 import 'package:pcbuilder.api/transport/configuration.dart';
+import 'package:pcbuilder.api/transport/componentitem.dart';
 
+/// Generates the BuyOverviewDialog after evaluating current components.
 class BuyOverviewDialog {
   Element _dialogElement;
   //Element _dialogMotherboard;
@@ -46,28 +48,28 @@ class BuyOverviewDialog {
 
     Iterator<String> iterator = shopList.iterator;
 
-    while(iterator.moveNext()){
-      makeShop(content, iterator.current);
-      if(iterator.current == configuration.motherboard.shop){
-        makeLink(content, configuration.motherboard.image, configuration.motherboard.name, configuration.motherboard.url);
+    for (String shop in shopList) {
+      makeRow(content, shop);
+      if(shop == configuration.motherboard.shop){
+        makeLink(content, configuration.motherboard);
       }
-      if(iterator.current == configuration.cpu.shop){
-        makeLink(content, configuration.cpu.image, configuration.cpu.name, configuration.cpu.url);
+      if(shop == configuration.cpu.shop){
+        makeLink(content, configuration.cpu);
       }
-      if(iterator.current == configuration.gpu.shop){
-        makeLink(content, configuration.gpu.image, configuration.gpu.name, configuration.gpu.url);
+      if(shop == configuration.gpu.shop){
+        makeLink(content, configuration.gpu);
       }
-      if(iterator.current == configuration.memory.shop){
-        makeLink(content, configuration.memory.image, configuration.memory.name, configuration.memory.url);
+      if(shop == configuration.memory.shop){
+        makeLink(content, configuration.memory);
       }
-      if(iterator.current == configuration.storage.shop){
-        makeLink(content, configuration.storage.image, configuration.storage.name, configuration.storage.url);
+      if(shop == configuration.storage.shop){
+        makeLink(content, configuration.storage);
       }
-      if(iterator.current == configuration.psu.shop){
-        makeLink(content, configuration.psu.image, configuration.psu.name, configuration.psu.url);
+      if(shop == configuration.psu.shop){
+        makeLink(content, configuration.psu);
       }
-      if(iterator.current == configuration.motherboard.shop){
-        makeLink(content, configuration.casing.image, configuration.casing.name, configuration.casing.url);
+      if(shop == configuration.motherboard.shop){
+        makeLink(content, configuration.casing);
       }
     }
 
@@ -81,7 +83,8 @@ class BuyOverviewDialog {
     }
   }
 
-  void makeShop(Element content, String shop) {
+  /// Makes row for given string
+  void makeRow(Element content, String shop) {
     content.append(new Element.p()..classes.add("item")
       ..append(new Element.div()
         ..text = shop
@@ -89,14 +92,15 @@ class BuyOverviewDialog {
     );
   }
 
-  void makeLink(Element content, String imageUrl, String name, String url) {
+  /// Makes link row for given component using name,link and url
+  void makeLink(Element content, ComponentItem component) {
     content.append(new Element.p()..classes.add("item")
       ..append(new Element.div()
-        ..style.backgroundImage = "url(${imageUrl})"
+        ..style.backgroundImage = "url(${component.image})"
         ..classes.add("image"))
       ..append(new Element.a()
-        ..text = name
-        ..attributes["href"] = url
+        ..text = component.name
+        ..attributes["href"] = component.url
         ..attributes["target"] = "_blank"
         ..classes.add("name"))
     );
