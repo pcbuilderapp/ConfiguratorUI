@@ -31,48 +31,23 @@ class MainView extends View {
     template.remove();
 
     // maak component types
-    Element componentContainer = querySelector("#pcconfiglist");
-
-    for (String component in components) {
-      Element e = _componentItem.clone(true);
-      e.classes.add("component-${component.toLowerCase()}");
-      e.querySelector(".type").text = component;
-      /*e.querySelector(".image").style.backgroundImage =
-          "url(" + getDefaultImage(component) + ")";*/
-
-      e.querySelector(".selectComponent").onClick.listen((_) async {
-        ComponentItem c = await pcbuilder.selectComponentView
-            .selectComponent(component, _configuration);
-        pcbuilder.setView(MainView.id);
-
-        if (component == "Motherboard") {
-          _configuration.motherboard = c;
-        } else if (component == "CPU") {
-          _configuration.cpu = c;
-        } else if (component == "GPU") {
-          _configuration.gpu = c;
-        } else if (component == "Memory") {
-          _configuration.memory = c;
-        } else if (component == "Storage") {
-          _configuration.storage = c;
-        } else if (component == "PSU") {
-          _configuration.psu = c;
-        } else if (component == "Case") {
-          _configuration.casing = c;
-        }
-
-        // persist configuration
-        window.localStorage["configuration"] = toJson(_configuration);
-
-        updateComponentItem(c,component);
-
-        setPriceTotal();
-      });
-
-      componentContainer.append(e);
-    }
+    _buildComponentSelectors();
 
     // load persisted configuration
+    _loadConfiguration();
+
+    // clear current config
+    _view.querySelector(".clearAction").onClick.listen((_){
+      clearCurrentConfig();
+    });
+
+    // show buy screen
+    _view.querySelector(".buyAction").onClick.listen((_){
+      showBuySummary();
+    });
+  }
+
+  void _loadConfiguration() {
     if (window.localStorage.containsKey("configuration")) {
       _configuration = fromJson(window.localStorage["configuration"],new Configuration());
       if (_configuration == null) {
@@ -87,16 +62,53 @@ class MainView extends View {
         updateComponentItem(_configuration.casing,"Case");
       }
     }
+  }
 
-    // clear current config
-    _view.querySelector(".clearAction").onClick.listen((_){
-      clearCurrentConfig();
-    });
+  void _buildComponentSelectors() {
+    Element componentContainer = querySelector("#pcconfiglist");
 
-    // show buy screen
-    _view.querySelector(".buyAction").onClick.listen((_){
-      showBuySummary();
-    });
+    for (String component in components) {
+      Element e = _componentItem.clone(true);
+      e.classes.add("component-${component.toLowerCase()}");
+      e.querySelector(".type").text = component;
+      /*e.querySelector(".image").style.backgroundImage =
+          "url(" + getDefaultImage(component) + ")";*/
+
+      e.querySelector(".selectComponent").onClick.listen((_) async {
+        ComponentItem c = await pcbuilder.selectComponentView
+            .selectComponent(component, _configuration);
+        _onComponentSelected(c,component);
+      });
+
+      componentContainer.append(e);
+    }
+  }
+
+  void _onComponentSelected(ComponentItem c, String component) {
+    pcbuilder.setView(MainView.id);
+
+    if (component == "Motherboard") {
+      _configuration.motherboard = c;
+    } else if (component == "CPU") {
+      _configuration.cpu = c;
+    } else if (component == "GPU") {
+      _configuration.gpu = c;
+    } else if (component == "Memory") {
+      _configuration.memory = c;
+    } else if (component == "Storage") {
+      _configuration.storage = c;
+    } else if (component == "PSU") {
+      _configuration.psu = c;
+    } else if (component == "Case") {
+      _configuration.casing = c;
+    }
+
+    // persist configuration
+    window.localStorage["configuration"] = toJson(_configuration);
+
+    updateComponentItem(c,component);
+
+    setPriceTotal();
   }
 
   void setPriceTotal() {
@@ -180,6 +192,9 @@ class MainView extends View {
     }
     updateComponentItem(null,component);
     setPriceTotal();
+
+    // persist configuration
+    window.localStorage["configuration"] = toJson(_configuration);
   }
 
   void clearCurrentConfig() {
