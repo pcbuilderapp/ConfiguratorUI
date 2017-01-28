@@ -18,6 +18,7 @@ $minWidth: 360px;
 
 html, body {
   width: 100%;
+  min-width: $minWidth;
   height: 100%;
   margin: 0;
   padding: 0;
