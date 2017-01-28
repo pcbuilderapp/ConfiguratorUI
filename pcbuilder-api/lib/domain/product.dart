@@ -11,4 +11,5 @@ class Product {
   Shop shop;
   double currentPrice;
   String productUrl;
+  bool discounted;
 }

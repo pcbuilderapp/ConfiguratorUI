@@ -18,6 +18,7 @@ class ComponentItem {
   double price;
   String url;
   String image;
+  bool discounted;
 
   List<Connector> connectors = [];
   List<AlternativeShopItem> alternativeShops = [];
