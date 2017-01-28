@@ -15,6 +15,7 @@ class SearchesView extends View {
 
   void onShow() {
     querySelector("#searchesNav").classes.add("active");
+    loadSearches(0);
   }
 
   void onHide() {
@@ -71,8 +72,6 @@ class SearchesView extends View {
       if (_currentPage >= _pageCount) return;
       loadSearches(_currentPage + 1);
     });
-
-    loadSearches(0);
   }
 
   Future loadSearches(int page) async {
@@ -139,8 +138,8 @@ class SearchesView extends View {
 
     // searches row
     e.querySelector(".filter").text = item.filter;
-    e.querySelector(".type").text = searchQueryType(item.type);
-    e.querySelector(".component").text = item.component.name;
+    e.querySelector(".type").text = "${item.type}";
+    e.querySelector(".component").text = item.component?.name ?? "-";
     e.querySelector(".count").text = "${item.count}";
 
     // actions
