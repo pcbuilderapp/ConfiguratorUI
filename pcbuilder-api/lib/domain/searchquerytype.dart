@@ -5,7 +5,6 @@ class SearchQueryTypeTransformer<T> extends TypeTransformer {
   dynamic encode(T value) => (value as SearchQueryType).toString();
 }
 
-
 abstract class SearchQueryType {
   static final SearchQueryType FILTER = new _SearchQueryType("FILTER");
   static final SearchQueryType SELECTION = new _SearchQueryType("SELECTION");
