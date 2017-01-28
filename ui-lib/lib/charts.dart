@@ -13,7 +13,7 @@ drawPriceHistoryChart(List<PricePointData> minDailyPrices, List<PricePointData> 
       PricePointData minDailyPrice = minDailyPrices.elementAt(i);
       PricePointData maxDailyPrice = maxDailyPrices.elementAt(i);
       rawData.add([
-        new DateTime.fromMillisecondsSinceEpoch(minDailyPrice.date),
+        minDailyPrice.date,
         minDailyPrice.price,
         maxDailyPrice.price
       ]);

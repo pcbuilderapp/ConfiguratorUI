@@ -4,6 +4,6 @@ import 'package:dartson/dartson.dart';
 
 @Entity()
 class PricePointData {
-  int date;
+  DateTime date;
   double price;
 }

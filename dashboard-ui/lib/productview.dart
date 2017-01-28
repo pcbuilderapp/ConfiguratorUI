@@ -172,9 +172,8 @@ class ProductView extends View {
 
     PriceHistoryRequest priceHistoryRequest = new PriceHistoryRequest();
     priceHistoryRequest.componentId = p.component.id;
-    DateTime today = new DateTime.now();
-    priceHistoryRequest.toDate = today.millisecondsSinceEpoch;
-    priceHistoryRequest.fromDate = today.subtract(new Duration(days: 30)).millisecondsSinceEpoch;
+    priceHistoryRequest.fromDate = new DateTime.now().subtract(new Duration(days: 30));
+    priceHistoryRequest.toDate = new DateTime.now();
 
     priceHistoryRequest.min = true;
     PriceHistoryResponse minDailyPriceViewResponse =
