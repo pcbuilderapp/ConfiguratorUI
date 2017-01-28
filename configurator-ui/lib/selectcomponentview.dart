@@ -150,7 +150,13 @@ class SelectComponentView extends View {
     e.querySelector(".fields .name").text = item.name;
     e.querySelector(".fields .brand").text = item.brand;
     e.querySelector(".fields .shop").text = item.shop;
-    e.querySelector(".fields .price").text = formatCurrency(item.price);
+    Element priceField = e.querySelector(".fields .price")
+      ..text = formatCurrency(item.price);
+
+    if (item.discounted) {
+      priceField.classes.add("discount");
+      priceField.attributes['title'] = "This product is on sale.";
+    }
 
     // show detail view for row
     e.querySelector(".fields").onClick.listen((_) {
