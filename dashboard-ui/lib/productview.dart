@@ -9,6 +9,7 @@ import 'package:pcbuilder.api/backend.dart';
 import 'package:uilib/util.dart';
 import 'package:uilib/charts.dart';
 import 'package:pcbuilder.api/transport/pricehistoryresponse.dart';
+import 'package:pcbuilder.api/transport/pricehistoryrequest.dart';
 
 class ProductView extends View {
   Element _viewElement = querySelector("#productview");
@@ -169,10 +170,16 @@ class ProductView extends View {
     priceHistory.style.display = "block";
     priceHistory.innerHtml = "";
 
+    PriceHistoryRequest priceHistoryRequest = new PriceHistoryRequest();
+    priceHistoryRequest.componentId = p.component.id;
+
+    priceHistoryRequest.min = true;
     PriceHistoryResponse minDailyPriceViewResponse =
-        await backend.getMinDailyPriceHistory(p.component.id);
+      await backend.getPriceHistory(priceHistoryRequest);
+
+    priceHistoryRequest.min = false;
     PriceHistoryResponse maxDailyPriceViewResponse =
-      await backend.getMaxDailyPriceHistory(p.component.id);
+      await backend.getPriceHistory(priceHistoryRequest);
 
     drawLineChartMinDaily(minDailyPriceViewResponse.priceHistory, maxDailyPriceViewResponse.priceHistory, priceHistory);
 

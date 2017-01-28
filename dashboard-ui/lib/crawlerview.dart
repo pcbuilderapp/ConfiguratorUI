@@ -1,6 +1,5 @@
 import 'package:uilib/view.dart';
 import 'dart:html';
-import 'dart:async';
 import 'package:pcbuilder.api/backend.dart';
 import 'package:pcbuilder.api/transport/crawlerresponse.dart';
 import 'package:pcbuilder.api/domain/crawler.dart';

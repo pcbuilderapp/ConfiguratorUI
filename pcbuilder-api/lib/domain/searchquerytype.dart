@@ -7,7 +7,7 @@ class SearchQueryTypeTransformer<T> extends TypeTransformer {
     return SearchQueryType.FILTER;
   }
 
-  dynamic encode(T value) {
+  dynamic encode(SearchQueryType value) {
     return searchQueryType(value);
   }
 }

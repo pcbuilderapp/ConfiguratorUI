@@ -7,6 +7,7 @@ import 'transport/productsearch.dart';
 import 'config.dart';
 import 'serializer.dart';
 import 'package:pcbuilder.api/transport/pricehistoryresponse.dart';
+import 'package:pcbuilder.api/transport/pricehistoryrequest.dart';
 import 'package:pcbuilder.api/transport/crawlerresponse.dart';
 import 'package:pcbuilder.api/domain/crawler.dart';
 import 'package:pcbuilder.api/transport/searchqueryrequest.dart';
@@ -25,6 +26,7 @@ class Backend {
     HttpRequest request;
 
     try {
+
       request = await HttpRequest.request(
           (config["backend-server"] ?? "/backend/") +
               "componentitem/getmatchingcomponents",
@@ -34,14 +36,14 @@ class Backend {
             "Accept": "application/json",
             "Content-Type": "application/json"
           });
+
     } catch (e) {
+
       print(e);
       return new GetMatchingComponentsResponse();
     }
-    GetMatchingComponentsResponse responds =
-        fromJson(request.responseText, new GetMatchingComponentsResponse());
 
-    return responds;
+    return fromJson(request.responseText, new GetMatchingComponentsResponse());
   }
 
   Future<ProductsResponse> getProducts(ProductSearch filter) async {
@@ -71,36 +73,19 @@ class Backend {
     return responds;
   }
 
-  Future<PriceHistoryResponse> getMinDailyPriceHistory(int componentId) async {
+  Future<PriceHistoryResponse> getPriceHistory(PriceHistoryRequest priceHistoryRequest) async {
+
+    String data = toJson(priceHistoryRequest);
 
     HttpRequest request;
 
     try {
+
       request = await HttpRequest.request(
           (config["backend-server"] ?? "/backend/") +
-              "/component/getminpricehistory?componentId="+componentId.toString(),
-          method: "GET",
-          requestHeaders: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          });
-    } catch (e) {
-      print(e);
-      return null;
-    }
-
-    return fromJson(request.responseText, new PriceHistoryResponse());
-  }
-
-  Future<PriceHistoryResponse> getMaxDailyPriceHistory(int componentId) async {
-
-    HttpRequest request;
-
-    try {
-      request = await HttpRequest.request(
-          (config["backend-server"] ?? "/backend/") +
-              "/component/getmaxpricehistory?componentId="+componentId.toString(),
-          method: "GET",
+              "/component/pricehistory",
+          method: "POST",
+          sendData: data,
           requestHeaders: {
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -183,9 +168,8 @@ class Backend {
   }
 
   void postSearchQuery(SearchQueryAddRequest searchQueryAddRequest) {
-    String data = toJson(searchQueryAddRequest);
 
-    HttpRequest request;
+    String data = toJson(searchQueryAddRequest);
 
     try {
       HttpRequest.request(
