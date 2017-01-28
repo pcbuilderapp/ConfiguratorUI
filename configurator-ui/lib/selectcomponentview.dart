@@ -213,6 +213,10 @@ class SelectComponentView extends View {
       _selectComponentCompleter.complete(item);
     });
 
+    e.querySelector(".showAction").onClick.listen((_) {
+      window.open(item.url,"_blank");
+    });
+
     return e;
   }
 
