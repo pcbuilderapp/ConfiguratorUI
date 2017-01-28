@@ -75,13 +75,17 @@ class MainView extends View {
     // load persisted configuration
     if (window.localStorage.containsKey("configuration")) {
       _configuration = fromJson(window.localStorage["configuration"],new Configuration());
-      updateComponentItem(_configuration.motherboard,"Motherboard");
-      updateComponentItem(_configuration.cpu,"CPU");
-      updateComponentItem(_configuration.gpu,"GPU");
-      updateComponentItem(_configuration.memory,"Memory");
-      updateComponentItem(_configuration.storage,"Storage");
-      updateComponentItem(_configuration.psu,"PSU");
-      updateComponentItem(_configuration.casing,"Case");
+      if (_configuration == null) {
+        _configuration = new Configuration();
+      } else {
+        updateComponentItem(_configuration.motherboard,"Motherboard");
+        updateComponentItem(_configuration.cpu,"CPU");
+        updateComponentItem(_configuration.gpu,"GPU");
+        updateComponentItem(_configuration.memory,"Memory");
+        updateComponentItem(_configuration.storage,"Storage");
+        updateComponentItem(_configuration.psu,"PSU");
+        updateComponentItem(_configuration.casing,"Case");
+      }
     }
 
     // clear current config

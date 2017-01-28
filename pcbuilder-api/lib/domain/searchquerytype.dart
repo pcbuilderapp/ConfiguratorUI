@@ -1,22 +1,21 @@
 import 'package:dartson/type_transformer.dart';
 
 class SearchQueryTypeTransformer<T> extends TypeTransformer {
-  SearchQueryType decode(dynamic value) {
-    String str = value;
-    if (str.toUpperCase() == "SELECTION") return SearchQueryType.SELECTION;
-    return SearchQueryType.FILTER;
-  }
-
-  dynamic encode(SearchQueryType value) {
-    return searchQueryType(value);
-  }
+  SearchQueryType decode(dynamic value) => new _SearchQueryType(value);
+  dynamic encode(T value) => (value as SearchQueryType).toString();
 }
 
-enum SearchQueryType {
-  FILTER, SELECTION
+
+abstract class SearchQueryType {
+  static final SearchQueryType FILTER = new _SearchQueryType("FILTER");
+  static final SearchQueryType SELECTION = new _SearchQueryType("SELECTION");
+  operator ==(SearchQueryType other);
+  String toString();
 }
 
-String searchQueryType(SearchQueryType type) {
-  if (type == SearchQueryType.SELECTION) return "SELECTION";
-  return "FILTER";
+class _SearchQueryType implements SearchQueryType {
+  String _val;
+  _SearchQueryType(this._val) {}
+  operator ==(SearchQueryType other) => _val == (other as _SearchQueryType)._val;
+  String toString() => _val;
 }

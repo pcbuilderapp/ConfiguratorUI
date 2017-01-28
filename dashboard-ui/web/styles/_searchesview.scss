@@ -39,23 +39,19 @@
     }
   }
 
-  .shop, .price, .name {
+  .type, .component, .count {
     box-sizing: border-box;
-  }
-
-  .shop, .price, .type {
     border-left: 1px solid $white;
     text-align: center;
   }
 
-  .shop {
-    width: 20%;
-    min-width: 96px;
+  .type, .count {
+    text-align: center;
   }
 
-  .price {
-    width: 20%;
-    min-width: 96px;
+  .count {
+    width: 10%;
+    min-width: 48px;
   }
 
   table {
