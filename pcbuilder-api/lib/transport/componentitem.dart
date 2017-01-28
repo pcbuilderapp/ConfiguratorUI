@@ -19,6 +19,7 @@ class ComponentItem {
   String url;
   String image;
   bool discounted;
+  bool priceFalling;
 
   List<Connector> connectors = [];
   List<AlternativeShopItem> alternativeShops = [];
