@@ -33,63 +33,75 @@ class BuyOverviewDialog {
       ..append(new Element.a()
         ..text = configuration.motherboard.name
         ..attributes["href"] = configuration.motherboard.url
+        ..attributes["target"] = "_blank"
         ..classes.add("name"))
         );
 
-    content.append(new Element.p()..attributes["class"] = "content"
-      ..append(new Element.img()
-        ..attributes["src"] = configuration.cpu.image
-        ..attributes["style"] = "width:40px;height:40px;"
-        ..attributes["align"] = "left")
+    content.append(new Element.p()..classes.add("item")
+      ..append(new Element.div()
+        ..style.backgroundImage = "url(${configuration.cpu.image})"
+        ..classes.add("image"))
       ..append(new Element.a()
         ..text = configuration.cpu.name
-        ..attributes["href"] = configuration.cpu.url));
+        ..attributes["href"] = configuration.cpu.url
+        ..attributes["target"] = "_blank"
+        ..classes.add("name"))
+    );
 
-    content.append(new Element.p()..attributes["class"] = "content"
-      ..append(new Element.img()
-        ..attributes["src"] = configuration.gpu.image
-        ..attributes["style"] = "width:40px;height:40px;"
-        ..attributes["align"] = "left")
+    content.append(new Element.p()..classes.add("item")
+      ..append(new Element.div()
+        ..style.backgroundImage = "url(${configuration.gpu.image})"
+        ..classes.add("image"))
       ..append(new Element.a()
         ..text = configuration.gpu.name
-        ..attributes["href"] = configuration.gpu.url));
+        ..attributes["href"] = configuration.gpu.url
+        ..attributes["target"] = "_blank"
+        ..classes.add("name"))
+    );
 
-    content.append(new Element.p()..attributes["class"] = "content"
-      ..append(new Element.img()
-        ..attributes["src"] = configuration.memory.image
-        ..attributes["style"] = "width:40px;height:40px;"
-        ..attributes["align"] = "left")
+    content.append(new Element.p()..classes.add("item")
+      ..append(new Element.div()
+        ..style.backgroundImage = "url(${configuration.memory.image})"
+        ..classes.add("image"))
       ..append(new Element.a()
         ..text = configuration.memory.name
-        ..attributes["href"] = configuration.memory.url));
+        ..attributes["href"] = configuration.memory.url
+        ..attributes["target"] = "_blank"
+        ..classes.add("name"))
+    );
 
-    content.append(new Element.p()..attributes["class"] = "content"
-      ..append(new Element.img()
-        ..attributes["src"] = configuration.storage.image
-        ..attributes["style"] = "width:40px;height:40px;"
-        ..attributes["align"] = "left")
+    content.append(new Element.p()..classes.add("item")
+      ..append(new Element.div()
+        ..style.backgroundImage = "url(${configuration.storage.image})"
+        ..classes.add("image"))
       ..append(new Element.a()
         ..text = configuration.storage.name
-        ..attributes["href"] = configuration.storage.url));
+        ..attributes["href"] = configuration.storage.url
+        ..attributes["target"] = "_blank"
+        ..classes.add("name"))
+    );
 
-
-    content.append(new Element.p()..attributes["class"] = "content"
-      ..append(new Element.img()
-        ..attributes["src"] = configuration.psu.image
-        ..attributes["style"] = "width:40px;height:40px;"
-        ..attributes["align"] = "left")
+    content.append(new Element.p()..classes.add("item")
+      ..append(new Element.div()
+        ..style.backgroundImage = "url(${configuration.psu.image})"
+        ..classes.add("image"))
       ..append(new Element.a()
         ..text = configuration.psu.name
-        ..attributes["href"] = configuration.psu.url));
+        ..attributes["href"] = configuration.psu.url
+        ..attributes["target"] = "_blank"
+        ..classes.add("name"))
+    );
 
-    content.append(new Element.p()..attributes["class"] = "content"
-      ..append(new Element.img()
-        ..attributes["src"] = configuration.casing.image
-        ..attributes["style"] = "width:40px;height:40px;"
-        ..attributes["align"] = "left")
+    content.append(new Element.p()..classes.add("item")
+      ..append(new Element.div()
+        ..style.backgroundImage = "url(${configuration.casing.image})"
+        ..classes.add("image"))
       ..append(new Element.a()
         ..text = configuration.casing.name
-        ..attributes["href"] = configuration.casing.url));
+        ..attributes["href"] = configuration.casing.url
+        ..attributes["target"] = "_blank"
+        ..classes.add("name"))
+    );
 
     _dialogElement.parent.style.display = "flex";
     _dialogElement.style.display = "block";
