@@ -1,28 +1,25 @@
 import 'package:dartson/type_transformer.dart';
 
 class CTypeTransformer<T> extends TypeTransformer {
-  CType decode(dynamic value) {
-    String str = value;
-    if (str.toUpperCase() == "CPU") return CType.CPU;
-    if (str.toUpperCase() == "GPU") return CType.GPU;
-    if (str.toUpperCase() == "MEMORY") return CType.MEMORY;
-    if (str.toUpperCase() == "STORAGE") return CType.STORAGE;
-    if (str.toUpperCase() == "PSU") return CType.PSU;
-    if (str.toUpperCase() == "CASE") return CType.CASE;
-    return CType.MOTHERBOARD;
-  }
-
-  dynamic encode(T value) {
-    if (value == CType.CPU) return "CPU";
-    if (value == CType.GPU) return "GPU";
-    if (value == CType.MEMORY) return "MEMORY";
-    if (value == CType.STORAGE) return "STORAGE";
-    if (value == CType.CASE) return "CASE";
-    if (value == CType.PSU) return "PSU";
-    return "MOTHERBOARD";
-  }
+  CType decode(dynamic value) => new _CType(value);
+  dynamic encode(T value) => (value as CType).toString();
 }
 
-enum CType {
-  MOTHERBOARD, CPU, GPU, MEMORY, STORAGE, PSU, CASE
+abstract class CType {
+  static final CType MOTHERBOARD = new _CType("MOTHERBOARD");
+  static final CType CPU = new _CType("CPU");
+  static final CType GPU = new _CType("GPU");
+  static final CType MEMORY = new _CType("MEMORY");
+  static final CType STORAGE = new _CType("STORAGE");
+  static final CType PSU = new _CType("PSU");
+  static final CType CASE = new _CType("CASE");
+  operator ==(CType other);
+  String toString();
+}
+
+class _CType implements CType {
+  String _val;
+  _CType(this._val) {}
+  operator ==(CType other) => _val == (other as _CType)._val;
+  String toString() => _val;
 }
