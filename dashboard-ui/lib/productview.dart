@@ -8,8 +8,7 @@ import 'package:pcbuilder.api/domain/product.dart';
 import 'package:pcbuilder.api/backend.dart';
 import 'package:uilib/util.dart';
 import 'package:uilib/charts.dart';
-import 'package:pcbuilder.api/transport/mindailypriceviewresponse.dart';
-import 'package:pcbuilder.api/transport/maxdailypriceviewresponse.dart';
+import 'package:pcbuilder.api/transport/pricehistoryresponse.dart';
 
 class ProductView extends View {
   Element _viewElement = querySelector("#productview");
@@ -170,12 +169,12 @@ class ProductView extends View {
     priceHistory.style.display = "block";
     priceHistory.innerHtml = "";
 
-    MinDailyPriceViewResponse minDailyPriceViewResponse =
+    PriceHistoryResponse minDailyPriceViewResponse =
         await backend.getMinDailyPriceHistory(p.component.id);
-    MaxDailyPriceViewResponse maxDailyPriceViewResponse =
+    PriceHistoryResponse maxDailyPriceViewResponse =
       await backend.getMaxDailyPriceHistory(p.component.id);
 
-    drawLineChartMinDaily(minDailyPriceViewResponse.minDailyPriceViewList, maxDailyPriceViewResponse.maxDailyPriceViewList, priceHistory);
+    drawLineChartMinDaily(minDailyPriceViewResponse.priceHistory, maxDailyPriceViewResponse.priceHistory, priceHistory);
 
     /*if (p.component.connectors.length != 0) {
       Element connectorsElement = _productInfo.querySelector(".connectors");

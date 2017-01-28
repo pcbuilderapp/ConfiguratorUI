@@ -6,9 +6,7 @@ import 'transport/productsresponse.dart';
 import 'transport/productsearch.dart';
 import 'config.dart';
 import 'serializer.dart';
-import 'package:pcbuilder.api/transport/pricepointresponse.dart';
-import 'package:pcbuilder.api/transport/mindailypriceviewresponse.dart';
-import 'package:pcbuilder.api/transport/maxdailypriceviewresponse.dart';
+import 'package:pcbuilder.api/transport/pricehistoryresponse.dart';
 import 'package:pcbuilder.api/transport/crawlerresponse.dart';
 import 'package:pcbuilder.api/domain/crawler.dart';
 import 'package:pcbuilder.api/transport/searchqueryrequest.dart';
@@ -73,28 +71,7 @@ class Backend {
     return responds;
   }
 
-  Future<PricePointResponse> getPriceHistory(int componentId) async {
-
-    HttpRequest request;
-
-    try {
-      request = await HttpRequest.request(
-          (config["backend-server"] ?? "/backend/") +
-          "/pricepoint/gethistorybycomponent?componentId="+componentId.toString(),
-          method: "GET",
-          requestHeaders: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          });
-    } catch (e) {
-      print(e);
-      return null;
-    }
-
-    return fromJson(request.responseText, new PricePointResponse());
-  }
-
-  Future<MinDailyPriceViewResponse> getMinDailyPriceHistory(int componentId) async {
+  Future<PriceHistoryResponse> getMinDailyPriceHistory(int componentId) async {
 
     HttpRequest request;
 
@@ -112,10 +89,10 @@ class Backend {
       return null;
     }
 
-    return fromJson(request.responseText, new MinDailyPriceViewResponse());
+    return fromJson(request.responseText, new PriceHistoryResponse());
   }
 
-  Future<MaxDailyPriceViewResponse> getMaxDailyPriceHistory(int componentId) async {
+  Future<PriceHistoryResponse> getMaxDailyPriceHistory(int componentId) async {
 
     HttpRequest request;
 
@@ -133,7 +110,7 @@ class Backend {
       return null;
     }
 
-    return fromJson(request.responseText, new MaxDailyPriceViewResponse());
+    return fromJson(request.responseText, new PriceHistoryResponse());
   }
 
   Future<CrawlerResponse> getCrawlers() async {
