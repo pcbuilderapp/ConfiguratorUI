@@ -13,7 +13,7 @@
 
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
-
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
@@ -123,17 +123,19 @@
                             <div class="productInfo">
 
                                 <div class="image"></div>
+                                <div class="detail-container">
+                                    <div class="info">
 
-                                <div class="info">
+                                        <div>EAN: <span class="ean-nr"></span></div>
+                                        <div class="detail-text">MPN: <span class="mpn-nr"></span></div>
+                                        <div class="alternativeShops">Also sold by: <a href="#">Alternate</a>, <a href="#">CoolBlue</a></div>
 
-                                    <div>EAN: <span class="ean-nr"></span></div>
-                                    <div class="detail-text">MPN: <span class="mpn-nr"></span></div>
-                                    <div class="alternativeShops">Also sold by: <a href="#">Alternate</a>, <a href="#">CoolBlue</a></div>
+                                        <div class="connectors"></div>
 
-                                    <div class="connectors"></div>
-
+                                    </div>
+                                    <div class="priceHistory">
+                                    </div>
                                 </div>
-
                                 <div class="actions">
                                     <input class="showAction" type="button" value="Show">
                                     <input class="selectAction" type="button" value="Select">

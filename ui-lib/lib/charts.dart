@@ -8,7 +8,9 @@ import 'package:pcbuilder.api/domain/pricepointdata.dart';
 /// and [maxDailyPrices].
 
 drawPriceHistoryChart(List<PricePointData> minDailyPrices,
-    List<PricePointData> maxDailyPrices, Element lineChartElement) async {
+    List<PricePointData> maxDailyPrices, Element lineChartElement,
+    {bool showTitle: true}) async {
+
   if (minDailyPrices != null && !minDailyPrices.isEmpty) {
     await Chart.load(packages: ['corechart'], language: "nl");
     var rawData = [
@@ -24,11 +26,15 @@ drawPriceHistoryChart(List<PricePointData> minDailyPrices,
 
     var data = arrayToDataTable(rawData, false);
     var chart = new LineChart(lineChartElement);
+
     var options = {
-      'title': 'Price History',
       'backgroundColor': '#f1f3f4',
       'vAxis': {'format': 'currency'}
     };
+
+    if (showTitle) {
+      options['title'] = 'Price History';
+    }
     chart.draw(data, options);
   }
 }

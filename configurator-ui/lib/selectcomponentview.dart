@@ -15,6 +15,9 @@ import 'package:pcbuilder.api/transport/componentref.dart';
 import 'pcbuilder.dart';
 import 'package:uilib/util.dart';
 import 'mainview.dart';
+import 'package:pcbuilder.api/transport/pricehistoryresponse.dart';
+import 'package:pcbuilder.api/transport/pricehistoryrequest.dart';
+import 'package:uilib/charts.dart';
 
 /// The component selection view lists all components of a given type and
 /// allows the user to select them.
@@ -201,6 +204,10 @@ class SelectComponentView extends View {
             ?.remove("active");
         e.querySelector(".details").classes.add("active");
       }
+
+      showPriceHistory(e.querySelector(".priceHistory"), item);
+
+
     });
 
     // product detail view
@@ -297,6 +304,26 @@ class SelectComponentView extends View {
     }
   }
 
+  Future showPriceHistory(Element priceHistory, ComponentItem item) async {
+
+    priceHistory.style.display = "block";
+    priceHistory.innerHtml = "";
+
+    PriceHistoryRequest priceHistoryRequest = new PriceHistoryRequest();
+    priceHistoryRequest.componentId = item.id;
+    priceHistoryRequest.fromDate = new DateTime.now().subtract(new Duration(days: 30));
+    priceHistoryRequest.toDate = new DateTime.now();
+
+    priceHistoryRequest.min = true;
+    PriceHistoryResponse minDailyPriceViewResponse =
+        await backend.getPriceHistory(priceHistoryRequest);
+
+    priceHistoryRequest.min = false;
+    PriceHistoryResponse maxDailyPriceViewResponse =
+        await backend.getPriceHistory(priceHistoryRequest);
+
+    drawPriceHistoryChart(minDailyPriceViewResponse.priceHistory, maxDailyPriceViewResponse.priceHistory, priceHistory, showTitle: false);
+  }
   /// Set filter
   ///
   /// Set the current filter and fetch a new list of components

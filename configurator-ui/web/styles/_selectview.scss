@@ -75,8 +75,8 @@
   }
 
   p.shop, p.shop-header{
-    width: 15%;
-    min-width: 96px;
+    width: 100px;
+    //min-width: 96px;
     @media (max-width: 600px) {
       display: none;
     }
@@ -84,7 +84,7 @@
 
   p.price, p.price-header {
     width: 100px;
-    min-width: 64px;
+    //min-width: 64px;
     flex-shrink: 0;
   }
 
@@ -107,8 +107,8 @@
   }
 
   p.brand, p.brand-header {
-    width: 15%;
-    min-width: 96px;
+    width: 100px;
+    //min-width: 96px;
     @media (max-width: 800px) {
      display: none;
     }
@@ -269,22 +269,38 @@
             display: none;
           }
         }
-
-        .info {
-          position: relative;
-          flex-grow: 1;
+        .detail-container {
+          display: flex;
+          flex-direction: row;
           margin-left: 10px;
-          margin-right: 100px;
-          font-size: 0.8em;
+          flex-grow: 1;
 
-          .detail-text {
-            margin-top: 7px;
+          .info {
+            position: relative;
+            font-size: 0.8em;
+            flex-grow: 1;
+
+            .detail-text {
+              margin-top: 7px;
+            }
+
+            .alternativeShops {
+              margin-top: 7px;
+            }
+
           }
-
-          .alternativeShops {
-            margin-top: 7px;
+          .priceHistory {
+            @media (max-width: 600px) {
+              display: none;
+            }
+            @media (min-width: 600px) and (max-width: 800px) {
+              width: 184px;
+            }
+            width: 284px;
+            position: relative;
+            height: 90px;
+            box-sizing: border-box;
           }
-
         }
         .actions {
           position: absolute;
