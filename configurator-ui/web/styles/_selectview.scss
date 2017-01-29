@@ -49,7 +49,7 @@
     }
   }
 
-  p.shop, p.price, p.name, p.brand, p.shop-header, p.price-header, p.name-header, p.brand-header {
+  p.shop, .price, p.name, p.brand, p.shop-header, p.price-header, p.name-header, p.brand-header {
     box-sizing: border-box;
   }
 
@@ -66,28 +66,14 @@
     text-decoration: underline;
   }
 
-  p.shop, p.price, p.brand {
+  p.shop, .price, p.brand {
     border-left: 1px solid $white;
   }
 
   p.shop-header, p.price-header, p.brand-header, p.shop, p.brand {
     text-align: center;
   }
-/*
-  p.shop-header, p.price-header, p.brand-header, p.name-header {
-    border-left: 1px solid darken($blue, $shadefactor);
-    border-bottom: 1px solid darken($blue, $shadefactor);
-    border-right: 1px solid lighten($blue, $shadefactor);
-    border-top: 1px solid lighten($blue, $shadefactor);
-  }
 
-  p.shop, p.price, p.brand, p.name {
-    border-left: 1px solid darken($blue-lighest, $shadefactor);
-    border-bottom: 1px solid darken($blue-lighest, $shadefactor);
-    border-right: 1px solid lighten($blue-lighest, $shadefactor);
-    border-top: 1px solid lighten($blue-lighest, $shadefactor);
-  }
-*/
   p.shop, p.shop-header{
     width: 15%;
     min-width: 96px;
@@ -96,14 +82,37 @@
     }
   }
 
-  p.price, p.price-header {
-    width: 100px;
+  .price, p.price-header {
+    width: 120px;
     min-width: 64px;
     flex-shrink: 0;
   }
 
-  p.price {
-    text-align: right;
+  .price {
+    display: flex;
+    flex-direction: row;
+
+    .fa-tag {
+      color: $red;
+      font-size: 12px;
+      margin-left: 4px;
+      margin-top: 10px;
+    }
+
+    .fa-arrow-down {
+      color: $green;
+      font-size: 12px;
+      margin-left: 4px;
+      margin-top: 10px;
+    }
+
+    .amount {
+      flex-grow: 1;
+      text-align: right;
+      vertical-align: middle;
+      margin-top: 9px;
+      margin-right: 4px;
+    }
   }
 
   p.brand, p.brand-header {

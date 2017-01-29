@@ -162,12 +162,27 @@ class SelectComponentView extends View {
     e.querySelector(".fields .name").text = item.name;
     e.querySelector(".fields .brand").text = item.brand;
     e.querySelector(".fields .shop").text = item.shop;
-    Element priceField = e.querySelector(".fields .price")
-      ..text = formatCurrency(item.price);
+    Element priceField = e.querySelector(".fields .price");
+    priceField.querySelector(".amount")..text = formatCurrency(item.price);
 
+    Element discounted = priceField.querySelector(".fa-tag");
     if (item.discounted) {
-      priceField.classes.add("discount");
       priceField.attributes['title'] = "This product is on sale.";
+      discounted.style.display = "block";
+    } else {
+      discounted.style.display = "none";
+    }
+
+    Element fallingPrice = priceField.querySelector(".fa-arrow-down");
+    if (item.priceFalling) {
+      fallingPrice.style.display = "block";
+      if (item.discounted) {
+        priceField.attributes['title'] = "This product is on sale and falling in price.";
+      } else {
+        priceField.attributes['title'] = "This product is falling in price.";
+      }
+    } else {
+      fallingPrice.style.display = "none";
     }
 
     // show detail view for row
