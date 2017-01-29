@@ -39,6 +39,13 @@
     }
   }
 
+  th {
+    cursor: pointer;
+    &.header-selected {
+      text-decoration: underline;
+    }
+  }
+
   .type, .component, .count {
     box-sizing: border-box;
     border-left: 1px solid $white;

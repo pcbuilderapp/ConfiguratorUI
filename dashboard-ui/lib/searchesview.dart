@@ -15,8 +15,8 @@ class SearchesView extends View {
   Element _searchesList;
   Element _pager;
   InputElement _filterField;
-  String _currentFilter="";
-  String _currentSort;
+  String _currentFilter = "";
+  String _currentSort = "count";
   int _currentPage;
   int _pageCount;
   int pageWidth = config["page-width"] ?? 5;
@@ -52,11 +52,12 @@ class SearchesView extends View {
     Element template = _viewElement.querySelector(".searchesItem");
     _searchesItem = template.clone(true);
     template.remove();
-    _filterField = _viewElement.querySelector(".searchbar input") as InputElement;
+    _filterField =
+        _viewElement.querySelector(".searchbar input") as InputElement;
     _filterField.onSearch.listen((_) {
       filter(_filterField.value);
     });
-    
+
     _searchesList = _viewElement.querySelector("#searchesList");
     (_viewElement.querySelector(".searchbar form") as FormElement)
         .onSubmit
@@ -64,20 +65,25 @@ class SearchesView extends View {
       filter(_filterField.value);
       e.preventDefault();
     });
-/*
-    _viewElement.querySelector("thead .name").onClick.listen((MouseEvent e) {
-      setSort("name");
-    });
-    _viewElement.querySelector("thead .shop").onClick.listen((MouseEvent e) {
-      setSort("shop");
+
+    _viewElement.querySelector("thead .filter").onClick.listen((MouseEvent e) {
+      setSort("filter");
     });
     _viewElement.querySelector("thead .type").onClick.listen((MouseEvent e) {
       setSort("type");
     });
-    _viewElement.querySelector("thead .price").onClick.listen((MouseEvent e) {
-      setSort("price");
+    _viewElement
+        .querySelector("thead .component")
+        .onClick
+        .listen((MouseEvent e) {
+      setSort("component");
     });
-*/
+    _viewElement.querySelector("thead .count")
+      ..onClick.listen((MouseEvent e) {
+        setSort("count");
+      })
+      ..classes.add("header-selected");
+
     _pager = _viewElement.querySelector(".pager");
     _pager.querySelector(".previous").onClick.listen((_) {
       if (_currentPage <= 1) return;
@@ -106,7 +112,7 @@ class SearchesView extends View {
     searchQueryRequest.sort = _currentSort;
 
     SearchQueryResponse searchQueryResponse =
-    await backend.getSearches(searchQueryRequest);
+        await backend.getSearches(searchQueryRequest);
 
     _searchesList.innerHtml = "";
 
@@ -202,8 +208,14 @@ class SearchesView extends View {
   void setSort(String sortColumn) {
     if (sortColumn == _currentSort) return;
     _currentSort = sortColumn;
-    _viewElement.querySelectorAll(".header-selected").classes.remove("header-selected");
-    _viewElement.querySelector(".$sortColumn-header").classes.add("header-selected");
+    _viewElement
+        .querySelectorAll(".header-selected")
+        .classes
+        .remove("header-selected");
+    _viewElement
+        .querySelector("th.$sortColumn")
+        .classes
+        .add("header-selected");
     loadSearches(0);
   }
 
