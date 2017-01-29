@@ -1,12 +1,11 @@
 import 'dart:html';
-import 'dart:collection';
 import 'package:pcbuilder.api/transport/configuration.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
 
-/// Generates the BuyOverviewDialog after evaluating current components.
+/// Buy overview dialog
+
 class BuyOverviewDialog {
   Element _dialogElement;
-  //Element _dialogMotherboard;
 
   BuyOverviewDialog() {
     _dialogElement = querySelector("#buyOverviewDialog");
@@ -14,6 +13,8 @@ class BuyOverviewDialog {
       close();
     });
   }
+
+  /// Show the dialog.
 
   void show(Configuration configuration) {
     Element content = _dialogElement.querySelector(".content");
@@ -30,13 +31,6 @@ class BuyOverviewDialog {
       return;
     }
 
-    // _dialogMotherboard = new Element.a();
-    /* _dialogMotherboard.onClick.listen((e) {
-      querySelectorAll("#item").forEach((childElement) => classList.addAll(childElement.classes));
-    });*/
-
-
-
     List<String> shopList = new List<String>();
     addIfNotExist(shopList, configuration.motherboard.shop);
     addIfNotExist(shopList, configuration.cpu.shop);
@@ -45,8 +39,6 @@ class BuyOverviewDialog {
     addIfNotExist(shopList, configuration.storage.shop);
     addIfNotExist(shopList, configuration.psu.shop);
     addIfNotExist(shopList, configuration.casing.shop);
-
-    Iterator<String> iterator = shopList.iterator;
 
     for (String shop in shopList) {
       makeRow(content, shop);
@@ -77,6 +69,8 @@ class BuyOverviewDialog {
     _dialogElement.style.display = "block";
   }
 
+  /// Add the shop to the [shopList] if it doesn't exist.
+
   void addIfNotExist(List<String> shopList,String shop) {
       if(!shopList.contains(shop)){
       shopList.add(shop);
@@ -84,6 +78,7 @@ class BuyOverviewDialog {
   }
 
   /// Makes row for given string
+
   void makeRow(Element content, String shop) {
     content.append(new Element.p()..classes.add("item")
       ..append(new Element.div()
@@ -93,6 +88,7 @@ class BuyOverviewDialog {
   }
 
   /// Makes link row for given component using name,link and url
+
   void makeLink(Element content, ComponentItem component) {
     content.append(new Element.p()..classes.add("item")
       ..append(new Element.div()
@@ -105,6 +101,8 @@ class BuyOverviewDialog {
         ..classes.add("name"))
     );
   }
+
+  /// Close the dialog.
 
   void close() {
     _dialogElement.parent.style.display = "none";

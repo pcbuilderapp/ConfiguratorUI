@@ -15,8 +15,33 @@ import 'pcbuilder.dart';
 import 'package:uilib/util.dart';
 import 'mainview.dart';
 
+/// The component selection view lists all components of a given type and
+/// allows the user to select them.
+
 class SelectComponentView extends View {
+  Element _viewElement;
+  Element _productItem;
+  Element _productList;
+  Element _pager;
+  InputElement _filterField;
+  Completer _selectComponentCompleter;
+  String _currentType;
+  String _currentFilter;
+  String _currentSort;
+  Configuration _currentConfiguration;
+  int _currentPage;
+  int _pageCount;
+  int pageWidth = config["page-width"] ?? 5;
+
+  /// Get view id.
+  ///
+  /// Get the identifier for this view.
+
   static String get id => "selectcomponent";
+
+  /// Main view constructor.
+  ///
+  /// Initializes the view.
 
   SelectComponentView() {
     _viewElement = querySelector("#selectview");
@@ -65,6 +90,11 @@ class SelectComponentView extends View {
     });
   }
 
+  /// Select component
+  ///
+  /// Select a component of type [componentType] and a [configuration].
+  /// Returns a [ComponentItem] as a [Future].
+
   Future<ComponentItem> selectComponent(
       String componentType, Configuration configuration) async {
     _selectComponentCompleter = new Completer();
@@ -81,6 +111,10 @@ class SelectComponentView extends View {
 
     return _selectComponentCompleter.future;
   }
+
+  /// Load components
+  ///
+  /// Retreive a list of components from the backend for the given [page].
 
   Future loadComponents(int page) async {
     // show load indicator
@@ -108,6 +142,107 @@ class SelectComponentView extends View {
     // set paging
     _currentPage = componentSearchResponse.page;
     _pageCount = componentSearchResponse.pageCount;
+    createPaging(componentSearchResponse);
+
+    // hide load indicator
+    _viewElement.querySelector(".content").style.display = "block";
+    _viewElement.querySelector(".loading").style.display = "none";
+  }
+
+  Element createComponentElement(ComponentItem item) {
+    Element e = _productItem.clone(true);
+
+    // product row
+
+    e.querySelector(".fields .name").text = item.name;
+    e.querySelector(".fields .brand").text = item.brand;
+    e.querySelector(".fields .shop").text = item.shop;
+    Element priceField = e.querySelector(".fields .price")
+      ..text = formatCurrency(item.price);
+
+    if (item.discounted) {
+      priceField.classes.add("discount");
+      priceField.attributes['title'] = "This product is on sale.";
+    }
+
+    // show detail view for row
+
+    e.querySelector(".fields").onClick.listen((_) {
+      bool bIsActive = e.querySelector(".details").classes.contains("active");
+      if (bIsActive) {
+        e.querySelector(".details").classes.remove("active");
+      } else {
+        _productList
+            .querySelector(".details.active")
+            ?.classes
+            ?.remove("active");
+        e.querySelector(".details").classes.add("active");
+      }
+    });
+
+    // product detail view
+
+    e.querySelector(".details .productInfo .info .ean-nr").text =
+        item.europeanArticleNumber;
+    e.querySelector(".details .productInfo .info .mpn-nr").text =
+        item.manufacturerPartNumber;
+    e.querySelector(".details .productInfo .image").style.backgroundImage =
+        "url(${item.image})";
+
+    if (item.alternativeShops.length == 0) {
+      e.querySelector(".alternativeShops").text = "No alternative shops found.";
+    } else {
+      Element shopsElement = e.querySelector(".alternativeShops");
+      shopsElement.text = "Also sold by: ";
+      for (AlternativeShopItem alternativeItem in item.alternativeShops) {
+        shopsElement.append(makeUrl(alternativeItem.shop, alternativeItem.url));
+      }
+    }
+
+    // populate connectors
+
+    if (item.connectors.length != 0) {
+      Element connectorsElement = e.querySelector(".connectors");
+
+      for (Connector c in item.connectors) {
+        Element connectorSpan = new Element.span()..classes.add("connector");
+
+        Element connectorImg = new Element.span()
+          ..classes.add("connector-icon-${c.type.toLowerCase()}");
+
+        Element connectorSpanText = new Element.span()
+          ..classes.add("connector-text");
+        connectorSpanText.text = "${c.name} ";
+
+        connectorSpan.append(connectorImg);
+        connectorSpan.append(connectorSpanText);
+        connectorsElement.append(connectorSpan);
+        connectorsElement.appendText(" "); // for wraping
+      }
+    }
+
+    // actions
+
+    e.querySelector(".selectAction").onClick.listen((_) {
+      backend.postSearchQuery(new SearchQueryAddRequest()
+        ..component = (new ComponentRef()..id=item.id)
+        ..filter = _currentFilter
+        ..type = SearchQueryType.SELECTION);
+      _selectComponentCompleter.complete(item);
+    });
+
+    e.querySelector(".showAction").onClick.listen((_) {
+      window.open(item.url,"_blank");
+    });
+
+    return e;
+  }
+
+  /// Create paging
+  ///
+  /// Update the pager with the current page index and count.
+
+  void createPaging(GetMatchingComponentsResponse componentSearchResponse) {
     Element pages = _pager.querySelector(".pages");
     pages.innerHtml = "";
 
@@ -137,93 +272,6 @@ class SelectComponentView extends View {
         }
       }
     }
-
-    // hide load indicator
-    _viewElement.querySelector(".content").style.display = "block";
-    _viewElement.querySelector(".loading").style.display = "none";
-  }
-
-  Element createComponentElement(ComponentItem item) {
-    Element e = _productItem.clone(true);
-
-    // product row
-    e.querySelector(".fields .name").text = item.name;
-    e.querySelector(".fields .brand").text = item.brand;
-    e.querySelector(".fields .shop").text = item.shop;
-    Element priceField = e.querySelector(".fields .price")
-      ..text = formatCurrency(item.price);
-
-    if (item.discounted) {
-      priceField.classes.add("discount");
-      priceField.attributes['title'] = "This product is on sale.";
-    }
-
-    // show detail view for row
-    e.querySelector(".fields").onClick.listen((_) {
-      bool bIsActive = e.querySelector(".details").classes.contains("active");
-      if (bIsActive) {
-        e.querySelector(".details").classes.remove("active");
-      } else {
-        _productList
-            .querySelector(".details.active")
-            ?.classes
-            ?.remove("active");
-        e.querySelector(".details").classes.add("active");
-      }
-    });
-
-    // product detail view
-    e.querySelector(".details .productInfo .info .ean-nr").text =
-        item.europeanArticleNumber;
-    e.querySelector(".details .productInfo .info .mpn-nr").text =
-        item.manufacturerPartNumber;
-    e.querySelector(".details .productInfo .image").style.backgroundImage =
-        "url(${item.image})";
-
-    if (item.alternativeShops.length == 0) {
-      e.querySelector(".alternativeShops").text = "No alternative shops found.";
-    } else {
-      Element shopsElement = e.querySelector(".alternativeShops");
-      shopsElement.text = "Also sold by: ";
-      for (AlternativeShopItem alternativeItem in item.alternativeShops) {
-        shopsElement.append(makeUrl(alternativeItem.shop, alternativeItem.url));
-      }
-    }
-
-    if (item.connectors.length != 0) {
-      Element connectorsElement = e.querySelector(".connectors");
-
-      for (Connector c in item.connectors) {
-        Element connectorSpan = new Element.span()..classes.add("connector");
-
-        Element connectorImg = new Element.span()
-          ..classes.add("connector-icon-${c.type.toLowerCase()}");
-
-        Element connectorSpanText = new Element.span()
-          ..classes.add("connector-text");
-        connectorSpanText.text = "${c.name} ";
-
-        connectorSpan.append(connectorImg);
-        connectorSpan.append(connectorSpanText);
-        connectorsElement.append(connectorSpan);
-        connectorsElement.appendText(" "); // for wraping
-      }
-    }
-
-    // actions
-    e.querySelector(".selectAction").onClick.listen((_) {
-      backend.postSearchQuery(new SearchQueryAddRequest()
-        ..component = (new ComponentRef()..id=item.id)
-        ..filter = _currentFilter
-        ..type = SearchQueryType.SELECTION);
-      _selectComponentCompleter.complete(item);
-    });
-
-    e.querySelector(".showAction").onClick.listen((_) {
-      window.open(item.url,"_blank");
-    });
-
-    return e;
   }
 
   /// Set filter
@@ -259,23 +307,22 @@ class SelectComponentView extends View {
     loadComponents(0);
   }
 
+  /// onShow event
+  ///
+  /// Event triggered when this view becomes the active view.
+
   void onShow() {}
+
+  /// onHide event
+  ///
+  /// Event triggered when this view is no longer active.
 
   void onHide() {}
 
+  /// Get view element
+  ///
+  /// Get the DOM element for this view.
+
   Element get element => _viewElement;
 
-  Element _viewElement;
-  Element _productItem;
-  Element _productList;
-  Element _pager;
-  InputElement _filterField;
-  Completer _selectComponentCompleter;
-  String _currentType;
-  String _currentFilter;
-  String _currentSort;
-  Configuration _currentConfiguration;
-  int _currentPage;
-  int _pageCount;
-  int pageWidth = config["page-width"] ?? 5;
 }

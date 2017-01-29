@@ -7,9 +7,9 @@ import 'package:pcbuilder.api/transport/componentitem.dart';
 import 'buyoverviewdialog.dart';
 import 'package:pcbuilder.api/serializer.dart';
 
-class MainView extends View {
-  static String get id => "mainview";
+/// The main view displays the current configuration.
 
+class MainView extends View {
   Element _view;
   Element _componentItem;
   Configuration _configuration = new Configuration();
@@ -23,6 +23,16 @@ class MainView extends View {
     "PSU",
     "Case"
   ];
+
+  /// Get view id.
+  ///
+  /// Get the identifier for this view.
+
+  static String get id => "mainview";
+
+  /// Main view constructor.
+  ///
+  /// Initializes the view.
 
   MainView() {
     _view = querySelector("#mainview");
@@ -47,6 +57,10 @@ class MainView extends View {
     });
   }
 
+  /// Load configuration
+  ///
+  /// Load a saved configuration from the browser local storage if it exists.
+
   void _loadConfiguration() {
     if (window.localStorage.containsKey("configuration")) {
       _configuration = fromJson(window.localStorage["configuration"],new Configuration());
@@ -64,6 +78,10 @@ class MainView extends View {
     }
   }
 
+  /// Build component selectors
+  ///
+  /// Generate the list of components the user can select.
+
   void _buildComponentSelectors() {
     Element componentContainer = querySelector("#pcconfiglist");
 
@@ -71,8 +89,6 @@ class MainView extends View {
       Element e = _componentItem.clone(true);
       e.classes.add("component-${component.toLowerCase()}");
       e.querySelector(".type").text = component;
-      /*e.querySelector(".image").style.backgroundImage =
-          "url(" + getDefaultImage(component) + ")";*/
 
       e.querySelector(".selectComponent").onClick.listen((_) async {
         ComponentItem c = await pcbuilder.selectComponentView
@@ -83,6 +99,11 @@ class MainView extends View {
       componentContainer.append(e);
     }
   }
+
+  /// Handle component selection event.
+  ///
+  /// Displays the component info for the current selected component and
+  /// updates and saves the current configuration.
 
   void _onComponentSelected(ComponentItem c, String component) {
     pcbuilder.setView(MainView.id);
@@ -111,8 +132,11 @@ class MainView extends View {
     setPriceTotal();
   }
 
+  /// Set price total.
+  ///
+  /// Update the price total.
+
   void setPriceTotal() {
-    // update price
     double price = _configuration.priceTotal();
     if (price == 0.0) {
       querySelector("#pricetotal span").text = "0.-";
@@ -121,6 +145,9 @@ class MainView extends View {
     }
   }
 
+  /// Update component item
+  ///
+  /// Update the DOM element for the component.
 
   void updateComponentItem(ComponentItem c, String component) {
     Element e = _view.querySelector(".component-${component.toLowerCase()}");
@@ -147,31 +174,27 @@ class MainView extends View {
     }
   }
 
+  /// onShow event
+  ///
+  /// Event triggered when this view becomes the active view.
+
   void onShow() {}
+
+  /// onHide event
+  ///
+  /// Event triggered when this view is no longer active.
 
   void onHide() {}
 
+  /// Get view element
+  ///
+  /// Get the DOM element for this view.
+
   Element get element => _view;
 
-  String getDefaultImage(component) {
-    if (component == "Motherboard") {
-      return "./images/motherboard.png";
-    } else if (component == "CPU") {
-      return "./images/cpu.png";
-    } else if (component == "GPU") {
-      return "./images/gpu.png";
-    } else if (component == "Memory") {
-      return "./images/mem.png";
-    } else if (component == "Storage") {
-      return "./images/storage.png";
-    } else if (component == "PSU") {
-      return "./images/psu.png";
-    } else if (component == "Case") {
-      return "./images/case.png";
-    } else {
-      return "";
-    }
-  }
+  /// Remove component
+  ///
+  /// Remove a component by component type [component].
 
   void removeComponent(String component) {
 
@@ -197,11 +220,19 @@ class MainView extends View {
     window.localStorage["configuration"] = toJson(_configuration);
   }
 
+  /// Clear config
+  ///
+  /// Remove all components from the configuration.
+
   void clearCurrentConfig() {
     for (String component in components) {
       removeComponent(component);
     }
   }
+
+  /// Show buy summary
+  ///
+  /// Open the buy overview dialog.
 
   void showBuySummary() {
     _buyOverviewDialog.show(_configuration);
