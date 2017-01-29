@@ -150,6 +150,10 @@ class SelectComponentView extends View {
     _viewElement.querySelector(".loading").style.display = "none";
   }
 
+  /// Create component element.
+  ///
+  /// Create DOM element for the given [item].
+
   Element createComponentElement(ComponentItem item) {
     Element e = _productItem.clone(true);
 

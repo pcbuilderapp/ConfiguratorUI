@@ -4,13 +4,15 @@ import 'package:pcbuilder.api/backend.dart';
 import 'package:pcbuilder.api/transport/crawlerresponse.dart';
 import 'package:pcbuilder.api/domain/crawler.dart';
 
-class CrawlerView extends View {
+/// The crawlerview lists the current registered crawlers.
 
+class CrawlerView extends View {
   Element _viewElement = querySelector("#crawlerview");
-  static String get id => "crawlerview";
   Element _crawlertItem;
 
-  Element get element => _viewElement;
+  static String get id => "crawlerview";
+
+  /// Initialize the view.
 
   CrawlerView() {
     Element template = _viewElement.querySelector(".crawleritem");
@@ -19,13 +21,29 @@ class CrawlerView extends View {
     loadCrawlers();
   }
 
+  /// Get view element
+  ///
+  /// Get the DOM element for this view.
+
+  Element get element => _viewElement;
+
+  /// onShow event
+  ///
+  /// Event triggered when this view becomes the active view.
+
   void onShow() {
     querySelector("#crawlersNav").classes.add("active");
   }
 
+  /// onHide event
+  ///
+  /// Event triggered when this view is no longer active.
+
   void onHide() {
     querySelector("#crawlersNav").classes.remove("active");
   }
+
+  /// Get the crawlers and display them.
 
   loadCrawlers() async {
     // show load indicator

@@ -11,9 +11,10 @@ import 'package:uilib/charts.dart';
 import 'package:pcbuilder.api/transport/pricehistoryresponse.dart';
 import 'package:pcbuilder.api/transport/pricehistoryrequest.dart';
 
+/// The product view lists all the products crawled.
+
 class ProductView extends View {
   Element _viewElement = querySelector("#productview");
-  static String get id => "productview";
   Element _productItem;
   Element _productList;
   Element _productInfo;
@@ -24,6 +25,16 @@ class ProductView extends View {
   int _currentPage;
   int _pageCount;
   int pageWidth = config["page-width"] ?? 5;
+
+  /// Get view id.
+  ///
+  /// Get the identifier for this view.
+
+  static String get id => "productview";
+
+  /// Product view constructor.
+  ///
+  /// Initializes the view.
 
   ProductView() {
     Element template = _viewElement.querySelector(".productItem");
@@ -71,13 +82,25 @@ class ProductView extends View {
     loadProducts(0);
   }
 
+  /// onShow event
+  ///
+  /// Event triggered when this view becomes the active view.
+
   void onShow() {
     querySelector("#productsNav").classes.add("active");
   }
 
+  /// onHide event
+  ///
+  /// Event triggered when this view is no longer active.
+
   void onHide() {
     querySelector("#productsNav").classes.remove("active");
   }
+
+  /// Load products.
+  ///
+  /// Get all the products with set filters for page [page].
 
   Future loadProducts(int page) async {
     // show load indicator
@@ -103,6 +126,18 @@ class ProductView extends View {
     // set paging
     _currentPage = productSearchResponse.page;
     _pageCount = productSearchResponse.pageCount;
+    createPaging(productSearchResponse);
+
+    // hide load indicator
+    _viewElement.querySelector(".content").style.display = "block";
+    _viewElement.querySelector(".loading").style.display = "none";
+  }
+
+  /// Create paging
+  ///
+  /// Update the pager with the current page index and count.
+
+  void createPaging(ProductsResponse productSearchResponse) {
     Element pages = _pager.querySelector(".pages");
     pages.innerHtml = "";
 
@@ -132,18 +167,18 @@ class ProductView extends View {
         }
       }
     }
-
-    // hide load indicator
-    _viewElement.querySelector(".content").style.display = "block";
-    _viewElement.querySelector(".loading").style.display = "none";
   }
+
+  /// Create product element.
+  ///
+  /// Create DOM element for the given [item].
 
   Element createProductElement(Product item) {
     Element e = _productItem.clone(true);
 
     // product row
     e.querySelector(".name").text = item.component.name;
-    e.querySelector(".type").text = item.component.type;
+    e.querySelector(".type").text = "${item.component.type}";
     e.querySelector(".shop").text = item.shop.name;
     e.querySelector(".price").text = formatCurrency(item.currentPrice);
 
@@ -155,6 +190,10 @@ class ProductView extends View {
 
     return e;
   }
+
+  /// Load product details
+  ///
+  /// Load the details for product [p] and display them.
 
   Future loadProductDetail(Product p) async {
 
@@ -207,11 +246,21 @@ class ProductView extends View {
 
   }
 
+  /// Set filter
+  ///
+  /// Set the current filter and fetch a new list of products
+  /// filtered by [filter].
+
   void filter(String filter) {
     if (filter == _currentFilter) return;
     _currentFilter = filter;
     loadProducts(0);
   }
+
+  /// Set sorting
+  ///
+  /// Set the current sorting and fetch a new list of products
+  /// sorted by [filter].
 
   void setSort(String sortColumn) {
     if (sortColumn == _currentSort) return;
@@ -220,6 +269,10 @@ class ProductView extends View {
     _viewElement.querySelector(".$sortColumn-header").classes.add("header-selected");
     loadProducts(0);
   }
+
+  /// Get view element
+  ///
+  /// Get the DOM element for this view.
 
   Element get element => _viewElement;
 }

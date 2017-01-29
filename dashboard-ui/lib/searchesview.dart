@@ -11,17 +11,6 @@ import 'package:pcbuilder.api/domain/searchquerytype.dart';
 
 class SearchesView extends View {
   Element _viewElement = querySelector("#searchesview");
-  static String get id => "searchesview";
-
-  void onShow() {
-    querySelector("#searchesNav").classes.add("active");
-    loadSearches(0);
-  }
-
-  void onHide() {
-    querySelector("#searchesNav").classes.remove("active");
-  }
-
   Element _searchesItem;
   Element _searchesList;
   Element _pager;
@@ -31,6 +20,33 @@ class SearchesView extends View {
   int _currentPage;
   int _pageCount;
   int pageWidth = config["page-width"] ?? 5;
+
+  /// Get view id.
+  ///
+  /// Get the identifier for this view.
+
+  static String get id => "searchesview";
+
+  /// onShow event
+  ///
+  /// Event triggered when this view becomes the active view.
+
+  void onShow() {
+    querySelector("#searchesNav").classes.add("active");
+    loadSearches(0);
+  }
+
+  /// onHide event
+  ///
+  /// Event triggered when this view is no longer active.
+
+  void onHide() {
+    querySelector("#searchesNav").classes.remove("active");
+  }
+
+  /// Search view constructor.
+  ///
+  /// Initializes the view.
 
   SearchesView() {
     Element template = _viewElement.querySelector(".searchesItem");
@@ -74,6 +90,10 @@ class SearchesView extends View {
     });
   }
 
+  /// Load searches.
+  ///
+  /// Get all the search queries with set filters for page [page].
+
   Future loadSearches(int page) async {
     // show load indicator
     _viewElement.querySelector(".content").style.display = "none";
@@ -92,12 +112,46 @@ class SearchesView extends View {
 
     // generate searches list
     for (SearchQuery s in searchQueryResponse.searches) {
-      _searchesList.append(createsearchesElement(s));
+      _searchesList.append(createSearchesElement(s));
     }
 
     // set paging
     _currentPage = searchQueryResponse.page;
     _pageCount = searchQueryResponse.pageCount;
+    createPaging(searchQueryResponse);
+
+    // hide load indicator
+    _viewElement.querySelector(".content").style.display = "block";
+    _viewElement.querySelector(".loading").style.display = "none";
+  }
+
+  /// Create searches element.
+  ///
+  /// Create DOM element for the given [item].
+
+  Element createSearchesElement(SearchQuery item) {
+    Element e = _searchesItem.clone(true);
+
+    // searches row
+    e.querySelector(".filter").text = item.filter;
+    e.querySelector(".type").text = "${item.type}";
+    e.querySelector(".component").text = item.component?.name ?? "-";
+    e.querySelector(".count").text = "${item.count}";
+
+    // actions
+    /*e.onClick.listen((_) {
+      // load details
+      //loadSearchesDetail(item);
+    });*/
+
+    return e;
+  }
+
+  /// Create paging
+  ///
+  /// Update the pager with the current page index and count.
+
+  void createPaging(SearchQueryResponse searchQueryResponse) {
     Element pages = _pager.querySelector(".pages");
     pages.innerHtml = "";
 
@@ -127,35 +181,23 @@ class SearchesView extends View {
         }
       }
     }
-
-    // hide load indicator
-    _viewElement.querySelector(".content").style.display = "block";
-    _viewElement.querySelector(".loading").style.display = "none";
   }
 
-  Element createsearchesElement(SearchQuery item) {
-    Element e = _searchesItem.clone(true);
-
-    // searches row
-    e.querySelector(".filter").text = item.filter;
-    e.querySelector(".type").text = "${item.type}";
-    e.querySelector(".component").text = item.component?.name ?? "-";
-    e.querySelector(".count").text = "${item.count}";
-
-    // actions
-    /*e.onClick.listen((_) {
-      // load details
-      //loadSearchesDetail(item);
-    });*/
-
-    return e;
-  }
+  /// Set filter
+  ///
+  /// Set the current filter and fetch a new list of products
+  /// filtered by [filter].
 
   void filter(String filter) {
     if (filter == _currentFilter) return;
     _currentFilter = filter;
     loadSearches(0);
   }
+
+  /// Set sorting
+  ///
+  /// Set the current sorting and fetch a new list of products
+  /// sorted by [filter].
 
   void setSort(String sortColumn) {
     if (sortColumn == _currentSort) return;
@@ -164,6 +206,10 @@ class SearchesView extends View {
     _viewElement.querySelector(".$sortColumn-header").classes.add("header-selected");
     loadSearches(0);
   }
+
+  /// Get view element
+  ///
+  /// Get the DOM element for this view.
 
   Element get element => _viewElement;
 }
