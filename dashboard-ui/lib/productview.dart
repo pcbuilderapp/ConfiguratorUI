@@ -197,6 +197,8 @@ class ProductView extends View {
 
   Future loadProductDetail(Product p) async {
 
+    _productInfo.querySelector("h1").text = p.component.name;
+
     // product detail view
     _productInfo.querySelector(".info .ean-nr").text =
         p.component.europeanArticleNumber;
