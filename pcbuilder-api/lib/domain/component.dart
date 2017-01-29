@@ -1,6 +1,7 @@
 library PCBuilder.Component;
 
 import 'connector.dart';
+import 'ctype.dart';
 import 'package:dartson/dartson.dart';
 
 @Entity()
@@ -10,7 +11,7 @@ class Component {
   String brand;
   String europeanArticleNumber;
   String manufacturerPartNumber;
-  String type;
+  CType type;
   List<Connector> connectors = [];
   String pictureUrl;
 }

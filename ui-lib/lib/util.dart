@@ -1,6 +1,7 @@
 library PCBuilder.Util;
 
 import 'dart:html';
+import "package:pcbuilder.api/domain/ctype.dart";
 import "package:intl/intl.dart";
 
 var eurosFormatter = new NumberFormat.currency(locale: "nl_NL", symbol: "€");
@@ -37,4 +38,14 @@ Element points() {
   pagebtn.text = "...";
   pagebtn.classes.add("pagebtn");
   return pagebtn;
+}
+
+String getTypeName(CType type) {
+  if (type == CType.MOTHERBOARD) return "Motherboard";
+  if (type == CType.CPU) return "CPU";
+  if (type == CType.GPU) return "GPU";
+  if (type == CType.MEMORY) return "Memory";
+  if (type == CType.STORAGE) return "Storage";
+  if (type == CType.PSU) return "PSU";
+  return "Case";
 }

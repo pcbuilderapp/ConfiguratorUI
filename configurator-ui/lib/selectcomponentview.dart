@@ -8,6 +8,7 @@ import 'package:pcbuilder.api/transport/componentmatchingsearch.dart';
 import 'package:pcbuilder.api/transport/configuration.dart';
 import 'package:pcbuilder.api/transport/matchingcomponentsresponse.dart';
 import 'package:pcbuilder.api/backend.dart';
+import 'package:pcbuilder.api/domain/ctype.dart';
 import 'package:pcbuilder.api/transport/searchqueryaddrequest.dart';
 import 'package:pcbuilder.api/domain/searchquerytype.dart';
 import 'package:pcbuilder.api/transport/componentref.dart';
@@ -25,7 +26,7 @@ class SelectComponentView extends View {
   Element _pager;
   InputElement _filterField;
   Completer _selectComponentCompleter;
-  String _currentType;
+  CType _currentType;
   String _currentFilter;
   String _currentSort;
   Configuration _currentConfiguration;
@@ -96,10 +97,10 @@ class SelectComponentView extends View {
   /// Returns a [ComponentItem] as a [Future].
 
   Future<ComponentItem> selectComponent(
-      String componentType, Configuration configuration) async {
+      CType componentType, Configuration configuration) async {
     _selectComponentCompleter = new Completer();
-    _viewElement.querySelector("h2 .component-type").text = componentType;
-    componentType = componentType.toUpperCase();
+    _viewElement.querySelector("h2 .component-type").text =
+        getTypeName(componentType);
     pcbuilder.setView("selectcomponent");
 
     _currentType = componentType;
@@ -208,7 +209,7 @@ class SelectComponentView extends View {
         Element connectorSpan = new Element.span()..classes.add("connector");
 
         Element connectorImg = new Element.span()
-          ..classes.add("connector-icon-${c.type.toLowerCase()}");
+          ..classes.add("connector-icon-${c.type.toString().toLowerCase()}");
 
         Element connectorSpanText = new Element.span()
           ..classes.add("connector-text");
@@ -225,14 +226,14 @@ class SelectComponentView extends View {
 
     e.querySelector(".selectAction").onClick.listen((_) {
       backend.postSearchQuery(new SearchQueryAddRequest()
-        ..component = (new ComponentRef()..id=item.id)
+        ..component = (new ComponentRef()..id = item.id)
         ..filter = _currentFilter
         ..type = SearchQueryType.SELECTION);
       _selectComponentCompleter.complete(item);
     });
 
     e.querySelector(".showAction").onClick.listen((_) {
-      window.open(item.url,"_blank");
+      window.open(item.url, "_blank");
     });
 
     return e;
@@ -324,5 +325,4 @@ class SelectComponentView extends View {
   /// Get the DOM element for this view.
 
   Element get element => _viewElement;
-
 }

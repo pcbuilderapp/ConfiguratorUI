@@ -1,6 +1,7 @@
 library PCBuilder.ComponentItem;
 
 import '../domain/connector.dart';
+import '../domain/ctype.dart';
 import 'alternativeshopitem.dart';
 export 'alternativeshopitem.dart';
 import 'package:dartson/dartson.dart';
@@ -12,7 +13,7 @@ class ComponentItem {
   String brand;
   String europeanArticleNumber;
   String manufacturerPartNumber;
-  String type;
+  CType type;
 
   String shop;
   double price;

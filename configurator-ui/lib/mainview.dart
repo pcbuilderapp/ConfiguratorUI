@@ -4,6 +4,7 @@ import 'package:uilib/util.dart';
 import 'pcbuilder.dart';
 import 'package:pcbuilder.api/transport/configuration.dart';
 import 'package:pcbuilder.api/transport/componentitem.dart';
+import 'package:pcbuilder.api/domain/ctype.dart';
 import 'buyoverviewdialog.dart';
 import 'package:pcbuilder.api/serializer.dart';
 
@@ -14,14 +15,14 @@ class MainView extends View {
   Element _componentItem;
   Configuration _configuration = new Configuration();
   BuyOverviewDialog _buyOverviewDialog = new BuyOverviewDialog();
-  final List<String> components = [
-    "Motherboard",
-    "CPU",
-    "GPU",
-    "Memory",
-    "Storage",
-    "PSU",
-    "Case"
+  final List<CType> components = [
+    CType.MOTHERBOARD,
+    CType.CPU,
+    CType.GPU,
+    CType.MEMORY,
+    CType.STORAGE,
+    CType.PSU,
+    CType.CASE
   ];
 
   /// Get view id.
@@ -67,13 +68,13 @@ class MainView extends View {
       if (_configuration == null) {
         _configuration = new Configuration();
       } else {
-        updateComponentItem(_configuration.motherboard,"Motherboard");
-        updateComponentItem(_configuration.cpu,"CPU");
-        updateComponentItem(_configuration.gpu,"GPU");
-        updateComponentItem(_configuration.memory,"Memory");
-        updateComponentItem(_configuration.storage,"Storage");
-        updateComponentItem(_configuration.psu,"PSU");
-        updateComponentItem(_configuration.casing,"Case");
+        updateComponentItem(_configuration.motherboard,CType.MOTHERBOARD);
+        updateComponentItem(_configuration.cpu,CType.CPU);
+        updateComponentItem(_configuration.gpu,CType.GPU);
+        updateComponentItem(_configuration.memory,CType.MEMORY);
+        updateComponentItem(_configuration.storage,CType.STORAGE);
+        updateComponentItem(_configuration.psu,CType.PSU);
+        updateComponentItem(_configuration.casing,CType.CASE);
       }
     }
   }
@@ -85,10 +86,10 @@ class MainView extends View {
   void _buildComponentSelectors() {
     Element componentContainer = querySelector("#pcconfiglist");
 
-    for (String component in components) {
+    for (CType component in components) {
       Element e = _componentItem.clone(true);
-      e.classes.add("component-${component.toLowerCase()}");
-      e.querySelector(".type").text = component;
+      e.classes.add("component-${component.toString().toLowerCase()}");
+      e.querySelector(".type").text = getTypeName(component);
 
       e.querySelector(".selectComponent").onClick.listen((_) async {
         ComponentItem c = await pcbuilder.selectComponentView
@@ -105,22 +106,22 @@ class MainView extends View {
   /// Displays the component info for the current selected component and
   /// updates and saves the current configuration.
 
-  void _onComponentSelected(ComponentItem c, String component) {
+  void _onComponentSelected(ComponentItem c, CType component) {
     pcbuilder.setView(MainView.id);
 
-    if (component == "Motherboard") {
+    if (component == CType.MOTHERBOARD) {
       _configuration.motherboard = c;
-    } else if (component == "CPU") {
+    } else if (component == CType.CPU) {
       _configuration.cpu = c;
-    } else if (component == "GPU") {
+    } else if (component == CType.GPU) {
       _configuration.gpu = c;
-    } else if (component == "Memory") {
+    } else if (component == CType.MEMORY) {
       _configuration.memory = c;
-    } else if (component == "Storage") {
+    } else if (component == CType.STORAGE) {
       _configuration.storage = c;
-    } else if (component == "PSU") {
+    } else if (component == CType.PSU) {
       _configuration.psu = c;
-    } else if (component == "Case") {
+    } else if (component == CType.CASE) {
       _configuration.casing = c;
     }
 
@@ -149,8 +150,8 @@ class MainView extends View {
   ///
   /// Update the DOM element for the component.
 
-  void updateComponentItem(ComponentItem c, String component) {
-    Element e = _view.querySelector(".component-${component.toLowerCase()}");
+  void updateComponentItem(ComponentItem c, CType component) {
+    Element e = _view.querySelector(".component-${component.toString().toLowerCase()}");
     if (c == null) {
       e.querySelector(".name").text =
           _componentItem.querySelector(".name").text;
@@ -196,21 +197,21 @@ class MainView extends View {
   ///
   /// Remove a component by component type [component].
 
-  void removeComponent(String component) {
+  void removeComponent(CType component) {
 
-    if (component == "Motherboard") {
+    if (component == CType.MOTHERBOARD) {
       _configuration.motherboard = null;
-    } else if (component == "CPU") {
+    } else if (component == CType.CPU) {
       _configuration.cpu = null;
-    } else if (component == "GPU") {
+    } else if (component == CType.GPU) {
       _configuration.gpu = null;
-    } else if (component == "Memory") {
+    } else if (component == CType.MEMORY) {
       _configuration.memory = null;
-    } else if (component == "Storage") {
+    } else if (component == CType.STORAGE) {
       _configuration.storage = null;
-    } else if (component == "PSU") {
+    } else if (component == CType.PSU) {
       _configuration.psu = null;
-    } else if (component == "Case") {
+    } else if (component == CType.CASE) {
       _configuration.casing = null;
     }
     updateComponentItem(null,component);
@@ -225,7 +226,7 @@ class MainView extends View {
   /// Remove all components from the configuration.
 
   void clearCurrentConfig() {
-    for (String component in components) {
+    for (CType component in components) {
       removeComponent(component);
     }
   }
