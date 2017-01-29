@@ -2,21 +2,24 @@ import 'dart:html';
 import 'package:google_charts/google_charts.dart';
 import 'package:pcbuilder.api/domain/pricepointdata.dart';
 
-drawPriceHistoryChart(List<PricePointData> minDailyPrices, List<PricePointData> maxDailyPrices, Element lineChartElement) async {
+/// Draw a price chart.
+///
+/// Create a price chart in element [lineChartElement] from [minDailyPrices]
+/// and [maxDailyPrices].
 
-  if (minDailyPrices!= null && !minDailyPrices.isEmpty) {
-
-    await Chart.load(packages:['corechart'],language:"nl");
-    var rawData = [["Date","Min","Max"]];
+drawPriceHistoryChart(List<PricePointData> minDailyPrices,
+    List<PricePointData> maxDailyPrices, Element lineChartElement) async {
+  if (minDailyPrices != null && !minDailyPrices.isEmpty) {
+    await Chart.load(packages: ['corechart'], language: "nl");
+    var rawData = [
+      ["Date", "Min", "Max"]
+    ];
 
     for (int i = 0; i <= minDailyPrices.indexOf(minDailyPrices.last); i++) {
       PricePointData minDailyPrice = minDailyPrices.elementAt(i);
       PricePointData maxDailyPrice = maxDailyPrices.elementAt(i);
-      rawData.add([
-        minDailyPrice.date,
-        minDailyPrice.price,
-        maxDailyPrice.price
-      ]);
+      rawData
+          .add([minDailyPrice.date, minDailyPrice.price, maxDailyPrice.price]);
     }
 
     var data = arrayToDataTable(rawData, false);
