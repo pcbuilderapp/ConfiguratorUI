@@ -162,13 +162,31 @@ class SelectComponentView extends View {
     e.querySelector(".fields .name").text = item.name;
     e.querySelector(".fields .brand").text = item.brand;
     e.querySelector(".fields .shop").text = item.shop;
-    Element priceField = e.querySelector(".fields .price")
-      ..text = formatCurrency(item.price);
+    Element priceField = e.querySelector(".fields .price")..text = "";
 
     if (item.discounted) {
-      priceField.classes.add("discount");
-      priceField.attributes['title'] = "This product is on sale.";
+      Element e = new Element.tag("i");
+      e.classes.addAll(["fa","fa-tag","discount"]);
+      e.attributes["aria-hidden"] = "true";
+      e.attributes['title'] = "This product is on sale.";
+      priceField.append(e);
     }
+
+    if (item.priceFalling) {
+      Element e = new Element.tag("i");
+      e.classes.addAll(["fa","fa-arrow-down","falling"]);
+      e.attributes["aria-hidden"] = "true";
+      e.attributes['title'] = "Price is on a downward trend.";
+      priceField.append(e);
+    } /*else {
+      Element e = new Element.tag("i");
+      e.classes.addAll(["fa","fa-arrow-up","rising"]);
+      e.attributes["aria-hidden"] = "true";
+      e.attributes['title'] = "Price is on an upward trend.";
+      priceField.append(e);
+    }*/
+
+    priceField.append(new Element.span()..text = formatCurrency(item.price));
 
     // show detail view for row
 

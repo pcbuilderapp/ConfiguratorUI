@@ -73,21 +73,7 @@
   p.shop-header, p.price-header, p.brand-header, p.shop, p.brand {
     text-align: center;
   }
-/*
-  p.shop-header, p.price-header, p.brand-header, p.name-header {
-    border-left: 1px solid darken($blue, $shadefactor);
-    border-bottom: 1px solid darken($blue, $shadefactor);
-    border-right: 1px solid lighten($blue, $shadefactor);
-    border-top: 1px solid lighten($blue, $shadefactor);
-  }
 
-  p.shop, p.price, p.brand, p.name {
-    border-left: 1px solid darken($blue-lighest, $shadefactor);
-    border-bottom: 1px solid darken($blue-lighest, $shadefactor);
-    border-right: 1px solid lighten($blue-lighest, $shadefactor);
-    border-top: 1px solid lighten($blue-lighest, $shadefactor);
-  }
-*/
   p.shop, p.shop-header{
     width: 15%;
     min-width: 96px;
@@ -103,7 +89,21 @@
   }
 
   p.price {
+    box-sizing: border-box;
     text-align: right;
+    display: flex;
+    i {
+      align-self: center;
+    }
+    span {
+      flex-grow: 1;
+    }
+    .rising {
+      color: $red-dark;
+    }
+    .falling {
+      color: $green-dark;
+    }
   }
 
   p.brand, p.brand-header {
