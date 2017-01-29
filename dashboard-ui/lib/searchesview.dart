@@ -206,8 +206,11 @@ class SearchesView extends View {
   /// sorted by [filter].
 
   void setSort(String sortColumn) {
-    if (sortColumn == _currentSort) return;
-    _currentSort = sortColumn;
+    if (sortColumn == _currentSort) {
+      _currentSort = "!$sortColumn";
+    } else {
+      _currentSort = sortColumn;
+    }
     _viewElement
         .querySelectorAll(".header-selected")
         .classes
