@@ -75,6 +75,7 @@ class MainView extends View {
         updateComponentItem(_configuration.storage,CType.STORAGE);
         updateComponentItem(_configuration.psu,CType.PSU);
         updateComponentItem(_configuration.casing,CType.CASE);
+        setPriceTotal();
       }
     }
   }
