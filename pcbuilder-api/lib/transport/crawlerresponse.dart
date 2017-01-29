@@ -3,5 +3,5 @@ import '../domain/crawler.dart';
 
 @Entity()
 class CrawlerResponse {
-  List<Crawler> crawlers;
+  List<Crawler> crawlers=[];
 }

@@ -2,6 +2,7 @@ import 'mainview.dart';
 import 'selectcomponentview.dart';
 import 'package:uilib/viewcontroller.dart';
 import 'package:pcbuilder.api/config.dart';
+import 'package:pcbuilder.api/backend.dart';
 import 'dart:html';
 import 'dart:async';
 import 'helpdialog.dart';
@@ -26,6 +27,11 @@ class PCBuilder extends ViewController {
     } catch (e) {
       print(e);
     }
+
+    backend.onError.listen((error){
+      window.alert(error);
+    });
+
     _mainView = registerView(MainView.id, new MainView(), isDefaultView: true)
         as MainView;
     _selectComponentView =

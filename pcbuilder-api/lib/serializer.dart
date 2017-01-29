@@ -14,9 +14,15 @@ Dartson _initSerializer() {
   return dson;
 }
 
+/// Convert a serializable object to JSON.
+
 String toJson(dynamic object) {
   return _dson.encode(object);
 }
+
+/// Convert a JSON string to an object.
+///
+/// [target] is the root object instance for the JSON stream.
 
 dynamic fromJson(String json, Object target) {
   return _dson.decode(json,target);

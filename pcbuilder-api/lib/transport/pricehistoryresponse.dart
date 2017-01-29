@@ -3,6 +3,6 @@ import '../domain/pricepointdata.dart';
 
 @Entity()
 class PriceHistoryResponse {
-  List<PricePointData> priceHistory;
-  bool priceFalling;
+  List<PricePointData> priceHistory=[];
+  bool priceFalling=false;
 }
