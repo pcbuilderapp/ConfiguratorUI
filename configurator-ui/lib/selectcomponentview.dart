@@ -322,7 +322,7 @@ class SelectComponentView extends View {
     PriceHistoryResponse maxDailyPriceViewResponse =
         await backend.getPriceHistory(priceHistoryRequest);
 
-    drawPriceHistoryChart(minDailyPriceViewResponse.priceHistory, maxDailyPriceViewResponse.priceHistory, priceHistory, showTitle: false);
+    drawPriceHistoryChart(minDailyPriceViewResponse.priceHistory, maxDailyPriceViewResponse.priceHistory, priceHistory, showTitle: false, backgroundColor: "#d2dbe2");
   }
   /// Set filter
   ///
