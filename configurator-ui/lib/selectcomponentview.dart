@@ -306,7 +306,6 @@ class SelectComponentView extends View {
 
   Future showPriceHistory(Element priceHistory, ComponentItem item) async {
 
-    priceHistory.style.display = "block";
     priceHistory.innerHtml = "";
 
     PriceHistoryRequest priceHistoryRequest = new PriceHistoryRequest();

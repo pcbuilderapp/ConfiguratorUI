@@ -290,20 +290,6 @@
 
           }
         }
-        .priceHistory {
-          @media (max-width: 600px) {
-            display: none;
-          }
-          @media (min-width: 600px) and (max-width: 800px) {
-            width: 184px;
-          }
-          margin-top: 0px;
-          margin-right: 0px;
-          width: 384px;
-          //position: relative;
-          height: 112px;
-          //box-sizing: border-box;
-        }
         .actions {
           position: absolute;
           bottom:14px;
@@ -324,6 +310,22 @@
             cursor: pointer;
             transition: all 0.2s;
           }
+        }
+      }
+      .priceHistory {
+        margin-top: 0px;
+        margin-right: 0px;
+        width: 384px;
+        height: 112px;
+        display: block;
+        position: absolute;
+        right: 0px;
+        top: 6px;
+        @media (max-width: 600px) {
+          width: 84px;
+        }
+        @media (min-width: 600px) and (max-width: 800px) {
+          width: 184px;
         }
       }
     }
