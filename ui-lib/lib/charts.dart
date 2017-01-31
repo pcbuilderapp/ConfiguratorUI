@@ -39,8 +39,11 @@ drawPriceHistoryChart(List<PricePointData> minDailyPrices,
     if (showTitle) {
       options['title'] = 'Price History';
     } else {
-      options['hAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : backgroundColor}};
-      options['vAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : backgroundColor}};
+      options['hAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : '#DAE3EA'}};
+      options['vAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : '#DAE3EA'}};
+
+/*      options['hAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : backgroundColor}};
+      options['vAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : backgroundColor}};*/
     }
     chart.draw(data, options);
   }
