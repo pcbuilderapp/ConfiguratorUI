@@ -31,19 +31,19 @@ drawPriceHistoryChart(List<PricePointData> minDailyPrices,
       'backgroundColor': backgroundColor,
       'vAxis': {'format': 'currency'},
       'series' : [
-        {'color': '#9e3434', 'visibleInLegend': 'false'},
-        {'color': '#349e34', 'visibleInLegend': 'false'}
+        {'color': '#9e3434'},
+        {'color': '#349e34'}
       ]
     };
 
     if (showTitle) {
       options['title'] = 'Price History';
+      options['hAxis'] = {'gridlines' : {'color' : '#c7d0d7'}};
+      options['vAxis'] = {'gridlines' : {'color' : '#c7d0d7'}};
     } else {
-      options['hAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : '#DAE3EA'}};
-      options['vAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : '#DAE3EA'}};
-
-/*      options['hAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : backgroundColor}};
-      options['vAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : backgroundColor}};*/
+      options['hAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : '#c3ccd3'}};
+      options['vAxis'] = {'textPosition': 'none', 'baselineColor': backgroundColor, 'gridlines' : {'color' : '#c3ccd3'}};
+      options['legend'] = {'position': 'none'};
     }
     chart.draw(data, options);
   }
